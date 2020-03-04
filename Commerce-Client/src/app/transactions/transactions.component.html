@@ -1,22 +1,21 @@
-<div class="row">
-    <div class="col">
-      <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button class="dropdown-item">Action - 1</button>
-          <button class="dropdown-item">Another Action</button>
-          <button class="dropdown-item">Something else is here</button>
-        </div>
-      </div>
-    </div>
-  <div class="col text-right">
-      <div ngbDropdown placement="top-right" class="d-inline-block">
-        <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>Toggle dropup</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
-          <button class="dropdown-item">Action - 1</button>
-          <button class="dropdown-item">Another Action</button>
-          <button class="dropdown-item">Something else is here</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<table 
+  class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Account</th>
+      <th scope="col">Date</th>
+      <th scope="col">Balance</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <td>{{ transaction.account }}</td>
+      <td>{{ transaction.date }}</td>
+      <td>{{ transaction.balance | number }}</td>
+      <td>{{ transaction.amount | number }}</td>
+      <td>{{ transaction.description }}</td>
+    </tr>
+  </tbody>
+</table>

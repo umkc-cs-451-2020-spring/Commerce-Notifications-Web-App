@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-export interface Transaction {
+interface Transaction {
   account: string;
   date: string;
   balance: number;
@@ -8,11 +8,13 @@ export interface Transaction {
   description: string;
 }
 
-const TRANSACTION_DATA: Transaction[] = [
+const TRANSACTIONS: Transaction[] = [
   {account: 'Checking', date: '02/29/20', balance: 245.05, amount: 12.24, description: 'Panda Express'},
   {account: 'Checking', date: '03/01/20', balance: 232.81, amount: 6.45, description: 'Walmart'},
   {account: 'Checking', date: '03/01/20', balance: 226.36, amount: 7.87, description: 'Hy-Vee'},
 ];
+
+
 
 @Component({
   selector: 'app-transactions',
@@ -20,8 +22,8 @@ const TRANSACTION_DATA: Transaction[] = [
   styleUrls: ['./transactions.component.css']
 })
 export class TransactionsComponent implements OnInit {
-  displayedColumns: string[] = ['account', 'date', 'balance', 'amount', 'description'];
-  dataSource = TRANSACTION_DATA;
+  transactions = TRANSACTIONS;
+  
   constructor() { }
 
   ngOnInit(): void {
