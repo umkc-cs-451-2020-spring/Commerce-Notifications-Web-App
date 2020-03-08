@@ -6,7 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
-
+  model = {
+    new: true, 
+    amount: true,
+    time: true,
+    location: true
+  };
   constructor() { }
 
   ngOnInit(): void {
