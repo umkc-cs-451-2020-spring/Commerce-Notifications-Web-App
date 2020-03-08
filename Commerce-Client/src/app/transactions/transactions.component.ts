@@ -14,8 +14,6 @@ const TRANSACTIONS: Transaction[] = [
   {account: 'Checking', date: '03/01/20', balance: 226.36, amount: 7.87, description: 'Hy-Vee'},
 ];
 
-
-
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
@@ -23,7 +21,6 @@ const TRANSACTIONS: Transaction[] = [
 })
 export class TransactionsComponent implements OnInit {
   transactions = TRANSACTIONS;
-  
   constructor() { }
 
   ngOnInit(): void {
