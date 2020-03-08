@@ -7,13 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TransactionsComponent,
     LoginComponent,
-    NavigationComponent
+    NavigationComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
