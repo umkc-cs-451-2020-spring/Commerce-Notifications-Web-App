@@ -7,18 +7,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     TransactionsComponent,
     LoginComponent,
-    NavigationComponent
+    NavigationComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
