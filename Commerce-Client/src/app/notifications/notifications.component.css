@@ -26,13 +26,12 @@
   border-color: #ccc;
 }
 
-/* .btn-group-standard {
+.btn-group-standard {
   display: flex; 
   padding: 15px;
-  width: 50%;
   background-color: #dee2e6;
   border-radius: 5px;
-} */
+}
 
 .btn-standard {
   margin: auto;
