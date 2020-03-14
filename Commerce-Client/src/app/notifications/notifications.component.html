@@ -1,3 +1,4 @@
+<!-- Notification Filters -->
 <div class="card btn-group btn-group-toggle">
   <a (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="filtersCard">{{ isCollapsed ? 'Expand' : 'Collapse' }}</a>
   <div id="filtersCard" class='card-body' [ngbCollapse]='isCollapsed'>
@@ -16,6 +17,7 @@
     <label class="btn-primary" ngbButtonLabel>
       <input type="checkbox" ngbButton [(ngModel)]="model.duplicates"> Duplicates
     </label>
+    <!-- Date Range Selection -->
     <div class="container">
       <span>Date Range:</span>
       <form class="form-inline">
@@ -72,6 +74,7 @@
   </div>
 </div>
 <hr>
+<!-- Notifications Table -->
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -104,6 +107,21 @@
     </tbody>
   </table>
 </div>
+<hr>
+<!-- Notification Handlers -->
 
-<!-- <pre>{{model | json}}</pre> -->
-<!-- "btn-group btn-group-toggle" -->
+<div class="card btn-group-standard">
+  <tr>
+    <td><label class="btn-standard" ngbButtonLabel> Export to Excel </label></td>
+    <td>
+      <span>Notification Rules</span>
+      <div class="card btn-group-standard">
+        <tr>
+        <td><label class="btn-standard" ngbButtonLabel> Add </label></td>
+        <td><label class="btn-standard" ngbButtonLabel> Edit </label></td>
+        <td><label class="btn-standard" ngbButtonLabel> Delete </label></td>
+        </tr>
+      </div>
+    </td>
+  </tr>
+</div>
