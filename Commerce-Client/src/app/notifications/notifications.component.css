@@ -5,6 +5,10 @@
   border-radius: 5px;
 }
 
+.card-body {
+  align-self: center;
+}
+
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
   background-color: #006747;
   color: #fff;
@@ -33,13 +37,7 @@
   border-radius: 5px;
 }
 
-.btn-standard {
-  margin: auto;
-  border-radius: 5px;
-  background-color: #006747;
-  color: #fff;
-  border-color: #333;
-}
+
 
 .btn-primary.focus{
   box-shadow: 0 0 0 0.2rem #333; 

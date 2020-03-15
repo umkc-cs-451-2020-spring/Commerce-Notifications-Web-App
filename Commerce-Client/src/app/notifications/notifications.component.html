@@ -77,7 +77,7 @@
 <!-- Notifications Table -->
 <div class="table-responsive">
   <table class="table table-striped">
-    <thead>
+    <thead class="table-head">
       <tr>
         <th scope="col">Trigger</th>
         <th scope="col">Reason</th>
@@ -112,20 +112,25 @@
   </table>
 </div>
 <hr>
-<!-- Notification Handlers -->
 
+<!-- Notification Handlers -->
 <div class="card btn-group-standard">
-  <tr>
-    <td><label class="btn-standard" ngbButtonLabel> Export to Excel </label></td>
-    <td>
-      <span>Notification Rules</span>
-      <div class="card btn-group-standard">
-        <tr>
-        <td><label class="btn-standard" ngbButtonLabel> Add </label></td>
-        <td><label class="btn-standard" ngbButtonLabel> Edit </label></td>
-        <td><label class="btn-standard" ngbButtonLabel> Delete </label></td>
-        </tr>
-      </div>
-    </td>
-  </tr>
+  <div class="card-body">
+    <tr>
+      <td><label class="btn-standard" ngbButtonLabel> Export to Excel </label></td>
+      <td><label class="btn-standard" ngbButtonLabel> Add Rule </label></td>
+      <!-- <td>
+        <div class="container">
+          <span>Notification Rules</span>
+          <div class="card btn-group-standard">
+            <tr>
+              <td><label class="btn-standard" ngbButtonLabel> Add </label></td>
+              <td><label class="btn-standard" ngbButtonLabel> Edit </label></td>
+              <td><label class="btn-standard" ngbButtonLabel> Delete </label></td>
+            </tr>
+          </div>
+        </div>
+      </td> -->
+    </tr>
+  </div>
 </div>
