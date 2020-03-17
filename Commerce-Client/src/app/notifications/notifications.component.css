@@ -1,0 +1,69 @@
+/* CSS for filters */
+.btn-group{
+  display: flex; 
+  background-color: #dee2e6;
+  border-radius: 5px;
+}
+
+.card-body {
+  align-self: center;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+  background-color: #006747;
+  color: #fff;
+  border-color: #333;
+}
+.btn-group>.btn-group:not(:first-child)>.btn, .btn-group>.btn:not(:first-child) {
+  border-radius: 5px;
+}
+.btn-group>.btn-group:not(:last-child)>.btn, .btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+  border-radius: 5px;
+
+}
+
+.btn-primary{
+  margin: 0px 15px 10px 10px; 
+  border-radius: 5px; 
+  color: #000;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.btn-group-standard {
+  display: flex; 
+  padding: 15px;
+  background-color: #dee2e6;
+  border-radius: 5px;
+}
+
+
+
+.btn-primary.focus{
+  box-shadow: 0 0 0 0.2rem #333; 
+}
+
+/* CSS for date picker */
+.form-group.hidden {
+  width: 0;
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range, .custom-day:hover {
+  background-color: rgb(2, 117, 216);
+  color: white;
+}
+.custom-day.faded {
+  background-color: rgba(2, 117, 216, 0.5);
+}

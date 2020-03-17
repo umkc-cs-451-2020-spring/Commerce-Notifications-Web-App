@@ -1,0 +1,41 @@
+.toolbar {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: rgba(249, 248, 246, 0.88);
+    color: white;
+    font-weight: 600;
+}
+
+.toolbar img {
+    max-width: 250px;
+    width: 100%;
+    margin: 0 35px;
+}
+
+.nav-primary {
+    display: flex;
+}
+
+.nav-primary a {
+    color: #77726D;
+    display: flex;
+    font-family: "cera_promedium", Arial, sans-serif;
+    font-size: 18px;
+    margin-left: 100px;
+    margin-right: 50px;
+}
+
+.logout {
+    color: #77726D;
+    display: flex;
+    font-family: "cera_promedium", Arial, sans-serif;
+    font-size: 18px;
+    right: 750px;
+}
+
+.user-ico {
+    width: 20px;
+    height: 20px;
+}

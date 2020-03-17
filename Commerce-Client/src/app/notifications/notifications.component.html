@@ -1,0 +1,136 @@
+<!-- Notification Filters -->
+<div class="card btn-group btn-group-toggle">
+  <a (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="filtersCard">{{ isCollapsed ? 'Expand' : 'Collapse' }}</a>
+  <div id="filtersCard" class='card-body' [ngbCollapse]='isCollapsed'>
+    <label class="btn-primary" ngbButtonLabel>
+      <input type="checkbox" ngbButton [(ngModel)]="model.new"> New
+    </label>
+    <label class="btn-primary" ngbButtonLabel>
+      <input type="checkbox" ngbButton [(ngModel)]="model.amount"> Amount 
+    </label>
+    <label class="btn-primary" ngbButtonLabel>
+      <input type="checkbox" ngbButton [(ngModel)]="model.time"> Time
+    </label>
+    <label class="btn-primary" ngbButtonLabel>
+      <input type="checkbox" ngbButton [(ngModel)]="model.location"> Location
+    </label>
+    <label class="btn-primary" ngbButtonLabel>
+      <input type="checkbox" ngbButton [(ngModel)]="model.duplicates"> Duplicates
+    </label>
+    <!-- Date Range Selection -->
+    <div class="container">
+      <span>Date Range:</span>
+      <form class="form-inline">
+        <div class="form-group hidden">
+          <div class="input-group">
+            <input name="datepicker"
+                   class="form-control"
+                   ngbDatepicker
+                   #datepicker="ngbDatepicker"
+                   [autoClose]="'outside'"
+                   (dateSelect)="onDateSelection($event)"
+                   [displayMonths]="2"
+                   [dayTemplate]="t"
+                   outsideDays="hidden"
+                   [startDate]="fromDate">
+            <ng-template #t let-date let-focused="focused">
+              <span class="custom-day"
+                    [class.focused]="focused"
+                    [class.range]="isRange(date)"
+                    [class.faded]="isHovered(date) || isInside(date)"
+                    (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
+                {{ date.day }}
+              </span>
+            </ng-template>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <input #dpFromDate
+                   class="form-control" placeholder="yyyy-mm-dd"
+                   name="dpFromDate"
+                   [value]="formatter.format(fromDate)"
+                   (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group ml-2">
+          <div class="input-group">
+            <input #dpToDate
+                   class="form-control" placeholder="yyyy-mm-dd"
+                   name="dpToDate"
+                   [value]="formatter.format(toDate)"
+                   (input)="toDate = validateInput(toDate, dpToDate.value)">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>
+<!-- Notifications Table -->
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead class="table-head">
+      <tr>
+        <th scope="col">Trigger</th>
+        <th scope="col">Reason</th>
+        <th scope="col">Date</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Amount, New</th>
+        <td>5000 withdrawal</td>
+        <td>3/15/2020</td>
+        <td>5000</td>
+        <td>Amazon.com</td>
+      </tr>
+      <tr>
+        <th scope="row">Time</th>
+        <td>3:00am</td>
+        <td>3/1/2020</td>
+        <td>40.37</td>
+        <td>Local Bar</td>
+      </tr>
+      <tr>
+        <th scope="row">Location</th>
+        <td>Russia</td>
+        <td>3/10/2020</td>
+        <td>30.00</td>
+        <td>Perogi's</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<hr>
+
+<!-- Notification Handlers -->
+<div class="card btn-group-standard">
+  <div class="card-body">
+    <tr>
+      <td><label class="btn-standard" ngbButtonLabel> Export to Excel </label></td>
+      <td><label class="btn-standard" ngbButtonLabel> Add Rule </label></td>
+      <!-- <td>
+        <div class="container">
+          <span>Notification Rules</span>
+          <div class="card btn-group-standard">
+            <tr>
+              <td><label class="btn-standard" ngbButtonLabel> Add </label></td>
+              <td><label class="btn-standard" ngbButtonLabel> Edit </label></td>
+              <td><label class="btn-standard" ngbButtonLabel> Delete </label></td>
+            </tr>
+          </div>
+        </div>
+      </td> -->
+    </tr>
+  </div>
+</div>

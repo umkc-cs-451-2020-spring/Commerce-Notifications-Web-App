@@ -1,2 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-/* @import "../node_modules/bootstrap/css/bootstrap.min.css"; */
+.table-head {
+    color: white;
+    background-color: #006747;
+}
+
+.btn-standard {
+    margin: auto;
+    border-radius: 5px;
+    background-color: #006747;
+    color: #fff;
+    border-color: #333;
+  }
