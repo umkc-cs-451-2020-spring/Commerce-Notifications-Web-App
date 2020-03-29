@@ -37,10 +37,25 @@
   border-radius: 5px;
 }
 
-
-
 .btn-primary.focus{
   box-shadow: 0 0 0 0.2rem #333; 
+}
+
+.btn-outline-primary {
+  color: #495057;
+  background-color: #fff;
+  background-image: none;
+  border-color: #333;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show > .btn-outline-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #fff;
+  border-color: #333;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled).active:focus, .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .show > .btn-outline-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 .2rem #006747;
 }
 
 /* CSS for date picker */

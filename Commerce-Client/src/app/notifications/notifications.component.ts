@@ -13,7 +13,8 @@ export class NotificationsComponent implements OnInit {
     amount: true,
     time: true,
     location: true,
-    duplicates: true
+    duplicates: true,
+    notTriggered: true
   };
 
   hoveredDate: NgbDate;
