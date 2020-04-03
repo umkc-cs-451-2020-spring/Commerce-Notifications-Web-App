@@ -31,15 +31,13 @@ public class TransactionDAOImpl implements TransactionDAO {
 	        		+ "Date=?, TransactionType=?, Category=?, RedStatus=? WHERE TransactionID=?";
 	        jdbcTemplate.update(sql, transaction.getAccountNumber(), transaction.getDescription(), transaction.getAmount(),
 	        		transaction.getState(), transaction.getDate(), transaction.getTransactionType(), transaction.getTransactionId(),
-	        		transaction.getCategory(), transaction.getRedStatus());
-	        
-	        ;
+	        		transaction.getCategory(), transaction.getReadStatus());
 	    } else {
 	        // Insert Statement
 	        String sql = "INSERT INTO Transaction( AccountNumber, Description, Amount, State, Date, TransactionType, Category, RedStatus )"
 	                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	        jdbcTemplate.update(sql, transaction.getAccountNumber(), transaction.getDescription(), transaction.getAmount(),
-	        		transaction.getState(), transaction.getDate(), transaction.getTransactionType(), transaction.getCategory(), transaction.getRedStatus());
+	        		transaction.getState(), transaction.getDate(), transaction.getTransactionType(), transaction.getCategory(), transaction.getReadStatus());
 	    }
 	
 	}
@@ -70,7 +68,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		        	transaction.setDate(rs.getString("Date"));
 		        	transaction.setTransactionType(rs.getString("TransactionType"));
 		        	transaction.setCategory(rs.getInt("Catergory"));
-		        	transaction.setRedStatus(rs.getBoolean("RedStatus"));
+		        	transaction.setReadStatus(rs.getBoolean("ReadStatus"));
 		 
 		            return transaction;
 	            }
@@ -98,7 +96,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	        	transaction.setDate(rs.getString("Date"));
 	        	transaction.setTransactionType(rs.getString("TransactionType"));
 	        	transaction.setCategory(rs.getInt("Catergory"));
-	        	transaction.setRedStatus(rs.getBoolean("RedStatus"));
+	        	transaction.setReadStatus(rs.getBoolean("ReadStatus"));
 	        	
 	            return transaction;
 	        }

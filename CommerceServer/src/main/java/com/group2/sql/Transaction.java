@@ -36,8 +36,8 @@ public class Transaction {
 	@Column(name="Category")
 	private int category;
 	
-	@Column(name="RedStatus")
-	private boolean redStatus;
+	@Column(name="ReadStatus")
+	private boolean readStatus;
 	
 	public Transaction() {
 		
@@ -102,8 +102,8 @@ public class Transaction {
 	/**
 	 * @return the redStatus
 	 */
-	public boolean getRedStatus() {
-		return redStatus;
+	public boolean getReadStatus() {
+		return readStatus;
 	}
 
 	/**
@@ -164,10 +164,10 @@ public class Transaction {
 
 
 	/**
-	 * @param redStatus the redStatus to set
+	 * @param readStatus the redStatus to set
 	 */
-	public void setRedStatus(boolean redStatus) {
-		this.redStatus = redStatus;
+	public void setReadStatus(boolean readStatus) {
+		this.readStatus = readStatus;
 	}
 	  
 
