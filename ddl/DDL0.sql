@@ -1,3 +1,5 @@
+CREATE DATABASE CommerceDB;
+USE CommerceDB;
 CREATE TABLE `User` (
   `UserID` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `Username` VARCHAR(16) UNIQUE NOT NULL,
@@ -19,7 +21,8 @@ CREATE TABLE `Transaction` (
   `ProcessingDate` DATETIME NOT NULL,
   `TransactionType` TINYINT NOT NULL,
   `Amount` DOUBLE NOT NULL,
-  `Description` VARCHAR(31) NOT NULL,
+  `Description` VARCHAR(63) NOT NULL,
+  `Category` TINYINT NOT NULL,
   `State` CHAR(2) NOT NULL
 );
 
@@ -27,14 +30,16 @@ CREATE TABLE `Trigger` (
   `TriggerID` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `UserID` INT NOT NULL,
   `TriggerName` VARCHAR(31) UNIQUE NOT NULL,
-  `TriggerType` CHAR(2) NOT NULL
+  `TriggerType` TINYINT NOT NULL,
+  `TriggerDescription` VARCHAR(31) NOT NULL
 );
 
 CREATE TABLE `Notifications` (
   `NotificationID` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `TriggerID` INT NOT NULL,
   `TransactionID` INT NOT NULL,
-  `Message` VARCHAR(255) NOT NULL
+  `Message` VARCHAR(255) NOT NULL,
+  `ReadStatus` BOOLEAN NOT NULL DEFAULT false
 );
 
 ALTER TABLE `Account` ADD FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`);

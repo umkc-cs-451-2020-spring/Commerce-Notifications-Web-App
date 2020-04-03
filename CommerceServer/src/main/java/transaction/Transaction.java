@@ -1,4 +1,4 @@
-package com.group2.sql;
+package transaction;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
