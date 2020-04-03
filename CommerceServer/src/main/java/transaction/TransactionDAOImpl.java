@@ -1,4 +1,4 @@
-package com.group2.sql;
+package transaction;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
