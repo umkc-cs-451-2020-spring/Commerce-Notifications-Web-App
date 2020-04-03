@@ -1,3 +1,5 @@
+CREATE DATABASE CommerceDB;
+USE CommerceDB;
 CREATE TABLE `User` (
   `UserID` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `Username` VARCHAR(16) UNIQUE NOT NULL,
@@ -19,7 +21,7 @@ CREATE TABLE `Transaction` (
   `ProcessingDate` DATETIME NOT NULL,
   `TransactionType` TINYINT NOT NULL,
   `Amount` DOUBLE NOT NULL,
-  `Description` VARCHAR(31) NOT NULL,
+  `Description` VARCHAR(63) NOT NULL,
   `Category` TINYINT NOT NULL,
   `State` CHAR(2) NOT NULL
 );
