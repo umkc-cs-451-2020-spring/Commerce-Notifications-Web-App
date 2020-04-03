@@ -97,7 +97,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	        	transaction.setTransactionType(rs.getString("TransactionType"));
 	        	transaction.setCategory(rs.getInt("Catergory"));
 	        	transaction.setReadStatus(rs.getBoolean("ReadStatus"));
-	        	
+
 	            return transaction;
 	        }
 	 

@@ -38,7 +38,7 @@ public class Transaction {
 	
 	@Column(name="ReadStatus")
 	private boolean readStatus;
-	
+
 	public Transaction() {
 		
 	}
@@ -169,6 +169,5 @@ public class Transaction {
 	public void setReadStatus(boolean readStatus) {
 		this.readStatus = readStatus;
 	}
-	  
 
 }
