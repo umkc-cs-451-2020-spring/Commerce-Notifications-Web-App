@@ -169,9 +169,5 @@ public class Transaction {
 	public void setReadStatus(boolean readStatus) {
 		this.readStatus = readStatus;
 	}
-<<<<<<< HEAD:CommerceServer/src/main/java/com/group2/sql/Transaction.java
-=======
-	  
->>>>>>> 83171c1af070557c5cbc4dfc953eea542fed2938:CommerceServer/src/main/java/transaction/Transaction.java
 
 }
