@@ -33,6 +33,12 @@ public class Transaction {
 	@Column(name="TransactionType")
 	private String transactionType;
 	
+	@Column(name="Category")
+	private int category;
+	
+	@Column(name="RedStatus")
+	private boolean redStatus;
+	
 	public Transaction() {
 		
 	}
@@ -85,6 +91,20 @@ public class Transaction {
 	public String getTransactionType() {
 		return transactionType;
 	}
+	
+	/**
+	 * @return the category
+	 */
+	public int getCategory() {
+		return category;
+	}
+	
+	/**
+	 * @return the redStatus
+	 */
+	public boolean getRedStatus() {
+		return redStatus;
+	}
 
 	/**
 	 * @param transactionId the transactionId to set
@@ -133,6 +153,21 @@ public class Transaction {
 	 */
 	public void setTransactionType(String transactionType) {
 		this.transactionType = transactionType;
+	}
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(int category) {
+		this.category = category;
+	}
+
+
+	/**
+	 * @param redStatus the redStatus to set
+	 */
+	public void setRedStatus(boolean redStatus) {
+		this.redStatus = redStatus;
 	}
 	  
 
