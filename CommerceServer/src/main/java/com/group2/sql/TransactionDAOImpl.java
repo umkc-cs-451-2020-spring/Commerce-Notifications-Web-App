@@ -28,17 +28,16 @@ public class TransactionDAOImpl implements TransactionDAO {
 		if (transaction.getTransactionId() > 0) {
 	        // update
 	        String sql = "UPDATE Transaction SET AccountNumber=?, Description=?, Amount=?, State=?, "
-	        		+ "Date=?, TransactionType=? WHERE TransactionID=?";
+	        		+ "Date=?, TransactionType=?, Category=?, RedStatus=? WHERE TransactionID=?";
 	        jdbcTemplate.update(sql, transaction.getAccountNumber(), transaction.getDescription(), transaction.getAmount(),
-	        		transaction.getState(), transaction.getDate(), transaction.getTransactionType(), transaction.getTransactionId());
-	        
-	        ;
+	        		transaction.getState(), transaction.getDate(), transaction.getTransactionType(), transaction.getTransactionId(),
+	        		transaction.getCategory(), transaction.getReadStatus());
 	    } else {
 	        // Insert Statement
-	        String sql = "INSERT INTO Transaction( AccountNumber, Description, Amount, State, Date, TransactionType )"
-	                    + " VALUES (?, ?, ?, ?, ?, ?)";
+	        String sql = "INSERT INTO Transaction( AccountNumber, Description, Amount, State, Date, TransactionType, Category, RedStatus )"
+	                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	        jdbcTemplate.update(sql, transaction.getAccountNumber(), transaction.getDescription(), transaction.getAmount(),
-	        		transaction.getState(), transaction.getDate(), transaction.getTransactionType());
+	        		transaction.getState(), transaction.getDate(), transaction.getTransactionType(), transaction.getCategory(), transaction.getReadStatus());
 	    }
 	
 	}
@@ -68,6 +67,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 		        	transaction.setState(rs.getString("State"));
 		        	transaction.setDate(rs.getString("Date"));
 		        	transaction.setTransactionType(rs.getString("TransactionType"));
+		        	transaction.setCategory(rs.getInt("Catergory"));
+		        	transaction.setReadStatus(rs.getBoolean("ReadStatus"));
 		 
 		            return transaction;
 	            }
@@ -94,7 +95,9 @@ public class TransactionDAOImpl implements TransactionDAO {
 	        	transaction.setState(rs.getString("State"));
 	        	transaction.setDate(rs.getString("Date"));
 	        	transaction.setTransactionType(rs.getString("TransactionType"));
-	 
+	        	transaction.setCategory(rs.getInt("Catergory"));
+	        	transaction.setReadStatus(rs.getBoolean("ReadStatus"));
+
 	            return transaction;
 	        }
 	 
