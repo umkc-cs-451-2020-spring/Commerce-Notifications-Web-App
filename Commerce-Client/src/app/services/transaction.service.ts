@@ -9,11 +9,17 @@ const httpOptions = {
     providedIn: 'root'
 })
 export class TransactionService {
+    // Endpoints
     private testSpringUrl = 'api/transactions/test';
+    private getTransactionsUrl = 'api/transactions/1';
 
     constructor(private http: HttpClient) { }
 
     testSpring() {
         return this.http.get<any>(this.testSpringUrl);
+    }
+
+    getTransactions() {
+        return this.http.get<any>(this.getTransactionsUrl);
     }
 }
