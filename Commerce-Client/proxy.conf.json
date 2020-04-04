@@ -1,7 +1,5 @@
 {
     "/api" : {
-    "target" : "https://localhost:8080/Commerce-Server/",
-    "secure" : false,
-    "pathRewrite": {"^/api" : ""}
+    "target" : "http://localhost:8080/Commerce-Server/"
     }
 }
