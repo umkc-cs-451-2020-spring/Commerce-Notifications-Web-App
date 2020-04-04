@@ -1,4 +1,4 @@
-package com.group2.sql;
+package transaction;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +33,12 @@ public class Transaction {
 	@Column(name="TransactionType")
 	private String transactionType;
 	
+	@Column(name="Category")
+	private int category;
+	
+	@Column(name="ReadStatus")
+	private boolean readStatus;
+
 	public Transaction() {
 		
 	}
@@ -85,6 +91,20 @@ public class Transaction {
 	public String getTransactionType() {
 		return transactionType;
 	}
+	
+	/**
+	 * @return the category
+	 */
+	public int getCategory() {
+		return category;
+	}
+	
+	/**
+	 * @return the redStatus
+	 */
+	public boolean getReadStatus() {
+		return readStatus;
+	}
 
 	/**
 	 * @param transactionId the transactionId to set
@@ -134,6 +154,20 @@ public class Transaction {
 	public void setTransactionType(String transactionType) {
 		this.transactionType = transactionType;
 	}
-	  
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(int category) {
+		this.category = category;
+	}
+
+
+	/**
+	 * @param readStatus the redStatus to set
+	 */
+	public void setReadStatus(boolean readStatus) {
+		this.readStatus = readStatus;
+	}
 
 }

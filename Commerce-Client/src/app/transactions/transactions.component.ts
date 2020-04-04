@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { TransactionService } from '../services/transaction.service';
+
 interface Transaction {
   account: string;
   date: string;
@@ -21,9 +23,16 @@ const TRANSACTIONS: Transaction[] = [
 })
 export class TransactionsComponent implements OnInit {
   transactions = TRANSACTIONS;
-  constructor() { }
+  constructor(private transactionService: TransactionService) {
+    this.testSpring();
+   }
 
   ngOnInit(): void {
   }
 
+  testSpring() {
+    this.transactionService.testSpring().subscribe(transaction => {
+      console.log(transaction);
+    });
+  }
 }
