@@ -9,7 +9,7 @@ const httpOptions = {
     providedIn: 'root'
 })
 export class TransactionService {
-    private testSpringUrl = 'api/transaction';
+    private testSpringUrl = 'http://localhost:8080/Commerce-Server/api/transactions/test';
 
     constructor(private http: HttpClient) { }
 

@@ -1,4 +1,4 @@
-package transaction;
+package com.group2.commerceserver.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,17 +27,14 @@ public class Transaction {
 	@Column(name="State")
 	private String state;
 	  
-	@Column(name="Date")
-	private String date;
+	@Column(name="ProcessingDate")
+	private String processingDate;
 	  
 	@Column(name="TransactionType")
 	private String transactionType;
 	
 	@Column(name="Category")
 	private int category;
-	
-	@Column(name="ReadStatus")
-	private boolean readStatus;
 
 	public Transaction() {
 		
@@ -81,8 +78,8 @@ public class Transaction {
 	/**
 	 * @return the date
 	 */
-	public String getDate() {
-		return date;
+	public String getProcessingDate() {
+		return processingDate;
 	}
 
 	/**
@@ -97,13 +94,6 @@ public class Transaction {
 	 */
 	public int getCategory() {
 		return category;
-	}
-	
-	/**
-	 * @return the redStatus
-	 */
-	public boolean getReadStatus() {
-		return readStatus;
 	}
 
 	/**
@@ -144,8 +134,8 @@ public class Transaction {
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(String date) {
-		this.date = date;
+	public void setProcessingDate(String processingDate) {
+		this.processingDate = processingDate;
 	}
 
 	/**
@@ -160,14 +150,6 @@ public class Transaction {
 	 */
 	public void setCategory(int category) {
 		this.category = category;
-	}
-
-
-	/**
-	 * @param readStatus the redStatus to set
-	 */
-	public void setReadStatus(boolean readStatus) {
-		this.readStatus = readStatus;
 	}
 
 }

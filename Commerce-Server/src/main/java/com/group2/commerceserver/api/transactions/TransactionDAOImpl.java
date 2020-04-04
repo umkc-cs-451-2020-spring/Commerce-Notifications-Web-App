@@ -1,4 +1,4 @@
-package transaction;
+package com.group2.commerceserver.api.transactions;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +12,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.group2.commerceserver.model.Transaction;
 
 @Repository
 public class TransactionDAOImpl implements TransactionDAO {
@@ -28,16 +30,16 @@ public class TransactionDAOImpl implements TransactionDAO {
 		if (transaction.getTransactionId() > 0) {
 	        // update
 	        String sql = "UPDATE Transaction SET AccountNumber=?, Description=?, Amount=?, State=?, "
-	        		+ "Date=?, TransactionType=?, Category=?, RedStatus=? WHERE TransactionID=?";
+	        		+ "ProcessingDate=?, TransactionType=?, Category=?, RedStatus=? WHERE TransactionID=?";
 	        jdbcTemplate.update(sql, transaction.getAccountNumber(), transaction.getDescription(), transaction.getAmount(),
-	        		transaction.getState(), transaction.getDate(), transaction.getTransactionType(), transaction.getTransactionId(),
-	        		transaction.getCategory(), transaction.getReadStatus());
+	        		transaction.getState(), transaction.getProcessingDate(), transaction.getTransactionType(), transaction.getTransactionId(),
+	        		transaction.getCategory());
 	    } else {
 	        // Insert Statement
-	        String sql = "INSERT INTO Transaction( AccountNumber, Description, Amount, State, Date, TransactionType, Category, RedStatus )"
+	        String sql = "INSERT INTO Transaction( AccountNumber, Description, Amount, State, ProcessingDate, TransactionType, Category )"
 	                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	        jdbcTemplate.update(sql, transaction.getAccountNumber(), transaction.getDescription(), transaction.getAmount(),
-	        		transaction.getState(), transaction.getDate(), transaction.getTransactionType(), transaction.getCategory(), transaction.getReadStatus());
+	        		transaction.getState(), transaction.getProcessingDate(), transaction.getTransactionType(), transaction.getCategory());
 	    }
 	
 	}
@@ -65,10 +67,9 @@ public class TransactionDAOImpl implements TransactionDAO {
 		        	transaction.setDescription(rs.getString("Description"));
 		        	transaction.setAmount(rs.getFloat("Amount"));
 		        	transaction.setState(rs.getString("State"));
-		        	transaction.setDate(rs.getString("Date"));
+		        	transaction.setProcessingDate(rs.getString("Date"));
 		        	transaction.setTransactionType(rs.getString("TransactionType"));
-		        	transaction.setCategory(rs.getInt("Catergory"));
-		        	transaction.setReadStatus(rs.getBoolean("ReadStatus"));
+		        	transaction.setCategory(rs.getInt("Category"));
 		 
 		            return transaction;
 	            }
@@ -93,10 +94,9 @@ public class TransactionDAOImpl implements TransactionDAO {
 	        	transaction.setDescription(rs.getString("Description"));
 	        	transaction.setAmount(rs.getFloat("Amount"));
 	        	transaction.setState(rs.getString("State"));
-	        	transaction.setDate(rs.getString("Date"));
+	        	transaction.setProcessingDate(rs.getString("ProcessingDate"));
 	        	transaction.setTransactionType(rs.getString("TransactionType"));
-	        	transaction.setCategory(rs.getInt("Catergory"));
-	        	transaction.setReadStatus(rs.getBoolean("ReadStatus"));
+	        	transaction.setCategory(rs.getInt("Category"));
 
 	            return transaction;
 	        }

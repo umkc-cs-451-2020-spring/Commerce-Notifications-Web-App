@@ -1,4 +1,6 @@
-package transaction;
+package com.group2.commerceserver.api.transactions;
+
+import com.group2.commerceserver.model.Transaction;
 
 import java.util.List;
 
