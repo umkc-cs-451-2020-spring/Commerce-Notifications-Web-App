@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { FormsModule } from '@angular/forms';
+import { RuleComponent } from './rule/rule.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     TransactionsComponent,
     LoginComponent,
     NavigationComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    RuleComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [RuleComponent]
 })
 export class AppModule { }

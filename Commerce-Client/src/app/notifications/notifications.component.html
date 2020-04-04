@@ -102,7 +102,7 @@
 <!-- Notifications Table -->
 <div class="table-responsive">
   <td>
-    <label class="btn-standard" ngbButtonLabel>
+    <label class="btn-standard" (click)="openRule()" ngbButtonLabel>
       <img class="add-ico" src="/assets/img/add.svg" alt=""> Add New Rule 
     </label>
   </td>
@@ -118,7 +118,7 @@
       </tr>
     </thead>
     <tbody class="table-body">
-      <tr *ngFor="let notification of notifications">
+      <tr *ngFor="let notification of notifications" (click)="openTransactions(notification)">
         <td><input type="checkbox"></td>
         <td>{{ notification.name }}</td>
         <td>{{ notification.notificationCount | number }}</td>

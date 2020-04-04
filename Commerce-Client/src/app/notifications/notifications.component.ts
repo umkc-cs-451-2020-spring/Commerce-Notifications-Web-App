@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { TransactionsComponent } from '../transactions/transactions.component';
+import { RuleComponent } from '../rule/rule.component';
 
 interface Notification {
   name: string;
@@ -34,12 +36,20 @@ export class NotificationsComponent implements OnInit {
   fromDate: NgbDate;
   toDate: NgbDate;
 
-  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private modalService: NgbModal) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
    }
 
   ngOnInit(): void {
+  }
+
+  openRule() {
+    const modalRef = this.modalService.open(RuleComponent);
+  }
+
+  openTransactions(notification: Notification) {
+    const modalRef = this.modalService.open(TransactionsComponent, { windowClass:"transactions-modal" });
   }
 
   onDateSelection(date: NgbDate) {

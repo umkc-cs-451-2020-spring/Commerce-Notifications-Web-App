@@ -21,3 +21,8 @@
     color: #fff;
     border-color: #333;
   }
+
+  .transactions-modal .modal-dialog{
+    max-width: 650px;
+  }
+  
