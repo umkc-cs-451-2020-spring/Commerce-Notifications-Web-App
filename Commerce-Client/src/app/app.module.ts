@@ -12,6 +12,10 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { FormsModule } from '@angular/forms';
 import { RuleComponent } from './rule/rule.component';
+import { AmountComponent } from './amount/amount.component';
+import { LocationComponent } from './location/location.component';
+import { TimeComponent } from './time/time.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { RuleComponent } from './rule/rule.component';
     LoginComponent,
     NavigationComponent,
     NotificationsComponent,
-    RuleComponent
+    RuleComponent,
+    AmountComponent,
+    LocationComponent,
+    TimeComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
