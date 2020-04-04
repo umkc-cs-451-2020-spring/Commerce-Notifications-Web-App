@@ -15,7 +15,7 @@ export class RuleComponent implements OnInit {
   }
 
   openAmount() {
-    activeModal.dismiss();
+    console.log("It worked");
   }
 
 }

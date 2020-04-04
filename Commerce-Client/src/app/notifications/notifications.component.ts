@@ -46,7 +46,6 @@ export class NotificationsComponent implements OnInit {
 
   openRule() {
     const modalRef = this.modalService.open(RuleComponent);
-    modalRef.componentInstance.name = 'World';
   }
 
   openTransactions(notification: Notification) {
