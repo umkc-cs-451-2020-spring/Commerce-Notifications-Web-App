@@ -8,7 +8,7 @@ import { RuleComponent } from '../rule/rule.component';
   styleUrls: ['./location.component.css']
 })
 export class LocationComponent implements OnInit {
-
+  loc: string; 
   constructor(public activeModal: NgbActiveModal, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -17,7 +17,7 @@ export class LocationComponent implements OnInit {
     const modalRef = this.modalService.open(RuleComponent);
   }
   addRule(){
-    
+    console.log(this.loc);
   }
 
 }

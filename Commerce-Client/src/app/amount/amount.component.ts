@@ -8,19 +8,20 @@ import { RuleComponent } from '../rule/rule.component';
   styleUrls: ['./amount.component.css']
 })
 export class AmountComponent implements OnInit {
+  amount: string;
 
-  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal) { }
+  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal) {
+   }
 
   ngOnInit(): void {
   }
 
   goBack(){
     const modalRef = this.modalService.open(RuleComponent);
-
   }
 
   addRule(){
-    
+    console.log(this.amount);
   }
   
 }

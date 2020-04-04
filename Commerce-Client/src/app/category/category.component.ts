@@ -9,6 +9,8 @@ import { RuleComponent } from '../rule/rule.component';
 })
 export class CategoryComponent implements OnInit {
 
+  cat: string; 
+
   constructor(public activeModal: NgbActiveModal, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -18,7 +20,7 @@ export class CategoryComponent implements OnInit {
   }
 
   addRule(){
-    
+    console.log(this.cat);
   }
 
 }

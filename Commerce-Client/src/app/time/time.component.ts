@@ -9,6 +9,8 @@ import { RuleComponent } from '../rule/rule.component';
 })
 export class TimeComponent implements OnInit {
 
+  beginTime: string; 
+  endTime: string; 
   constructor(public activeModal: NgbActiveModal, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -17,6 +19,8 @@ export class TimeComponent implements OnInit {
     const modalRef = this.modalService.open(RuleComponent);
   }
   addRule(){
+    console.log(this.beginTime); 
+    console.log(this.endTime); 
     
   }
 

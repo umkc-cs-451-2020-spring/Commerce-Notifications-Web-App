@@ -6,7 +6,7 @@
 </div>
 <div class="modal-body">
   <label for="location">Location outside of    </label>
-  <select name="location" id="location">
+  <select type="location" [(ngModel)]="loc">
     <option value="" selected="selected">Select a State</option>
     <option value="FOREIGN">Outside of United States</option>
     <option value="AL">Alabama</option>
@@ -63,7 +63,7 @@
   </select>
 </div>
 <div class="modal-footer">
-  <label class="btn-standard" (click)="addRule()" ngbButtonLabel>
+  <label class="btn-standard" (click)="addRule(); activeModal.close('Close click');" ngbButtonLabel>
     Add Rule
  </label>
   <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click'); goBack();">Go Back</button>

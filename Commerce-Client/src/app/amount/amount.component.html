@@ -6,10 +6,10 @@
 </div>
 <div class="modal-body">
   <label for="amountOver">Amount over $ </label>
-  <input type="number" min="1" step="any" name="amountOver" id="amountOver">
+  <input type="number" min="1" step="any" [(ngModel)]="amount">
 </div>
 <div class="modal-footer">
-  <label class="btn-standard" (click)="addRule()" ngbButtonLabel>
+  <label class="btn-standard" (click)="addRule(); activeModal.close('Close click');" ngbButtonLabel>
      Add Rule
   </label>
   <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click'); goBack();">Go Back</button>
