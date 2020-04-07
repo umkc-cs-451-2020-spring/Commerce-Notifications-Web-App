@@ -1,19 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { TransactionsComponent } from '../transactions/transactions.component';
+import { RuleComponent } from '../rule/rule.component';
 
+interface Notification {
+  name: string;
+  notificationCount: number;
+}
+
+const NOTIFICATIONS: Notification[] = [
+  {name: 'Transaction amount over $500', notificationCount: 4},
+  {name: 'Transaction from out of state', notificationCount: 1},
+  {name: 'Duplicate Transactions', notificationCount: 2},
+  {name: 'Transaction occured between 2:00 am and 6:00 am', notificationCount: 0},
+];
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
+  notifications = NOTIFICATIONS;
   public isCollapsed = false;
   model = {
     new: true,
     amount: true,
     time: true,
     location: true,
-    duplicates: true
+    duplicates: true,
+    notTriggered: true
   };
 
   hoveredDate: NgbDate;
@@ -21,12 +36,20 @@ export class NotificationsComponent implements OnInit {
   fromDate: NgbDate;
   toDate: NgbDate;
 
-  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
+  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private modalService: NgbModal) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
    }
 
   ngOnInit(): void {
+  }
+
+  openRule() {
+    const modalRef = this.modalService.open(RuleComponent);
+  }
+
+  openTransactions(notification: Notification) {
+    const modalRef = this.modalService.open(TransactionsComponent, { windowClass:"transactions-modal" });
   }
 
   onDateSelection(date: NgbDate) {
