@@ -36,6 +36,8 @@ public class Transaction {
 	@Column(name="Category")
 	private int category;
 
+	
+	//Empty constructor
 	public Transaction() {
 		
 	}
