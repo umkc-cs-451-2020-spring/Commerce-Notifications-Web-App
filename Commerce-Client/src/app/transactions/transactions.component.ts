@@ -17,8 +17,9 @@ export class TransactionsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // TODO Store logged in user's ID for getTransactions parameter
   getTransactions() {
-    this.transactionService.getTransactions().subscribe(transaction => {
+    this.transactionService.getTransactions(2).subscribe(transaction => {
       this.transactions = transaction;
     });
   }
