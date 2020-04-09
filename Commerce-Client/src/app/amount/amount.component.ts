@@ -16,12 +16,11 @@ export class AmountComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goBack(){
+  goBack() {
     const modalRef = this.modalService.open(RuleComponent);
   }
 
-  addRule(){
+  addRule() {
     console.log(this.amount);
   }
-  
 }
