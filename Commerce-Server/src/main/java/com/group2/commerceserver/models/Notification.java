@@ -1,30 +1,17 @@
 package com.group2.commerceserver.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="Notifications")
 public class Notification {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+
 	private Integer notificationId;
 
-	@Column(name="TriggerID")
 	private Integer triggerId;
 	
-	@Column(name="TransactionID")
 	private Integer transactionId;
 	
-	@Column(name="Message")
 	private String message;
 	
-	@Column(name="ReadStatus")
 	private boolean readStatus;
 	
 	//Empty constructor

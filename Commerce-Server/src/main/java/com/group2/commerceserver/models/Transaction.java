@@ -1,42 +1,23 @@
 package com.group2.commerceserver.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="Transactions")
 public class Transaction {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer transactionId;
 	
-	@Column(name="AccountNumber")
 	private Integer accountNumber;
 	
-	@Column(name="Description")
 	private String description;
 	
-	@Column(name="Balance")
 	private float balance;
-	  
-	@Column(name="Amount")
+
 	private Float amount;
 	  
-	@Column(name="State")
 	private String state;
 	  
-	@Column(name="ProcessingDate")
 	private String processingDate;
 	  
-	@Column(name="TransactionType")
 	private int transactionType;
 	
-	@Column(name="Category")
 	private int category;
 
 	
