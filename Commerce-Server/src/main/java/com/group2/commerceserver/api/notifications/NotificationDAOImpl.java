@@ -34,7 +34,7 @@ public class NotificationDAOImpl implements NotificationDAO{
 	}
 
 	@Override
-	public void editnotification(int notificationId) {
+	public void editNotification(int notificationId) {
 		String sql = "sql statement here";
         jdbcTemplate.update(sql, "params here");		
 	}

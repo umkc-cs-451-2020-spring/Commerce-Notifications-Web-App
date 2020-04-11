@@ -8,7 +8,7 @@ public interface NotificationDAO {
 	
 	public void addNotification();
 	
-	public void editnotification(int notificationId);
+	public void editNotification(int notificationId);
 	
 	public void markAsRead(int notificationId);
 	
