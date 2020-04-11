@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.group2.commerceserver.model.Transaction;
+import com.group2.commerceserver.models.Transaction;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -27,7 +27,7 @@ public class TransactionController {
 	
 	@GetMapping("/{id}")
 	public List<Transaction> getTransactionsByUser(@PathVariable(value = "id") int userId) {
-		return transactionDAO.list();
+		return transactionDAO.getUserTransactions(userId);
 	}
 	
 }

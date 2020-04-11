@@ -1,4 +1,4 @@
-package com.group2.commerceserver.model;
+package com.group2.commerceserver.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +20,9 @@ public class Transaction {
 	
 	@Column(name="Description")
 	private String description;
+	
+	@Column(name="Balance")
+	private float balance;
 	  
 	@Column(name="Amount")
 	private Float amount;
@@ -61,6 +64,13 @@ public class Transaction {
 	 */
 	public String getDescription() {
 		return description;
+	}
+	
+	/**
+	 * @return the balance
+	 */
+	public Float getBalance() {
+		return balance;
 	}
 
 	/**
@@ -117,6 +127,13 @@ public class Transaction {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	/**
+	 * @param balance the balance to set
+	 */
+	public void setBalance(Float balance) {
+		this.balance = balance;
 	}
 
 	/**

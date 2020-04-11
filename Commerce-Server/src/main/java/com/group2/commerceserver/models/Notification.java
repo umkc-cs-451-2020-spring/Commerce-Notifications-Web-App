@@ -1,4 +1,4 @@
-package com.group2.commerceserver.model;
+package com.group2.commerceserver.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

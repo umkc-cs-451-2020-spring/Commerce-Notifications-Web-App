@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.group2.commerceserver.model.Notification;
+import com.group2.commerceserver.models.Notification;
 
 @Repository
 public class NotificationDAOImpl implements NotificationDAO{
