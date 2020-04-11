@@ -34,7 +34,7 @@ public class Transaction {
 	private String processingDate;
 	  
 	@Column(name="TransactionType")
-	private String transactionType;
+	private int transactionType;
 	
 	@Column(name="Category")
 	private int category;
@@ -97,7 +97,7 @@ public class Transaction {
 	/**
 	 * @return the transactionType
 	 */
-	public String getTransactionType() {
+	public int getTransactionType() {
 		return transactionType;
 	}
 	
@@ -160,7 +160,7 @@ public class Transaction {
 	/**
 	 * @param transactionType the transactionType to set
 	 */
-	public void setTransactionType(String transactionType) {
+	public void setTransactionType(int transactionType) {
 		this.transactionType = transactionType;
 	}
 
@@ -170,5 +170,6 @@ public class Transaction {
 	public void setCategory(int category) {
 		this.category = category;
 	}
+
 
 }

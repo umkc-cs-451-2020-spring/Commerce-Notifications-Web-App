@@ -4,4 +4,5 @@ export class Transaction {
     balance: number;
     amount: number;
     description: string;
+    transactionType: number; 
 }
