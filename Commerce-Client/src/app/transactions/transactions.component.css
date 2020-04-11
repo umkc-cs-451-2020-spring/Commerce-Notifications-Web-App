@@ -13,3 +13,9 @@
 .black{
   color: black; 
 }
+
+.table-scroll {
+  overflow-y: auto;
+  height: 600px;
+
+}
