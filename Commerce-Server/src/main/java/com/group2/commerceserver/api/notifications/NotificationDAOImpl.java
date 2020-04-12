@@ -11,26 +11,63 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.group2.commerceserver.models.Notification;
+import com.group2.commerceserver.models.Rule;
+import com.group2.commerceserver.sql.NotificationSql;
 
 @Repository
 public class NotificationDAOImpl implements NotificationDAO{
 	
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	public NotificationDAOImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 	
-
 	@Override
-	public void addNotification() {
-        String sql = "sql statement here";
-        jdbcTemplate.update(sql, "params here");
+	public void addNotification(Rule rule) {
+		SqlParameterSource paramSource = new MapSqlParameterSource()
+				.addValue("userId", rule.getUserId())
+				.addValue("triggerName", rule.getTriggerName())
+				.addValue("triggerType", rule.getTriggerType())
+				.addValue("triggerDescription", rule.getTriggerDescription())
+				.addValue("amount", rule.getAmount());
+		jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + rule.getTriggerName() + ";");
+		namedParameterJdbcTemplate.update(NotificationSql.INSERT_TRIGGER, paramSource);
+		jdbcTemplate.execute(buildTriggerString(rule));
+	}
 
+	//TODO Add conditions for building rule types other than Amount
+	private String buildTriggerString(Rule rule) {
+		StringBuilder sql = new StringBuilder();
+		sql.append( "CREATE TRIGGER CommerceDB." + rule.getTriggerName() + " " +
+					"AFTER INSERT ON CommerceDB.Transaction FOR EACH ROW " +
+					"BEGIN " +
+						"IF ");
+		boolean prevRules = false;
+		if ((rule.getAmount() != null) && (rule.getAmount() != 0)) {
+			sql.append("NEW.Amount > " + rule.getAmount() + " ");
+			prevRules = true;
+		}
+		sql.append( "AND NEW.AccountNumber IN " +
+						"(SELECT AccountNumber FROM CommerceDB.Account WHERE UserID = " + rule.getUserId() + " ) " +
+					"THEN INSERT INTO CommerceDB.Notifications(TriggerID, TransactionID, Message, ReadStatus) " +
+						"VALUES((SELECT TriggerID FROM CommerceDB.Trigger WHERE TriggerName = '" + rule.getTriggerName() + "'), " +
+								"NEW.TransactionID, CONCAT('Transaction at ', NEW.Description, ' is over $" + rule.getAmount() + "'), false); " +
+					"END IF; " +
+				"END");
+		
+		return sql.toString();
+		
 	}
 
 	@Override

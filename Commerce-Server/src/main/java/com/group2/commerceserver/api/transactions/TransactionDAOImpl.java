@@ -16,7 +16,7 @@ import com.group2.commerceserver.sql.TransactionSql;
 public class TransactionDAOImpl implements TransactionDAO {
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	JdbcTemplate jdbcTemplate;
 	
 	public TransactionDAOImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
