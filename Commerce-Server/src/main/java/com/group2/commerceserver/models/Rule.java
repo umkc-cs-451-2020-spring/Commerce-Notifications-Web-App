@@ -1,5 +1,7 @@
 package com.group2.commerceserver.models;
 
+import java.sql.Time;
+
 public class Rule {
 
 	private int userId;
@@ -7,9 +9,12 @@ public class Rule {
 	private int triggerType;
 	private String triggerDescription;
 	private Float amount;
+	private String location;
+	private Time startTime;
+	private Time endTime;
+	private Integer category;
 	
 	public Rule() {
-//		triggerName = "amount_over_" + amount + "_user" + userId;
 	}
 	
 	public int getUserId() {
@@ -41,6 +46,38 @@ public class Rule {
 	}
 	public void setAmount(Float amount) {
 		this.amount = amount;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public Integer getCategory() {
+		return category;
+	}
+
+	public void setCategory(Integer category) {
+		this.category = category;
+	}
+
+	public Time getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Time startTime) {
+		this.startTime = startTime;
+	}
+
+	public Time getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Time endTime) {
+		this.endTime = endTime;
 	}
 	
 }

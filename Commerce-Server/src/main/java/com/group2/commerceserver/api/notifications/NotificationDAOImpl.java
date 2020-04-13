@@ -49,25 +49,54 @@ public class NotificationDAOImpl implements NotificationDAO{
 	//TODO Add conditions for building rule types other than Amount
 	private String buildTriggerString(Rule rule) {
 		StringBuilder sql = new StringBuilder();
+		StringBuilder message = new StringBuilder();
 		sql.append( "CREATE TRIGGER CommerceDB." + rule.getTriggerName() + " " +
 					"AFTER INSERT ON CommerceDB.Transaction FOR EACH ROW " +
 					"BEGIN " +
 						"IF ");
 		boolean prevRules = false;
-		if ((rule.getAmount() != null) && (rule.getAmount() != 0)) {
+		if (rule.getAmount() != null && rule.getAmount() != 0) {
 			sql.append("NEW.Amount > " + rule.getAmount() + " ");
+			message.append("is over $" + rule.getAmount());
 			prevRules = true;
 		}
+		if (!rule.getLocation().isEmpty() && !rule.getLocation().equals("")) {
+			if (prevRules) {
+				sql.append("AND ");
+				message.append(" and ");
+			}
+			//TODO If we want multiple states to be allowed we can make a do while to add an array of locations
+			sql.append("NEW.State != '" + rule.getLocation() + "' ");
+			message.append("occurred outside of " + rule.getLocation());
+			prevRules = true;
+		}
+		if (rule.getStartTime() != null && !rule.getStartTime().toString().equals("")
+				&& rule.getEndTime() != null && !rule.getEndTime().toString().equals("")) {
+			if (prevRules) {
+				sql.append("AND ");
+				message.append(" and ");
+			}
+			sql.append("TIME(NEW.ProcessingDate) BETWEEN '" + rule.getStartTime() + "' AND '" + rule.getEndTime() + "' ");
+			message.append("occurred between " + rule.getStartTime() + " to " + rule.getEndTime());
+			prevRules = true;
+		}
+		if (rule.getCategory() != null && rule.getCategory() != 0) {
+			if (prevRules) {
+				sql.append("AND ");
+				message.append(" and ");
+			}
+			sql.append("NEW.Category == " + rule.getCategory() + " ");
+			message.append("is a " + rule.getCategory() + " transaction");
+		}
+		//TODO Need to add conditionals for creating message
 		sql.append( "AND NEW.AccountNumber IN " +
 						"(SELECT AccountNumber FROM CommerceDB.Account WHERE UserID = " + rule.getUserId() + " ) " +
 					"THEN INSERT INTO CommerceDB.Notifications(TriggerID, TransactionID, Message, ReadStatus) " +
 						"VALUES((SELECT TriggerID FROM CommerceDB.Trigger WHERE TriggerName = '" + rule.getTriggerName() + "'), " +
-								"NEW.TransactionID, CONCAT('Transaction at ', NEW.Description, ' is over $" + rule.getAmount() + "'), false); " +
+								"NEW.TransactionID, CONCAT('Transaction at ', NEW.Description, '" + message + ".'), false); " +
 					"END IF; " +
 				"END");
-		
 		return sql.toString();
-		
 	}
 
 	@Override

@@ -2,8 +2,9 @@ package com.group2.commerceserver.sql;
 
 public class NotificationSql {
 	public static final String INSERT_TRIGGER = 
-			"REPLACE INTO CommerceDB.Trigger(UserID, TriggerName, TriggerType, TriggerDescription) " + 
-			"VALUES (:userId, :triggerName, :triggerType, :triggerDescription);";
+			"INSERT INTO CommerceDB.Trigger(UserID, TriggerName, TriggerType, TriggerDescription) " + 
+			"VALUES (:userId, :triggerName, :triggerType, :triggerDescription) " + 
+			"ON DUPLICATE KEY UPDATE UserID = :userId, TriggerType = :triggerType, TriggerDescription = :triggerDescription;";
 	public static final String ADD_AMOUNT_TRIGGER =
 			"DELIMITER $$ " + 
 			"USE `CommerceDB`$$ " +
