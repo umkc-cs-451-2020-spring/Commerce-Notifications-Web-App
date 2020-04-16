@@ -1,18 +1,14 @@
 package com.group2.commerceserver.models;
 
-import java.sql.Time;
-
 public class Rule {
 
 	private int userId;
 	private String triggerName;
-	private int triggerType;
-	private String triggerDescription;
 	private Float amount;
 	private String location;
-	private Time startTime;
-	private Time endTime;
-	private Integer category;
+	private String startTime;
+	private String endTime;
+	private String category;
 	
 	public Rule() {
 	}
@@ -29,18 +25,6 @@ public class Rule {
 	public void setTriggerName(String triggerName) {
 		this.triggerName = triggerName;
 	}
-	public int getTriggerType() {
-		return triggerType;
-	}
-	public void setTriggerType(int triggerType) {
-		this.triggerType = triggerType;
-	}
-	public String getTriggerDescription() {
-		return triggerDescription;
-	}
-	public void setTriggerDescription(String triggerDescription) {
-		this.triggerDescription = triggerDescription;
-	}
 	public Float getAmount() {
 		return amount;
 	}
@@ -56,27 +40,27 @@ public class Rule {
 		this.location = location;
 	}
 
-	public Integer getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(Integer category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
-	public Time getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Time startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
-	public Time getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Time endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	

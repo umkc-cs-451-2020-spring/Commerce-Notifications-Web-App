@@ -38,12 +38,14 @@ public class NotificationDAOImpl implements NotificationDAO{
 		SqlParameterSource paramSource = new MapSqlParameterSource()
 				.addValue("userId", rule.getUserId())
 				.addValue("triggerName", rule.getTriggerName())
-				.addValue("triggerType", rule.getTriggerType())
-				.addValue("triggerDescription", rule.getTriggerDescription())
-				.addValue("amount", rule.getAmount());
+				.addValue("amount", rule.getAmount())
+				.addValue("location", rule.getLocation())
+				.addValue("startTime", rule.getStartTime())
+				.addValue("endTime", rule.getEndTime())
+				.addValue("category", rule.getCategory());
 		jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + rule.getTriggerName() + ";");
 		namedParameterJdbcTemplate.update(NotificationSql.INSERT_TRIGGER, paramSource);
-		jdbcTemplate.execute(buildTriggerString(rule));
+		namedParameterJdbcTemplate.update(buildTriggerString(rule), paramSource);
 	}
 
 	//TODO Add conditions for building rule types other than Amount
@@ -54,46 +56,48 @@ public class NotificationDAOImpl implements NotificationDAO{
 					"AFTER INSERT ON CommerceDB.Transaction FOR EACH ROW " +
 					"BEGIN " +
 						"IF ");
+		message.append("CONCAT('Transaction at ', NEW.Description, ");
 		boolean prevRules = false;
 		if (rule.getAmount() != null && rule.getAmount() != 0) {
-			sql.append("NEW.Amount > " + rule.getAmount() + " ");
-			message.append("is over $" + rule.getAmount());
+			sql.append("NEW.Amount > :amount");
+			message.append("' is over $', :amount , ");
 			prevRules = true;
 		}
 		if (!rule.getLocation().isEmpty() && !rule.getLocation().equals("")) {
 			if (prevRules) {
-				sql.append("AND ");
-				message.append(" and ");
+				sql.append(" AND ");
+				message.append("' and', ");
 			}
-			//TODO If we want multiple states to be allowed we can make a do while to add an array of locations
-			sql.append("NEW.State != '" + rule.getLocation() + "' ");
-			message.append("occurred outside of " + rule.getLocation());
+			//TODO If we want multiple states to be allowed we can make for loop to add an array of locations
+			sql.append("NEW.State != :location");
+			message.append("' occurred outside of ', :location , ");
 			prevRules = true;
 		}
 		if (rule.getStartTime() != null && !rule.getStartTime().toString().equals("")
 				&& rule.getEndTime() != null && !rule.getEndTime().toString().equals("")) {
 			if (prevRules) {
-				sql.append("AND ");
-				message.append(" and ");
+				sql.append(" AND ");
+				message.append("' and', ");
 			}
-			sql.append("TIME(NEW.ProcessingDate) BETWEEN '" + rule.getStartTime() + "' AND '" + rule.getEndTime() + "' ");
-			message.append("occurred between " + rule.getStartTime() + " to " + rule.getEndTime());
+			sql.append("TIME(NEW.ProcessingDate) BETWEEN :startTime AND :endTime");
+			message.append("' occurred between ', :startTime , ' and ', :endTime , ");
 			prevRules = true;
 		}
-		if (rule.getCategory() != null && rule.getCategory() != 0) {
+		if (rule.getCategory() != null && !rule.getCategory().equals("")) {
 			if (prevRules) {
-				sql.append("AND ");
-				message.append(" and ");
+				sql.append(" AND ");
+				message.append("' and' ");
 			}
-			sql.append("NEW.Category == " + rule.getCategory() + " ");
-			message.append("is a " + rule.getCategory() + " transaction");
+			sql.append("NEW.Category = :category");
+			message.append("' is a ', :category , ' transaction', ");
 		}
+		message.append("'.')");
 		//TODO Need to add conditionals for creating message
-		sql.append( "AND NEW.AccountNumber IN " +
-						"(SELECT AccountNumber FROM CommerceDB.Account WHERE UserID = " + rule.getUserId() + " ) " +
+		sql.append( " AND NEW.AccountNumber IN " +
+						"(SELECT AccountNumber FROM CommerceDB.Account WHERE UserID = :userId ) " +
 					"THEN INSERT INTO CommerceDB.Notifications(TriggerID, TransactionID, Message, ReadStatus) " +
-						"VALUES((SELECT TriggerID FROM CommerceDB.Trigger WHERE TriggerName = '" + rule.getTriggerName() + "'), " +
-								"NEW.TransactionID, CONCAT('Transaction at ', NEW.Description, '" + message + ".'), false); " +
+						"VALUES((SELECT TriggerID FROM CommerceDB.Trigger WHERE TriggerName = :triggerName), " +
+								"NEW.TransactionID, " + message + ", false); " +
 					"END IF; " +
 				"END");
 		return sql.toString();
