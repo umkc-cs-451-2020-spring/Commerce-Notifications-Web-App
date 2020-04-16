@@ -13,29 +13,43 @@ import { LocationComponent } from '../location/location.component';
 })
 export class RuleComponent implements OnInit {
 
-  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal) {}
+  amount: string;
+  cat: string; 
+  loc: string; 
+  beginTime: string; 
+  endTime: string; 
+
+  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal) {
+   }
 
   ngOnInit(): void {
   }
+  addRule() {
+    console.log(this.amount);
+    console.log(this.cat);
+    console.log(this.loc); 
+    console.log(this.beginTime, this.endTime); 
 
-  openAmount() {
-    console.log("Amount");
-    const modalRef = this.modalService.open(AmountComponent);
   }
 
-  openLocation(){
-    console.log("Location")
-    const modalRef = this.modalService.open(LocationComponent);
-  }
+  // openAmount() {
+  //   console.log("Amount");
+  //   const modalRef = this.modalService.open(AmountComponent);
+  // }
 
-  openTime(){
-    console.log("Time")
-    const modalRef = this.modalService.open(TimeComponent);
-  }
+  // openLocation(){
+  //   console.log("Location")
+  //   const modalRef = this.modalService.open(LocationComponent);
+  // }
 
-  openCategory(){
-    console.log("Category")
-    const modalRef = this.modalService.open(CategoryComponent);
-  }
+  // openTime(){
+  //   console.log("Time")
+  //   const modalRef = this.modalService.open(TimeComponent);
+  // }
+
+  // openCategory(){
+  //   console.log("Category")
+  //   const modalRef = this.modalService.open(CategoryComponent);
+  // }
 
 }
