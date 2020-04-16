@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.group2.commerceserver.models.Notification;
 
+import com.group2.commerceserver.models.Rule;
+
 public interface NotificationDAO {
 	
-	public void addNotification();
+	public void addNotification(Rule rule);
 	
 	public void editnotification(int notificationId);
 	
