@@ -5,11 +5,104 @@
     </button>
 </div>
 <div class="modal-body">
-    <button class="btn-standard" (click)="activeModal.close('Close click'); openAmount();"> Amount</button>
+    <!-- Amount -->
+    <label for="amountOver">Amount over $ </label>
+    <input type="number" min="1" step="any" [(ngModel)]="amount">
+</div>
+<div class="modal-body">
+    <!-- Category -->
+    <label for="category">Category </label>
+    <select type="category" [(ngModel)]="cat">
+        <option value="" selected="selected">Select category</option>
+        <option value="diningOut">Dining Out</option>
+        <option value="paycheck">Paycheck</option>
+        <option value="cashWithdrawal">Cash Withdrawal</option>
+        <option value="utility">Utility</option>
+        <option value="entertainment">Entertainment</option>
+        <option value="housing">Housing</option>
+        <option value="creditCardPayment">Credit Card Payment</option>
+        <option value="grocery">Grocery</option>
+        <option value="nonRecurringIncome">Non-recurring Income</option>
+        <option value="merchandise">Merchandise</option>
+        <option value="travel">Travel</option>
+        <option value="health">Health</option>
+        <option value="education">Education</option>
+    </select>
+</div>
+<div class="modal-body">
+    <!-- Location -->
+    <label for="location">Location outside of    </label>
+    <select type="location" [(ngModel)]="loc">
+        <option value="" selected="selected">Select a State</option>
+        <option value="FOREIGN">Outside of United States</option>
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        <option value="AZ">Arizona</option>
+        <option value="AR">Arkansas</option>
+        <option value="CA">California</option>
+        <option value="CO">Colorado</option>
+        <option value="CT">Connecticut</option>
+        <option value="DE">Delaware</option>
+        <option value="DC">District Of Columbia</option>
+        <option value="FL">Florida</option>
+        <option value="GA">Georgia</option>
+        <option value="HI">Hawaii</option>
+        <option value="ID">Idaho</option>
+        <option value="IL">Illinois</option>
+        <option value="IN">Indiana</option>
+        <option value="IA">Iowa</option>
+        <option value="KS">Kansas</option>
+        <option value="KY">Kentucky</option>
+        <option value="LA">Louisiana</option>
+        <option value="ME">Maine</option>
+        <option value="MD">Maryland</option>
+        <option value="MA">Massachusetts</option>
+        <option value="MI">Michigan</option>
+        <option value="MN">Minnesota</option>
+        <option value="MS">Mississippi</option>
+        <option value="MO">Missouri</option>
+        <option value="MT">Montana</option>
+        <option value="NE">Nebraska</option>
+        <option value="NV">Nevada</option>
+        <option value="NH">New Hampshire</option>
+        <option value="NJ">New Jersey</option>
+        <option value="NM">New Mexico</option>
+        <option value="NY">New York</option>
+        <option value="NC">North Carolina</option>
+        <option value="ND">North Dakota</option>
+        <option value="OH">Ohio</option>
+        <option value="OK">Oklahoma</option>
+        <option value="OR">Oregon</option>
+        <option value="PA">Pennsylvania</option>
+        <option value="RI">Rhode Island</option>
+        <option value="SC">South Carolina</option>
+        <option value="SD">South Dakota</option>
+        <option value="TN">Tennessee</option>
+        <option value="TX">Texas</option>
+        <option value="UT">Utah</option>
+        <option value="VT">Vermont</option>
+        <option value="VA">Virginia</option>
+        <option value="WA">Washington</option>
+        <option value="WV">West Virginia</option>
+        <option value="WI">Wisconsin</option>
+        <option value="WY">Wyoming</option>
+    </select>
+</div>
+<div class="modal-body">
+    <!-- Time -->
+    <label for="beginTime">Time </label>
+    <input type="time" [(ngModel)]="beginTime">
+    <label for="endTime">to </label>
+    <input type="time" [(ngModel)]="endTime">
+
+    <!-- <button class="btn-standard" (click)="activeModal.close('Close click'); openAmount();"> Amount</button>
     <button class="btn-standard" (click)="activeModal.close('Close click'); openLocation();"> Location </button>
     <button class="btn-standard" (click)="activeModal.close('Close click'); openTime();"> Time </button>
-    <button class="btn-standard" (click)="activeModal.close('Close click'); openCategory();"> Category </button>
+    <button class="btn-standard" (click)="activeModal.close('Close click'); openCategory();"> Category </button> -->
 </div>
 <div class="modal-footer">
+    <label class="btn-standard" (click)="addRule(); activeModal.close('Close click');" ngbButtonLabel>
+        Add Rule
+     </label>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
 </div>
