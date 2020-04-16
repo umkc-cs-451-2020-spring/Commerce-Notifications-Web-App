@@ -1,6 +1,5 @@
 package com.group2.commerceserver.models;
 
-
 public class Notification {
 	
 

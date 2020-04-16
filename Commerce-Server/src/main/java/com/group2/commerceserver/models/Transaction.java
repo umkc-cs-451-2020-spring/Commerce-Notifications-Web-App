@@ -17,7 +17,7 @@ public class Transaction {
 	private String processingDate;
 	  
 	private int transactionType;
-	
+
 	private int category;
 
 	
@@ -151,6 +151,4 @@ public class Transaction {
 	public void setCategory(int category) {
 		this.category = category;
 	}
-
-
 }
