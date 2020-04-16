@@ -17,7 +17,7 @@
           <td class="left">{{ transaction.accountNumber }}</td>
           <td class="left">{{ transaction.processingDate | date:'medium'}}</td>
           <td class="left">{{ transaction.description }}</td>
-          <td class="right">{{transaction.transactionType === 1 ? '+' : '-' }}
+          <td class="right">{{transaction.transactionType === 1 ? '-' : '+' }}
             {{ transaction.amount | currency }}
         </td>
           <td class="right">{{ transaction.balance | currency }}</td>
@@ -26,18 +26,6 @@
       </tbody>
     </table>
   </div>
-  <div class="d-flex justify-content-between p-2">
-    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
-    </ngb-pagination>
-  
-    <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
-      <option [ngValue]="10">10 transactions per page</option>
-      <option [ngValue]="25">25 transactions per page</option>
-      <option [ngValue]="50">50 transactions per page</option>
-      <option [ngValue]="-1">Show all transactions</option>
-    </select>
-  </div>
-
   <hr>
   <td><label class="btn-standard" ngbButtonLabel> Export to Excel </label></td>
   <td><label class="btn-standard" ngbButtonLabel> Add Transaction </label></td>
