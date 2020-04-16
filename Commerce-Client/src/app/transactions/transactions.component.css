@@ -1,0 +1,21 @@
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.red {
+  color: red; 
+}
+
+.black{
+  color: black; 
+}
+
+.table-scroll {
+  overflow-y: auto;
+  height: 600px;
+
+}

@@ -1,42 +1,23 @@
 package com.group2.commerceserver.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="Transactions")
 public class Transaction {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer transactionId;
 	
-	@Column(name="AccountNumber")
 	private Integer accountNumber;
 	
-	@Column(name="Description")
 	private String description;
 	
-	@Column(name="Balance")
 	private float balance;
-	  
-	@Column(name="Amount")
+
 	private Float amount;
 	  
-	@Column(name="State")
 	private String state;
 	  
-	@Column(name="ProcessingDate")
 	private String processingDate;
 	  
-	@Column(name="TransactionType")
-	private String transactionType;
-	
-	@Column(name="Category")
+	private int transactionType;
+
 	private int category;
 
 	
@@ -97,7 +78,7 @@ public class Transaction {
 	/**
 	 * @return the transactionType
 	 */
-	public String getTransactionType() {
+	public int getTransactionType() {
 		return transactionType;
 	}
 	
@@ -160,7 +141,7 @@ public class Transaction {
 	/**
 	 * @param transactionType the transactionType to set
 	 */
-	public void setTransactionType(String transactionType) {
+	public void setTransactionType(int transactionType) {
 		this.transactionType = transactionType;
 	}
 
@@ -170,5 +151,4 @@ public class Transaction {
 	public void setCategory(int category) {
 		this.category = category;
 	}
-
 }

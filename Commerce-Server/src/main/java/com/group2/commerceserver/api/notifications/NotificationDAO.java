@@ -3,6 +3,7 @@ package com.group2.commerceserver.api.notifications;
 import java.util.List;
 
 import com.group2.commerceserver.models.Notification;
+
 import com.group2.commerceserver.models.Rule;
 
 public interface NotificationDAO {
