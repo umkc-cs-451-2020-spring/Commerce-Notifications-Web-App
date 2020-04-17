@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { TransactionsComponent } from '../transactions/transactions.component';
 import { RuleComponent } from '../rule/rule.component';
+import { Trigger } from '../models/trigger';
+import { NotificationService } from '../services/notification.service';
 
 interface Notification {
   name: string;
@@ -20,7 +22,7 @@ const NOTIFICATIONS: Notification[] = [
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
-  notifications = NOTIFICATIONS;
+  triggers: Trigger[];
   public isCollapsed = false;
   model = {
     new: true,
@@ -36,7 +38,10 @@ export class NotificationsComponent implements OnInit {
   fromDate: NgbDate;
   toDate: NgbDate;
 
-  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private modalService: NgbModal) {
+  constructor(private notificationService: NotificationService,
+              private calendar: NgbCalendar,
+              public formatter: NgbDateParserFormatter,
+              private modalService: NgbModal) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
    }
@@ -44,12 +49,19 @@ export class NotificationsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getTriggers() {
+    this.notificationService.getTransactions(1).subscribe(trigger => {
+      this.triggers = trigger;
+    });
+  }
+
   openRule() {
     const modalRef = this.modalService.open(RuleComponent);
   }
 
-  openTransactions(notification: Notification) {
-    const modalRef = this.modalService.open(TransactionsComponent, { windowClass:"transactions-modal" });
+  // TODO Make new Modal for showing notifications
+  openNotifications(trigger: Trigger) {
+    const modalRef = this.modalService.open(TransactionsComponent, { windowClass: 'transactions-modal' });
   }
 
   onDateSelection(date: NgbDate) {

@@ -96,6 +96,11 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td>
+        <label class="btn-standard search" (click)="getTriggers()" ngbButtonLabel> Search </label>
+      </td>
+    </tr>
   </div>
 </div>
 <hr>
@@ -120,10 +125,10 @@
       </tr>
     </thead>
     <tbody class="table-body">
-      <tr *ngFor="let notification of notifications" (click)="openTransactions(notification)">
+      <tr *ngFor="let trigger of triggers" (click)="openNotifications(trigger)">
         <td><input type="checkbox"></td>
-        <td>{{ notification.name }}</td>
-        <td>{{ notification.notificationCount | number }}</td>
+        <td>{{ trigger.triggerName }}</td>
+        <td>{{ trigger.triggerCount | number }}</td>
         <td><img class="edit-ico" src="/assets/img/edit.svg" alt="Edit"></td>
         <td><img class="trash-ico" src="/assets/img/trash.svg" alt="Delete"></td>
       </tr>

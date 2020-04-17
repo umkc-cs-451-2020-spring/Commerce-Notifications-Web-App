@@ -30,7 +30,8 @@ CREATE TABLE `Transaction` (
 CREATE TABLE `Trigger` (
   `TriggerID` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `UserID` INT NOT NULL,
-  `TriggerName` VARCHAR(31) UNIQUE NOT NULL
+  `TriggerName` VARCHAR(31) UNIQUE NOT NULL,
+  `TriggerCount` INT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE `Notifications` (
@@ -52,7 +53,6 @@ ALTER TABLE `Notifications` ADD FOREIGN KEY (`TriggerID`) REFERENCES `Trigger` (
 ALTER TABLE `Notifications` ADD FOREIGN KEY (`TransactionID`) REFERENCES `Transaction` (`TransactionID`);
 
 DELIMITER $$
-USE `CommerceDB`$$
 CREATE DEFINER = `commerce-notifications`@`%` TRIGGER `CommerceDB`.`GET_TRANSACTION_BALANCE` BEFORE INSERT ON `Transaction` FOR EACH ROW
 BEGIN
 	IF NEW.TransactionType = 1 THEN SET NEW.Balance = ( SELECT Balance FROM Account WHERE AccountNumber = NEW.AccountNumber ) - NEW.Amount;
