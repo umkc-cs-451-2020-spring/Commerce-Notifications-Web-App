@@ -125,10 +125,12 @@
       </tr>
     </thead>
     <tbody class="table-body">
-      <tr *ngFor="let trigger of triggers" (click)="openNotifications(trigger)">
+      <tr *ngFor="let trigger of triggers">
         <td><input type="checkbox"></td>
         <td>{{ trigger.triggerName }}</td>
-        <td>{{ trigger.triggerCount | number }}</td>
+        <td>{{ trigger.triggerCount | number }} 
+          <label class="btn-standard search" (click)="openNotifications(trigger.triggerID)" ngbButtonLabel> Open </label>
+        </td>
         <td><img class="edit-ico" src="/assets/img/edit.svg" alt="Edit"></td>
         <td><img class="trash-ico" src="/assets/img/trash.svg" alt="Delete"></td>
       </tr>

@@ -5,17 +5,6 @@ import { RuleComponent } from '../rule/rule.component';
 import { Trigger } from '../models/trigger';
 import { NotificationService } from '../services/notification.service';
 
-interface Notification {
-  name: string;
-  notificationCount: number;
-}
-
-const NOTIFICATIONS: Notification[] = [
-  {name: 'Transaction amount over $500', notificationCount: 4},
-  {name: 'Transaction from out of state', notificationCount: 1},
-  {name: 'Duplicate Transactions', notificationCount: 2},
-  {name: 'Transaction occured between 2:00 am and 6:00 am', notificationCount: 0},
-];
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -60,7 +49,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   // TODO Make new Modal for showing notifications
-  openNotifications(trigger: Trigger) {
+  openNotifications(triggerID: number) {
     const modalRef = this.modalService.open(TransactionsComponent, { windowClass: 'transactions-modal' });
   }
 
