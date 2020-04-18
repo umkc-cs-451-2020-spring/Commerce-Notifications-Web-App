@@ -1,38 +1,38 @@
 <div class="modal-header">
-    <h4 class="modal-title">Please select rule to add</h4>
+    <h4 class="modal-title">Create a new notification rule</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
+    <span aria-hidden="true">&times;</span>
     </button>
+</div>
+<div class="modal-body">
+    <!-- Name -->
+    <label>New rule name: </label>
+    <input [(ngModel)]="rule.triggerName">
 </div>
 <div class="modal-body">
     <!-- Amount -->
     <label for="amountOver">Amount over $ </label>
-    <input type="number" min="1" step="any" [(ngModel)]="amount">
+    <input type="number" min="1" step="any" [(ngModel)]="rule.amount">
 </div>
 <div class="modal-body">
     <!-- Category -->
     <label for="category">Category </label>
-    <select type="category" [(ngModel)]="cat">
+    <select type="category" [(ngModel)]="rule.category">
         <option value="" selected="selected">Select category</option>
-        <option value="diningOut">Dining Out</option>
-        <option value="paycheck">Paycheck</option>
-        <option value="cashWithdrawal">Cash Withdrawal</option>
-        <option value="utility">Utility</option>
-        <option value="entertainment">Entertainment</option>
-        <option value="housing">Housing</option>
-        <option value="creditCardPayment">Credit Card Payment</option>
-        <option value="grocery">Grocery</option>
-        <option value="nonRecurringIncome">Non-recurring Income</option>
-        <option value="merchandise">Merchandise</option>
-        <option value="travel">Travel</option>
-        <option value="health">Health</option>
-        <option value="education">Education</option>
+        <option value="Food">Food</option>
+        <option value="Finances">Finances</option>
+        <option value="Auto">Auto</option>
+        <option value="Utilities">Utilities</option>
+        <option value="Subscriptions">Subscriptions</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Activities">Activities</option>
+        <option value="Health/Insurance">Health/Insurance</option>
     </select>
 </div>
 <div class="modal-body">
     <!-- Location -->
     <label for="location">Location outside of    </label>
-    <select type="location" [(ngModel)]="loc">
+    <select type="location" [(ngModel)]="rule.location">
         <option value="" selected="selected">Select a State</option>
         <option value="FOREIGN">Outside of United States</option>
         <option value="AL">Alabama</option>
@@ -91,14 +91,9 @@
 <div class="modal-body">
     <!-- Time -->
     <label for="beginTime">Time </label>
-    <input type="time" [(ngModel)]="beginTime">
+    <ngb-timepicker [(ngModel)]="rule.startTime" [meridian]="startMeridian"></ngb-timepicker>
     <label for="endTime">to </label>
-    <input type="time" [(ngModel)]="endTime">
-
-    <!-- <button class="btn-standard" (click)="activeModal.close('Close click'); openAmount();"> Amount</button>
-    <button class="btn-standard" (click)="activeModal.close('Close click'); openLocation();"> Location </button>
-    <button class="btn-standard" (click)="activeModal.close('Close click'); openTime();"> Time </button>
-    <button class="btn-standard" (click)="activeModal.close('Close click'); openCategory();"> Category </button> -->
+    <ngb-timepicker [(ngModel)]="rule.endTime" [meridian]="endMeridian"></ngb-timepicker>
 </div>
 <div class="modal-footer">
     <label class="btn-standard" (click)="addRule(); activeModal.close('Close click');" ngbButtonLabel>
@@ -106,3 +101,9 @@
      </label>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
 </div>
+<!-- <hr>
+<pre>Amount: {{ rule.amount }}</pre>
+<pre>Category: {{ rule.category }}</pre>
+<pre>Location: {{ rule.location }}</pre>
+<pre>Selected time: {{ rule.startTime }}</pre>
+<pre>Selected time: {{ rule.endTime }}</pre> -->

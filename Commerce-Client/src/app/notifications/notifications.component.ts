@@ -2,25 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { TransactionsComponent } from '../transactions/transactions.component';
 import { RuleComponent } from '../rule/rule.component';
+import { Trigger } from '../models/trigger';
+import { NotificationService } from '../services/notification.service';
+import { GlobalVariables } from '../common/global-variables';
 
-interface Notification {
-  name: string;
-  notificationCount: number;
-}
-
-const NOTIFICATIONS: Notification[] = [
-  {name: 'Transaction amount over $500', notificationCount: 4},
-  {name: 'Transaction from out of state', notificationCount: 1},
-  {name: 'Duplicate Transactions', notificationCount: 2},
-  {name: 'Transaction occured between 2:00 am and 6:00 am', notificationCount: 0},
-];
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
-  notifications = NOTIFICATIONS;
+  triggers: Trigger[];
   public isCollapsed = false;
   model = {
     new: true,
@@ -36,7 +28,10 @@ export class NotificationsComponent implements OnInit {
   fromDate: NgbDate;
   toDate: NgbDate;
 
-  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter, private modalService: NgbModal) {
+  constructor(private notificationService: NotificationService,
+              private calendar: NgbCalendar,
+              public formatter: NgbDateParserFormatter,
+              private modalService: NgbModal) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
    }
@@ -44,12 +39,19 @@ export class NotificationsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getTriggers() {
+    this.notificationService.getTriggers(GlobalVariables.loggedInUserId).subscribe(trigger => {
+      this.triggers = trigger;
+    });
+  }
+
   openRule() {
     const modalRef = this.modalService.open(RuleComponent);
   }
 
-  openTransactions(notification: Notification) {
-    const modalRef = this.modalService.open(TransactionsComponent, { windowClass:"transactions-modal" });
+  // TODO Make new Modal for showing notifications
+  openNotifications(triggerID: number) {
+    const modalRef = this.modalService.open(TransactionsComponent, { windowClass: 'transactions-modal' });
   }
 
   onDateSelection(date: NgbDate) {
