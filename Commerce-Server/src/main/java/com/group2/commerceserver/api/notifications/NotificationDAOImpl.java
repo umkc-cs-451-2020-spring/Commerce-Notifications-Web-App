@@ -51,7 +51,9 @@ public class NotificationDAOImpl implements NotificationDAO{
         jdbcTemplate.update(sql, "params here");		
 	}
 
-	//TODO Add conditions for building rule types other than Amount
+	/* Kory Overbay - Function takes in rule parameters from user input
+	 * and builds a sql script to add a trigger that matches the conditions provided
+	 */
 	private String buildTriggerString(Rule rule) {
 		StringBuilder sql = new StringBuilder();
 		StringBuilder message = new StringBuilder();

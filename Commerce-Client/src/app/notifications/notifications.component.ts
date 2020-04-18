@@ -39,7 +39,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   getTriggers() {
-    this.notificationService.getTransactions(1).subscribe(trigger => {
+    this.notificationService.getTriggers(1).subscribe(trigger => {
       this.triggers = trigger;
     });
   }
