@@ -4,6 +4,7 @@ import { TransactionsComponent } from '../transactions/transactions.component';
 import { RuleComponent } from '../rule/rule.component';
 import { Trigger } from '../models/trigger';
 import { NotificationService } from '../services/notification.service';
+import { GlobalVariables } from '../common/global-variables';
 
 @Component({
   selector: 'app-notifications',
@@ -39,7 +40,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   getTriggers() {
-    this.notificationService.getTriggers(1).subscribe(trigger => {
+    this.notificationService.getTriggers(GlobalVariables.loggedInUserId).subscribe(trigger => {
       this.triggers = trigger;
     });
   }

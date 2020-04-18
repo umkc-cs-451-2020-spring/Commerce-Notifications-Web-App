@@ -2,6 +2,7 @@ import { Component, OnInit, Injectable} from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbTimeAdapter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Rule } from '../models/rule';
 import { NotificationService } from '../services/notification.service';
+import { GlobalVariables } from '../common/global-variables';
 
 @Component({
   selector: 'app-rule',
@@ -14,7 +15,7 @@ export class RuleComponent implements OnInit {
   endMeridian = true;
 
   constructor(public activeModal: NgbActiveModal, private notificationService: NotificationService) {
-    this.rule.userId = 2;
+    this.rule.userId = GlobalVariables.loggedInUserId;
   }
 
   ngOnInit(): void {
