@@ -1,10 +1,8 @@
-import { Component, OnInit} from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AmountComponent } from '../amount/amount.component';
-import { CategoryComponent } from '../category/category.component';
-import { TimeComponent } from '../time/time.component';
-import { LocationComponent } from '../location/location.component';
-
+import { Component, OnInit, Injectable} from '@angular/core';
+import { NgbActiveModal, NgbModal, NgbTimeAdapter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Rule } from '../models/rule';
+import { NotificationService } from '../services/notification.service';
+import { GlobalVariables } from '../common/global-variables';
 
 @Component({
   selector: 'app-rule',
@@ -12,44 +10,40 @@ import { LocationComponent } from '../location/location.component';
   styleUrls: ['./rule.component.css']
 })
 export class RuleComponent implements OnInit {
+  rule = new Rule();
+  startMeridian = true;
+  endMeridian = true;
 
-  amount: string;
-  cat: string; 
-  loc: string; 
-  beginTime: string; 
-  endTime: string; 
-
-  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal) {
-   }
+  constructor(public activeModal: NgbActiveModal, private notificationService: NotificationService) {
+    this.rule.userId = GlobalVariables.loggedInUserId;
+  }
 
   ngOnInit(): void {
   }
-  addRule() {
-    console.log(this.amount);
-    console.log(this.cat);
-    console.log(this.loc); 
-    console.log(this.beginTime, this.endTime); 
 
+  addRule() {
+    this.notificationService.addRule(this.rule).subscribe(response => console.log(response));
   }
 
-  // openAmount() {
-  //   console.log("Amount");
-  //   const modalRef = this.modalService.open(AmountComponent);
-  // }
+}
 
-  // openLocation(){
-  //   console.log("Location")
-  //   const modalRef = this.modalService.open(LocationComponent);
-  // }
+const pad = (i: number): string => i < 10 ? `0${i}` : `${i}`;
+@Injectable()
+export class NgbTimeStringAdapter extends NgbTimeAdapter<string> {
 
-  // openTime(){
-  //   console.log("Time")
-  //   const modalRef = this.modalService.open(TimeComponent);
-  // }
+  fromModel(value: string| null): NgbTimeStruct | null {
+    if (!value) {
+      return null;
+    }
+    const split = value.split(':');
+    return {
+      hour: parseInt(split[0], 10),
+      minute: parseInt(split[1], 10),
+      second: parseInt(split[2], 10)
+    };
+  }
 
-  // openCategory(){
-  //   console.log("Category")
-  //   const modalRef = this.modalService.open(CategoryComponent);
-  // }
-
+  toModel(time: NgbTimeStruct | null): string | null {
+    return time != null ? `${pad(time.hour)}:${pad(time.minute)}:${pad(time.second)}` : null;
+  }
 }
