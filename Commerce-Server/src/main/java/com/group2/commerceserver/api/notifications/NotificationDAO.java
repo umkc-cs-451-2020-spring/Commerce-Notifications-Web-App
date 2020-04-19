@@ -9,7 +9,7 @@ import com.group2.commerceserver.models.Trigger;
 public interface NotificationDAO {
 	
 	public void addTrigger(Rule rule);
-	
+
 	public void editTrigger(int triggerId);
 	
 	public void deleteTrigger(int triggerId);
