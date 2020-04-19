@@ -9,9 +9,9 @@ public class Notification {
 
     private String description;
 
-    private float balance;
+    private Double balance;
 
-    private Float amount;
+    private Double amount;
 
     private String state;
 
@@ -76,14 +76,14 @@ public class Notification {
 	/**
 	 * @return the balance
 	 */
-	public float getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
 	/**
 	 * @return the amount
 	 */
-	public Float getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
@@ -153,14 +153,14 @@ public class Notification {
 	/**
 	 * @param balance the balance to set
 	 */
-	public void setBalance(float balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
 
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(Float amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
