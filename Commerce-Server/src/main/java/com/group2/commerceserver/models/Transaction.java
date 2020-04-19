@@ -8,9 +8,9 @@ public class Transaction {
 	
 	private String description;
 	
-	private float balance;
+	private Double balance;
 
-	private Float amount;
+	private Double amount;
 	  
 	private String state;
 	  
@@ -50,14 +50,14 @@ public class Transaction {
 	/**
 	 * @return the balance
 	 */
-	public Float getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
 	/**
 	 * @return the amount
 	 */
-	public Float getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
@@ -111,16 +111,16 @@ public class Transaction {
 	}
 	
 	/**
-	 * @param balance the balance to set
+	 * @param d the balance to set
 	 */
-	public void setBalance(Float balance) {
-		this.balance = balance;
+	public void setBalance(double d) {
+		this.balance = d;
 	}
 
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(Float amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
