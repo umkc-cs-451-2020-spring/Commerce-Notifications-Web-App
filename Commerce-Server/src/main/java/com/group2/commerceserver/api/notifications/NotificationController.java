@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group2.commerceserver.models.Notification;
 import com.group2.commerceserver.models.Rule;
 import com.group2.commerceserver.models.Trigger;
 
@@ -30,6 +31,12 @@ public class NotificationController {
 	@GetMapping("/get/{id}/triggers")
 	public List<Trigger> getTriggersByUser(@PathVariable(value = "id") int userId) {
 		return notificationDAO.getTriggers(userId);
+		
+	}
+	
+	@GetMapping("/get/{id}/transactions")
+	public List<Notification> getNotificationsByTriggerId(@PathVariable(value = "id") int triggerId) {
+		return notificationDAO.getNotifications(triggerId);
 		
 	}
 }
