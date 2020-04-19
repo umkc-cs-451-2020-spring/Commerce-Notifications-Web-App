@@ -1,27 +1,13 @@
 package com.group2.commerceserver.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="Account")
 public class Account {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+
 	private int accountNumber;
-	
-	@Column(name="UserID")
+
 	private int userId;
-	
-	@Column(name="AccountType")
+
 	private int accountType;
-	
-	@Column(name="Balance")
+
 	private double balance;
 
 	/**

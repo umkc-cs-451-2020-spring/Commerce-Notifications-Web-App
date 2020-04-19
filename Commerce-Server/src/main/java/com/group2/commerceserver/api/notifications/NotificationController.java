@@ -34,7 +34,7 @@ public class NotificationController {
 		
 	}
 	
-	@GetMapping("/get/{id}/notificaitons")
+	@GetMapping("/get/{id}/notifications")
 	public List<Notification> getNotificationsByTriggerId(@PathVariable(value = "id") int triggerId) {
 		return notificationDAO.getNotifications(triggerId);
 		

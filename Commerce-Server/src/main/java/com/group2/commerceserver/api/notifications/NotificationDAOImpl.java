@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import com.group2.commerceserver.models.Notification;
 import com.group2.commerceserver.models.Rule;
-import com.group2.commerceserver.models.Transaction;
 import com.group2.commerceserver.models.Trigger;
 import com.group2.commerceserver.rowmappers.NotificationRowMapper;
 import com.group2.commerceserver.rowmappers.TriggerRowMapper;
