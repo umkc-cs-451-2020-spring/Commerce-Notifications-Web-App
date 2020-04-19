@@ -36,6 +36,7 @@ public class NotificationDAOImpl implements NotificationDAO{
 				.addValue("userId", rule.getUserId())
 				.addValue("triggerName", rule.getTriggerName())
 				.addValue("amount", rule.getAmount())
+				.addValue("balance", rule.getBalance())
 				.addValue("location", rule.getLocation())
 				.addValue("startTime", rule.getStartTime())
 				.addValue("endTime", rule.getEndTime())
@@ -68,7 +69,16 @@ public class NotificationDAOImpl implements NotificationDAO{
 			message.append("' is over $', :amount , ");
 			prevRules = true;
 		}
-		if (!rule.getLocation().isEmpty() && !rule.getLocation().equals("")) {
+		if (rule.getBalance() != null && rule.getBalance() != 0) {
+			if (prevRules) {
+				sql.append(" AND ");
+				message.append("' and', ");
+			}
+			sql.append("NEW.Balance < :balance");
+			message.append("' made balance in account #', NEW.AccountNumber, ' under $', :balance , ");
+			prevRules = true;
+		}
+		if (rule.getLocation() != null && !rule.getLocation().isEmpty()) {
 			if (prevRules) {
 				sql.append(" AND ");
 				message.append("' and', ");
@@ -78,8 +88,8 @@ public class NotificationDAOImpl implements NotificationDAO{
 			message.append("' occurred outside of ', :location , ");
 			prevRules = true;
 		}
-		if (rule.getStartTime() != null && !rule.getStartTime().toString().equals("")
-				&& rule.getEndTime() != null && !rule.getEndTime().toString().equals("")) {
+		if (rule.getStartTime() != null && !rule.getStartTime().isEmpty()
+				&& rule.getEndTime() != null && !rule.getEndTime().isEmpty()) {
 			if (prevRules) {
 				sql.append(" AND ");
 				message.append("' and', ");
@@ -88,7 +98,7 @@ public class NotificationDAOImpl implements NotificationDAO{
 			message.append("' occurred between ', :startTime , ' and ', :endTime , ");
 			prevRules = true;
 		}
-		if (rule.getCategory() != null && !rule.getCategory().equals("")) {
+		if (rule.getCategory() != null && !rule.getCategory().isEmpty()) {
 			if (prevRules) {
 				sql.append(" AND ");
 				message.append("' and' ");

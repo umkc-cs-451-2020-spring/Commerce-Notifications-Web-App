@@ -11,8 +11,13 @@
 </div>
 <div class="modal-body">
     <!-- Amount -->
-    <label for="amountOver">Amount over $ </label>
+    <label for="amount">Transaction amount over $ </label>
     <input type="number" min="1" step="any" [(ngModel)]="rule.amount">
+</div>
+<div class="modal-body">
+    <!-- Balance -->
+    <label for="balance">Account balance under $ </label>
+    <input type="number" min="1" step="any" [(ngModel)]="rule.balance">
 </div>
 <div class="modal-body">
     <!-- Category -->
