@@ -33,7 +33,7 @@ public class TransactionController {
 	}
 	
 	@PostMapping("/add")
-	public void addTransaction(@RequestBody Transaction transaction) {
-		transactionDAO.addTransaction(transaction);
+	public int addTransaction(@RequestBody Transaction transaction) {
+		return transactionDAO.addTransaction(transaction);
 	}
 }

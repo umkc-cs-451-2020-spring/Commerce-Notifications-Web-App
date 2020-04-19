@@ -29,7 +29,7 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
 	
 	@Override
-	public void addTransaction(Transaction transaction) {
+	public int addTransaction(Transaction transaction) {
 
 		SqlParameterSource paramSource = new MapSqlParameterSource()
 				.addValue("accountNumber", transaction.getAccountNumber())
@@ -39,7 +39,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 				.addValue("processingDate", transaction.getProcessingDate())
 				.addValue("transactionType", transaction.getTransactionType())
 				.addValue("category", transaction.getCategory());
-		namedParameterJdbcTemplate.update(TransactionSql.INSERT_TRANSACTION, paramSource);
+		return namedParameterJdbcTemplate.update(TransactionSql.INSERT_TRANSACTION, paramSource);
 	}
 
 	@Override
