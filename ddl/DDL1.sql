@@ -1,16 +1,15 @@
 USE CommerceDB;
 
-INSERT INTO User ( Username, Password, Email, Phone ) VALUE ( 'bobert78', 'securepassword1', 'bob.roberts@outlook.com', '18168994323');
-INSERT INTO User ( Username, Password, Email, Phone ) VALUE ( 'hsmith85', 'supermom', 'helenasmith@outlook.com', '18164863585');
+INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'bobert78', 'securepassword1', 'bob.roberts@outlook.com', '18168994323');
+INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'hsmith85', 'supermom', 'helenasmith@outlook.com', '18164863585');
 
-INSERT INTO Account ( UserID, AccountType, Balance ) VALUES ( 1, 1, 5000.00 );
-INSERT INTO Account ( UserID, AccountType, Balance ) VALUES ( 2, 2, 5340.28 );
-INSERT INTO Account ( UserID, AccountType, Balance ) VALUES ( 2, 2, 0.00 );
-#STR_TO_DATE(CONCAT('2019-11-03 ', SEC_TO_TIME(FLOOR(TIME_TO_SEC('15:00:00') + RAND() * (TIME_TO_SEC(TIMEDIFF('00:00:00', '23:59:59')))))), '%Y-%m-%d %H:%i:%s') 
-#Inserts for User 1 Checking
-#CR(Deposit) DR(Withdrawal) Categories(1: Food, 2: Finances, 3: Auto, 4: Utilities, 5: Subscriptions, 6: Shopping, 7: Activities, 8: Health/Insurance)
-INSERT INTO Transaction( AccountNumber, ProcessingDate, TransactionType, Amount, Description, Category, State ) VALUES
- #Inserts for User 1 Checking
+#AccountTypes: Checking: 0, Savings: 1
+INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 1, 0, 5000.00 );
+INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 2, 0, 5340.28 );
+INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 2, 1, 0.00 );
+
+#Deposit: 0, Withdrawal: 1. Categories(1: Food, 2: Finances, 3: Auto, 4: Utilities, 5: Subscriptions, 6: Shopping, 7: Activities, 8: Health/Insurance)
+INSERT IGNORE INTO Transaction( AccountNumber, ProcessingDate, TransactionType, Amount, Description, Category, State ) VALUES
 (3,'2016-11-01 04:48:52',0,25.00,'Cash Deposit','Finances','MO'),
 (2,'2016-11-02 02:56:47',1,200.00,'Verizon','Utilities','MO'),
 (2,'2016-11-02 10:20:06',1,18.24,'Panda Express','Food','MO'),

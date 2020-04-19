@@ -5,6 +5,7 @@ public class Rule {
 	private int userId;
 	private String triggerName;
 	private Float amount;
+	private Float balance;
 	private String location;
 	private String startTime;
 	private String endTime;
@@ -62,6 +63,14 @@ public class Rule {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public Float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Float balance) {
+		this.balance = balance;
 	}
 	
 }
