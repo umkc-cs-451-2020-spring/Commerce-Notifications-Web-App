@@ -18,5 +18,5 @@ public interface NotificationDAO {
 	
 	public void markAsRead(int notificationId);
 	
-	public List<Notification> getNotifications(int getNotifications);
+	public List<Notification> getNotifications(int triggerId);
 }

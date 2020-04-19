@@ -13,7 +13,9 @@ import org.springframework.stereotype.Repository;
 
 import com.group2.commerceserver.models.Notification;
 import com.group2.commerceserver.models.Rule;
+import com.group2.commerceserver.models.Transaction;
 import com.group2.commerceserver.models.Trigger;
+import com.group2.commerceserver.rowmappers.NotificationRowMapper;
 import com.group2.commerceserver.rowmappers.TriggerRowMapper;
 import com.group2.commerceserver.sql.NotificationSql;
 
@@ -138,8 +140,9 @@ public class NotificationDAOImpl implements NotificationDAO{
 	}
 
 	@Override
-	public List<Notification> getNotifications(int notificationId) {
-		return null;
+	public List<Notification> getNotifications(int triggerId) {
+	    String sql = NotificationSql.GET_NOTIFICATIONS;
+		return jdbcTemplate.query(sql, new Object[] { triggerId }, new NotificationRowMapper());
 	}
 
 
