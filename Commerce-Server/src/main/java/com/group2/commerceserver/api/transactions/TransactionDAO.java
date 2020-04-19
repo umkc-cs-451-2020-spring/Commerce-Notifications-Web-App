@@ -6,7 +6,7 @@ import com.group2.commerceserver.models.Transaction;
 
 public interface TransactionDAO {
 	
-	public void saveOrUpdate(Transaction transaction);
+	public void addTransaction(Transaction transaction);
 	
     public void delete(int transactionId);
     

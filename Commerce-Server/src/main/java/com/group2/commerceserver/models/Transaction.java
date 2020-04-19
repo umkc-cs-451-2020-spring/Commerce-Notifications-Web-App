@@ -18,7 +18,7 @@ public class Transaction {
 	  
 	private int transactionType;
 
-	private int category;
+	private String category;
 
 	
 	//Empty constructor
@@ -85,7 +85,7 @@ public class Transaction {
 	/**
 	 * @return the category
 	 */
-	public int getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
@@ -148,7 +148,7 @@ public class Transaction {
 	/**
 	 * @param category the category to set
 	 */
-	public void setCategory(int category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 }
