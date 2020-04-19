@@ -16,8 +16,8 @@ public class NotificationRowMapper implements RowMapper<Notification> {
 		notification.setAccountNumber( rs.getInt("AccountNumber") );
 		notification.setProcessingDate( rs.getString("ProcessingDate") );
 		notification.setDescription( rs.getString("Description") );
-		notification.setAmount( rs.getFloat("Amount") );
-		notification.setBalance( rs.getFloat("Balance") );
+		notification.setAmount( rs.getDouble("Amount") );
+		notification.setBalance( rs.getDouble("Balance") );
 		return notification;
 	}
 }
