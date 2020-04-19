@@ -6,6 +6,9 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.group2.commerceserver.models.Transaction;
@@ -18,27 +21,25 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
+	@Autowired
+	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
 	public TransactionDAOImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 	
 	@Override
-	public void saveOrUpdate(Transaction transaction) {
-		if (transaction.getTransactionId() > 0) {
-	        // update
-	        String sql = "UPDATE Transaction SET AccountNumber=?, Description=?, Amount=?, State=?, "
-	        		+ "ProcessingDate=?, TransactionType=?, Category=?, RedStatus=? WHERE TransactionID=?";
-	        jdbcTemplate.update(sql, transaction.getAccountNumber(), transaction.getDescription(), transaction.getAmount(),
-	        		transaction.getState(), transaction.getProcessingDate(), transaction.getTransactionType(), transaction.getTransactionId(),
-	        		transaction.getCategory());
-	    } else {
-	        // Insert Statement
-	        String sql = "INSERT INTO Transaction( AccountNumber, Description, Amount, State, ProcessingDate, TransactionType, Category )"
-	                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-	        jdbcTemplate.update(sql, transaction.getAccountNumber(), transaction.getDescription(), transaction.getAmount(),
-	        		transaction.getState(), transaction.getProcessingDate(), transaction.getTransactionType(), transaction.getCategory());
-	    }
-	
+	public void addTransaction(Transaction transaction) {
+
+		SqlParameterSource paramSource = new MapSqlParameterSource()
+				.addValue("accountNumber", transaction.getAccountNumber())
+				.addValue("description", transaction.getDescription())
+				.addValue("amount", transaction.getAmount())
+				.addValue("state", transaction.getState())
+				.addValue("processingDate", transaction.getProcessingDate())
+				.addValue("transactionType", transaction.getTransactionType())
+				.addValue("category", transaction.getCategory());
+		namedParameterJdbcTemplate.update(TransactionSql.INSERT_TRANSACTION, paramSource);
 	}
 
 	@Override
