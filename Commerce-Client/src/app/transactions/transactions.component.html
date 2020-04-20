@@ -28,5 +28,9 @@
   </div>
   <hr>
   <td><label class="btn-standard" ngbButtonLabel> Export to Excel </label></td>
-  <td><label class="btn-standard" ngbButtonLabel> Add Transaction </label></td>
+  <td>
+  <label class="btn-standard" (click)="openNewTransaction()" ngbButtonLabel>
+    <img class="add-ico" src="/assets/img/add.svg" alt=""> Add New Transaction 
+  </label>
+</td>
 </div>

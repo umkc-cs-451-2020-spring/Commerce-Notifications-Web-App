@@ -12,6 +12,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { FormsModule } from '@angular/forms';
 import { RuleComponent, NgbTimeStringAdapter } from './rule/rule.component';
+import { NewTransactionComponent } from './new-transaction/new-transaction.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RuleComponent, NgbTimeStringAdapter } from './rule/rule.component';
     LoginComponent,
     NavigationComponent,
     NotificationsComponent,
-    RuleComponent
+    RuleComponent,
+    NewTransactionComponent
   ],
   imports: [
     BrowserModule,
