@@ -1,7 +1,6 @@
 package com.group2.commerceserver.models;
 
 public class Notification {
-	
 
 	private Integer notificationId;
 
@@ -13,13 +12,11 @@ public class Notification {
 
     private Double amount;
 
-    private String state;
+    private Double amount;
 
     private String processingDate;
 
     private int transactionType;
-
-    private Integer transactionId;
 
     private String message;
 
@@ -36,13 +33,6 @@ public class Notification {
 	 */
 	public Integer getNotificationId() {
 		return notificationId;
-	}
-
-	/**
-	 * @return the transactionId
-	 */
-	public Integer getTransactionId() {
-		return transactionId;
 	}
 
 	/**
@@ -88,13 +78,6 @@ public class Notification {
 	}
 
 	/**
-	 * @return the state
-	 */
-	public String getState() {
-		return state;
-	}
-
-	/**
 	 * @return the processingDate
 	 */
 	public String getProcessingDate() {
@@ -113,13 +96,6 @@ public class Notification {
 	 */
 	public void setNotificationId(Integer notificationId) {
 		this.notificationId = notificationId;
-	}
-
-	/**
-	 * @param transactionId the transactionId to set
-	 */
-	public void setTransactionId(Integer transactionId) {
-		this.transactionId = transactionId;
 	}
 
 	/**
@@ -162,13 +138,6 @@ public class Notification {
 	 */
 	public void setAmount(Double amount) {
 		this.amount = amount;
-	}
-
-	/**
-	 * @param state the state to set
-	 */
-	public void setState(String state) {
-		this.state = state;
 	}
 
 	/**

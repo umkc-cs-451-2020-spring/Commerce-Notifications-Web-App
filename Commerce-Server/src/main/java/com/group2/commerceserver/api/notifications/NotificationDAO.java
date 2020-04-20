@@ -9,10 +9,8 @@ import com.group2.commerceserver.models.Trigger;
 public interface NotificationDAO {
 	
 	public void addTrigger(Rule rule);
-
-	public void editTrigger(int triggerId);
 	
-	public void deleteTrigger(int triggerId);
+	public void deleteTrigger(int triggerId, String triggerName);
 
 	public List<Trigger> getTriggers(int userId);
 	

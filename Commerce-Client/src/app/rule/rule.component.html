@@ -1,12 +1,12 @@
 <div class="modal-header">
-    <h4 class="modal-title">Create a new notification rule</h4>
+    <h4 class="modal-title"> {{ triggerId === 0 ? 'Create a new notification rule' : 'Edit ' + triggerName }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
     <!-- Name -->
-    <label>New rule name: </label>
+    <label> {{ triggerId === 0 ? 'New rule name: ' : 'Edit rule name: ' }}</label>
     <input [(ngModel)]="rule.triggerName">
 </div>
 <div class="modal-body">
@@ -35,7 +35,6 @@
     </select>
 </div>
 <div class="modal-body">
-    <!-- Location -->
     <label for="location">Location outside of    </label>
     <select type="location" [(ngModel)]="rule.location">
         <option value="" selected="selected">Select a State</option>
@@ -102,13 +101,7 @@
 </div>
 <div class="modal-footer">
     <label class="btn-standard" (click)="addRule(); activeModal.close('Close click');" ngbButtonLabel>
-        Add Rule
+        {{ triggerId === 0 ? 'Add Rule' : 'Edit Rule' }}
      </label>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
 </div>
-<!-- <hr>
-<pre>Amount: {{ rule.amount }}</pre>
-<pre>Category: {{ rule.category }}</pre>
-<pre>Location: {{ rule.location }}</pre>
-<pre>Selected time: {{ rule.startTime }}</pre>
-<pre>Selected time: {{ rule.endTime }}</pre> -->
