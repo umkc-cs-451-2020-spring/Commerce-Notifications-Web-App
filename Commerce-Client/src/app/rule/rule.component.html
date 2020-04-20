@@ -35,7 +35,6 @@
     </select>
 </div>
 <div class="modal-body">
-    <!-- Location -->
     <label for="location">Location outside of    </label>
     <select type="location" [(ngModel)]="rule.location">
         <option value="" selected="selected">Select a State</option>
@@ -106,9 +105,3 @@
      </label>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
 </div>
-<!-- <hr>
-<pre>Amount: {{ rule.amount }}</pre>
-<pre>Category: {{ rule.category }}</pre>
-<pre>Location: {{ rule.location }}</pre>
-<pre>Selected time: {{ rule.startTime }}</pre>
-<pre>Selected time: {{ rule.endTime }}</pre> -->

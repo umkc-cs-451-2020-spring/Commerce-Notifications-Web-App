@@ -1,0 +1,132 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add Transaction</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+  <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+  <!-- User ID -->
+  <!-- Account Number -->
+  <div class="modal-body">
+    <label for="accountNumber"> Account Number </label>
+    <input type="number" min="1" step="any" [(ngModel)]="newTransaction.accountNumber">
+</div>
+  <!-- Processing Date -->
+  <!-- <form class="form-inline">
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control" placeholder="dd/mm/yyyy"
+               name="d2" #c2="ngModel" [(ngModel)]="model" ngbDatepicker #d2="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+        </div>
+      </div>
+    </div>
+  </form> -->
+  <div class="modal-body">
+    <label>Date: </label>
+    <input [(ngModel)]="newTransaction.processingDate">
+</div>
+  
+
+  <!-- Amount -->
+  <div class="modal-body">
+    <!-- Amount -->
+    <label for="amount"> Transaction Amount $ </label>
+    <input type="number" min="1" step="any" [(ngModel)]="newTransaction.amount">
+</div>
+  <!-- Description -->
+  <div class="modal-body">
+    <label>Description: </label>
+    <input [(ngModel)]="newTransaction.description">
+</div>
+  <!-- Category -->
+<div class="modal-body">
+  <label for="category">Category </label>
+  <select type="category" [(ngModel)]="newTransaction.category">
+      <option value="" selected="selected">Select category</option>
+      <option value="Food">Food</option>
+      <option value="Finances">Finances</option>
+      <option value="Auto">Auto</option>
+      <option value="Utilities">Utilities</option>
+      <option value="Subscriptions">Subscriptions</option>
+      <option value="Shopping">Shopping</option>
+      <option value="Activities">Activities</option>
+      <option value="Health/Insurance">Health/Insurance</option>
+  </select>
+</div>
+<!-- State -->
+<div class="modal-body">
+  <label for="state">Location </label>
+  <select type="location" [(ngModel)]="newTransaction.state">
+      <option value="" selected="selected">Select a State</option>
+      <option value="FOREIGN">Outside of United States</option>
+      <option value="AL">Alabama</option>
+      <option value="AK">Alaska</option>
+      <option value="AZ">Arizona</option>
+      <option value="AR">Arkansas</option>
+      <option value="CA">California</option>
+      <option value="CO">Colorado</option>
+      <option value="CT">Connecticut</option>
+      <option value="DE">Delaware</option>
+      <option value="DC">District Of Columbia</option>
+      <option value="FL">Florida</option>
+      <option value="GA">Georgia</option>
+      <option value="HI">Hawaii</option>
+      <option value="ID">Idaho</option>
+      <option value="IL">Illinois</option>
+      <option value="IN">Indiana</option>
+      <option value="IA">Iowa</option>
+      <option value="KS">Kansas</option>
+      <option value="KY">Kentucky</option>
+      <option value="LA">Louisiana</option>
+      <option value="ME">Maine</option>
+      <option value="MD">Maryland</option>
+      <option value="MA">Massachusetts</option>
+      <option value="MI">Michigan</option>
+      <option value="MN">Minnesota</option>
+      <option value="MS">Mississippi</option>
+      <option value="MO">Missouri</option>
+      <option value="MT">Montana</option>
+      <option value="NE">Nebraska</option>
+      <option value="NV">Nevada</option>
+      <option value="NH">New Hampshire</option>
+      <option value="NJ">New Jersey</option>
+      <option value="NM">New Mexico</option>
+      <option value="NY">New York</option>
+      <option value="NC">North Carolina</option>
+      <option value="ND">North Dakota</option>
+      <option value="OH">Ohio</option>
+      <option value="OK">Oklahoma</option>
+      <option value="OR">Oregon</option>
+      <option value="PA">Pennsylvania</option>
+      <option value="RI">Rhode Island</option>
+      <option value="SC">South Carolina</option>
+      <option value="SD">South Dakota</option>
+      <option value="TN">Tennessee</option>
+      <option value="TX">Texas</option>
+      <option value="UT">Utah</option>
+      <option value="VT">Vermont</option>
+      <option value="VA">Virginia</option>
+      <option value="WA">Washington</option>
+      <option value="WV">West Virginia</option>
+      <option value="WI">Wisconsin</option>
+      <option value="WY">Wyoming</option>
+  </select>
+</div>
+<!-- Transaction Type -->
+<div class="modal-body">
+  <label for="transactionType">Transaction Type  </label>
+  <select type="category" [(ngModel)]="newTransaction.transactionType">
+      <option value="" selected="selected">Select category</option>
+      <option value="0">Deposit</option>
+      <option value="1">Withdrawal</option>
+  </select>
+</div>
+
+<div class="modal-footer">
+    <label class="btn-standard" (click)="addNewTransaction(); activeModal.close('Close click');"
+    ngbButtonLabel>
+        Add New Transaction
+     </label>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>
