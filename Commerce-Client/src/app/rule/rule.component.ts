@@ -1,10 +1,8 @@
-import { Component, OnInit} from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AmountComponent } from '../amount/amount.component';
-import { CategoryComponent } from '../category/category.component';
-import { TimeComponent } from '../time/time.component';
-import { LocationComponent } from '../location/location.component';
-
+import { Component, OnInit, Injectable, Input} from '@angular/core';
+import { NgbActiveModal, NgbTimeAdapter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Rule } from '../models/rule';
+import { NotificationService } from '../services/notification.service';
+import { GlobalVariables } from '../common/global-variables';
 
 @Component({
   selector: 'app-rule',
@@ -12,30 +10,47 @@ import { LocationComponent } from '../location/location.component';
   styleUrls: ['./rule.component.css']
 })
 export class RuleComponent implements OnInit {
+  @Input() public triggerId;
+  @Input() public triggerName;
+  rule = new Rule();
+  startMeridian = true;
+  endMeridian = true;
 
-  constructor(public activeModal: NgbActiveModal, private modalService: NgbModal) {}
+  constructor(public activeModal: NgbActiveModal, private notificationService: NotificationService) {
+    this.rule.userId = GlobalVariables.loggedInUserId;
+  }
 
   ngOnInit(): void {
+    this.rule.triggerId = this.triggerId;
+    this.rule.oldTriggerName = this.triggerName;
   }
 
-  openAmount() {
-    console.log("Amount");
-    const modalRef = this.modalService.open(AmountComponent);
+  addRule() {
+    if (this.triggerId === 0) {
+      this.notificationService.addRule(this.rule).subscribe(response => console.log(response));
+    } else {
+      this.notificationService.editRule(this.rule).subscribe(response => console.log(response));
+    }
+  }
+}
+
+const pad = (i: number): string => i < 10 ? `0${i}` : `${i}`;
+@Injectable()
+export class NgbTimeStringAdapter extends NgbTimeAdapter<string> {
+
+  fromModel(value: string| null): NgbTimeStruct | null {
+    if (!value) {
+      return null;
+    }
+    const split = value.split(':');
+    return {
+      hour: parseInt(split[0], 10),
+      minute: parseInt(split[1], 10),
+      second: parseInt(split[2], 10)
+    };
   }
 
-  openLocation(){
-    console.log("Location")
-    const modalRef = this.modalService.open(LocationComponent);
+  toModel(time: NgbTimeStruct | null): string | null {
+    return time != null ? `${pad(time.hour)}:${pad(time.minute)}:${pad(time.second)}` : null;
   }
-
-  openTime(){
-    console.log("Time")
-    const modalRef = this.modalService.open(TimeComponent);
-  }
-
-  openCategory(){
-    console.log("Category")
-    const modalRef = this.modalService.open(CategoryComponent);
-  }
-
 }

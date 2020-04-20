@@ -1,16 +1,16 @@
 package com.group2.commerceserver.api.transactions;
 
-import com.group2.commerceserver.model.Transaction;
-
 import java.util.List;
+
+import com.group2.commerceserver.models.Transaction;
 
 public interface TransactionDAO {
 	
-	public void saveOrUpdate(Transaction transaction);
+	public void addTransaction(Transaction transaction);
 	
     public void delete(int transactionId);
     
-    public Transaction get(int transactionId);
+    public List<Transaction> getUserTransactions(int userId);
      
     public List<Transaction> list();
 }

@@ -1,47 +1,45 @@
 package com.group2.commerceserver.api.transactions;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.group2.commerceserver.model.Transaction;
+import com.group2.commerceserver.models.Transaction;
+import com.group2.commerceserver.rowmappers.TransactionRowMapper;
+import com.group2.commerceserver.sql.TransactionSql;
 
 @Repository
 public class TransactionDAOImpl implements TransactionDAO {
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	public TransactionDAOImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 	
 	@Override
-	public void saveOrUpdate(Transaction transaction) {
-		if (transaction.getTransactionId() > 0) {
-	        // update
-	        String sql = "UPDATE Transaction SET AccountNumber=?, Description=?, Amount=?, State=?, "
-	        		+ "ProcessingDate=?, TransactionType=?, Category=?, RedStatus=? WHERE TransactionID=?";
-	        jdbcTemplate.update(sql, transaction.getAccountNumber(), transaction.getDescription(), transaction.getAmount(),
-	        		transaction.getState(), transaction.getProcessingDate(), transaction.getTransactionType(), transaction.getTransactionId(),
-	        		transaction.getCategory());
-	    } else {
-	        // Insert Statement
-	        String sql = "INSERT INTO Transaction( AccountNumber, Description, Amount, State, ProcessingDate, TransactionType, Category )"
-	                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-	        jdbcTemplate.update(sql, transaction.getAccountNumber(), transaction.getDescription(), transaction.getAmount(),
-	        		transaction.getState(), transaction.getProcessingDate(), transaction.getTransactionType(), transaction.getCategory());
-	    }
-	
+	public void addTransaction(Transaction transaction) {
+
+		SqlParameterSource paramSource = new MapSqlParameterSource()
+				.addValue("accountNumber", transaction.getAccountNumber())
+				.addValue("description", transaction.getDescription())
+				.addValue("amount", transaction.getAmount())
+				.addValue("state", transaction.getState())
+				.addValue("processingDate", transaction.getProcessingDate())
+				.addValue("transactionType", transaction.getTransactionType())
+				.addValue("category", transaction.getCategory());
+		namedParameterJdbcTemplate.update(TransactionSql.INSERT_TRANSACTION, paramSource);
 	}
 
 	@Override
@@ -52,56 +50,15 @@ public class TransactionDAOImpl implements TransactionDAO {
 	}
 
 	@Override
-	public Transaction get(int transactionId) {
-	    String sql = "SELECT * FROM Transaction WHERE TransactionID=" + transactionId;
-	    return jdbcTemplate.query(sql, new ResultSetExtractor<Transaction>() {
-	 
-	        @Override
-	        public Transaction extractData(ResultSet rs) throws SQLException,
-	                DataAccessException {
-	            if (rs.next()) {
-	            	Transaction transaction = new Transaction();
-	      
-		        	transaction.setTransactionId(rs.getInt("TransactionID"));
-		        	transaction.setAccountNumber(rs.getInt("AccountNumber"));
-		        	transaction.setDescription(rs.getString("Description"));
-		        	transaction.setAmount(rs.getFloat("Amount"));
-		        	transaction.setState(rs.getString("State"));
-		        	transaction.setProcessingDate(rs.getString("Date"));
-		        	transaction.setTransactionType(rs.getString("TransactionType"));
-		        	transaction.setCategory(rs.getInt("Category"));
-		 
-		            return transaction;
-	            }
-	 
-	            return null;
-	        }
-	 
-	    });
+	public List<Transaction> getUserTransactions(int userId) {
+	    String sql = TransactionSql.GET_USER_TRANSACTIONS;
+	    return jdbcTemplate.query(sql, new Object[] { userId }, new TransactionRowMapper());
 	}
 
 	@Override
 	public List<Transaction> list() {
 		String sql = "SELECT * FROM Transaction";
-	    List<Transaction> listTransaction = jdbcTemplate.query(sql, new RowMapper<Transaction>() {
-	 
-	        @Override
-	        public Transaction mapRow(ResultSet rs, int rowNum) throws SQLException {
-	        	Transaction transaction = new Transaction();
-	 
-	        	transaction.setTransactionId(rs.getInt("TransactionID"));
-	        	transaction.setAccountNumber(rs.getInt("AccountNumber"));
-	        	transaction.setDescription(rs.getString("Description"));
-	        	transaction.setAmount(rs.getFloat("Amount"));
-	        	transaction.setState(rs.getString("State"));
-	        	transaction.setProcessingDate(rs.getString("ProcessingDate"));
-	        	transaction.setTransactionType(rs.getString("TransactionType"));
-	        	transaction.setCategory(rs.getInt("Category"));
-
-	            return transaction;
-	        }
-	 
-	    });
+	    List<Transaction> listTransaction = jdbcTemplate.query(sql, new TransactionRowMapper());
 	 
 	    return listTransaction;
 	}

@@ -1,40 +1,24 @@
-package com.group2.commerceserver.model;
+package com.group2.commerceserver.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="Transactions")
 public class Transaction {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer transactionId;
 	
-	@Column(name="AccountNumber")
 	private Integer accountNumber;
 	
-	@Column(name="Description")
 	private String description;
+	
+	private Double balance;
+
+	private Double amount;
 	  
-	@Column(name="Amount")
-	private Float amount;
-	  
-	@Column(name="State")
 	private String state;
 	  
-	@Column(name="ProcessingDate")
 	private String processingDate;
 	  
-	@Column(name="TransactionType")
-	private String transactionType;
-	
-	@Column(name="Category")
-	private int category;
+	private int transactionType;
+
+	private String category;
 
 	
 	//Empty constructor
@@ -62,11 +46,18 @@ public class Transaction {
 	public String getDescription() {
 		return description;
 	}
+	
+	/**
+	 * @return the balance
+	 */
+	public Double getBalance() {
+		return balance;
+	}
 
 	/**
 	 * @return the amount
 	 */
-	public Float getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
@@ -87,14 +78,14 @@ public class Transaction {
 	/**
 	 * @return the transactionType
 	 */
-	public String getTransactionType() {
+	public int getTransactionType() {
 		return transactionType;
 	}
 	
 	/**
 	 * @return the category
 	 */
-	public int getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
@@ -118,11 +109,18 @@ public class Transaction {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	/**
+	 * @param d the balance to set
+	 */
+	public void setBalance(double d) {
+		this.balance = d;
+	}
 
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(Float amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
@@ -143,15 +141,14 @@ public class Transaction {
 	/**
 	 * @param transactionType the transactionType to set
 	 */
-	public void setTransactionType(String transactionType) {
+	public void setTransactionType(int transactionType) {
 		this.transactionType = transactionType;
 	}
 
 	/**
 	 * @param category the category to set
 	 */
-	public void setCategory(int category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
-
 }

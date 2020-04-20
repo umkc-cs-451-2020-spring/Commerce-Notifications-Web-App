@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Transaction } from '../models/Transaction';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-type': 'application/json'})
@@ -10,8 +11,9 @@ const httpOptions = {
 })
 export class TransactionService {
     // Endpoints
+    private addTransactionsUrl = 'api/transactions/add'; 
     private testSpringUrl = 'api/transactions/test';
-    private getTransactionsUrl = 'api/transactions/1';
+    private getTransactionsUrl = 'api/transactions/';
 
     constructor(private http: HttpClient) { }
 
@@ -19,7 +21,11 @@ export class TransactionService {
         return this.http.get<any>(this.testSpringUrl);
     }
 
-    getTransactions() {
-        return this.http.get<any>(this.getTransactionsUrl);
+    getTransactions(userId: number) {
+        return this.http.get<any>(this.getTransactionsUrl + userId);
+    }
+
+    addNewTransaction(newTransaction: Transaction) {
+        return this.http.post<any>(this.addTransactionsUrl, newTransaction);
     }
 }
