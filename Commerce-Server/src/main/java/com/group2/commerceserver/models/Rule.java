@@ -1,9 +1,11 @@
 package com.group2.commerceserver.models;
 
 public class Rule {
-
+	
+	private int triggerId;
 	private int userId;
 	private String triggerName;
+	private String oldTriggerName;
 	private Float amount;
 	private Float balance;
 	private String location;
@@ -22,6 +24,12 @@ public class Rule {
 	}
 	public String getTriggerName() {
 		return triggerName;
+	}
+	public void setOldTriggerName(String oldTriggerName) {
+		this.oldTriggerName = oldTriggerName;
+	}
+	public String getOldTriggerName() {
+		return oldTriggerName;
 	}
 	public void setTriggerName(String triggerName) {
 		this.triggerName = triggerName;
@@ -71,6 +79,14 @@ public class Rule {
 
 	public void setBalance(Float balance) {
 		this.balance = balance;
+	}
+
+	public int getTriggerId() {
+		return triggerId;
+	}
+
+	public void setTriggerId(int triggerId) {
+		this.triggerId = triggerId;
 	}
 	
 }
