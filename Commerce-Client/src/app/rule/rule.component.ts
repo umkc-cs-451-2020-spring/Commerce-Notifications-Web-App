@@ -1,5 +1,5 @@
-import { Component, OnInit, Injectable} from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbTimeAdapter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Injectable, Input} from '@angular/core';
+import { NgbActiveModal, NgbTimeAdapter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Rule } from '../models/rule';
 import { NotificationService } from '../services/notification.service';
 import { GlobalVariables } from '../common/global-variables';
@@ -10,6 +10,8 @@ import { GlobalVariables } from '../common/global-variables';
   styleUrls: ['./rule.component.css']
 })
 export class RuleComponent implements OnInit {
+  @Input() public triggerId;
+  @Input() public triggerName;
   rule = new Rule();
   startMeridian = true;
   endMeridian = true;
@@ -19,12 +21,17 @@ export class RuleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.rule.triggerId = this.triggerId;
+    this.rule.oldTriggerName = this.triggerName;
   }
 
   addRule() {
-    this.notificationService.addRule(this.rule).subscribe(response => console.log(response));
+    if (this.triggerId === 0) {
+      this.notificationService.addRule(this.rule).subscribe(response => console.log(response));
+    } else {
+      this.notificationService.editRule(this.rule).subscribe(response => console.log(response));
+    }
   }
-
 }
 
 const pad = (i: number): string => i < 10 ? `0${i}` : `${i}`;

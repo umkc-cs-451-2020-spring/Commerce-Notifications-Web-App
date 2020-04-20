@@ -98,7 +98,7 @@
     </tr>
     <tr>
       <td>
-        <label class="btn-standard search" (click)="getTriggers()" ngbButtonLabel> Search </label>
+        <label class="btn-standard search" (click)="getRules()" ngbButtonLabel> Search </label>
       </td>
     </tr>
   </div>
@@ -106,12 +106,6 @@
 <hr>
 <!-- Notifications Table -->
 <div class="table-responsive">
-  <td>
-    <!-- Add New Rule Button -->
-    <label class="btn-standard" (click)="openRule()" ngbButtonLabel>
-      <img class="add-ico" src="/assets/img/add.svg" alt=""> Add New Rule 
-    </label>
-  </td>
   <!-- Table -->
   <table 
     class="table table-striped table-bordered">
@@ -131,11 +125,17 @@
         <td>{{ trigger.triggerCount | number }} 
           <label class="btn-standard search" (click)="openNotifications(trigger.triggerID)" ngbButtonLabel> Open </label>
         </td>
-        <td><img class="edit-ico" src="/assets/img/edit.svg" alt="Edit"></td>
-        <td><img class="trash-ico" src="/assets/img/trash.svg" alt="Delete"></td>
+        <td><img class="edit-ico" src="/assets/img/edit.svg" alt="Edit" (click)="openRule(trigger.triggerID, trigger.triggerName)"></td>
+        <td><img class="trash-ico" src="/assets/img/trash.svg" alt="Delete" (click) ="deleteRule(trigger.triggerID, trigger.triggerName)"></td>
       </tr>
     </tbody>
   </table>
+  <td>
+    <!-- Add New Rule Button -->
+    <label class="btn-standard" (click)="openRule(0, '')" ngbButtonLabel>
+      <img class="add-ico" src="/assets/img/add.svg" alt=""> Add New Rule 
+    </label>
+  </td>
   <td>
     <!-- Export to Excel Button -->
     <label class="btn-standard" ngbButtonLabel>
