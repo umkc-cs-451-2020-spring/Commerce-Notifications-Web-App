@@ -12,6 +12,8 @@ public class Notification {
 
     private Double amount;
 
+    private Double amount;
+
     private String processingDate;
 
     private int transactionType;
