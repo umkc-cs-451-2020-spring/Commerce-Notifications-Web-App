@@ -5,13 +5,26 @@ public class Notification {
 
 	private Integer notificationId;
 
-	private Integer triggerId;
+    private Integer accountNumber;
+
+    private String description;
+
+    private Double balance;
+
+    private Double amount;
+
+    private String state;
+
+    private String processingDate;
+
+    private int transactionType;
+
+    private Integer transactionId;
+
+    private String message;
+
+    private boolean readStatus;
 	
-	private Integer transactionId;
-	
-	private String message;
-	
-	private boolean readStatus;
 	
 	//Empty constructor
 	public Notification() {
@@ -23,13 +36,6 @@ public class Notification {
 	 */
 	public Integer getNotificationId() {
 		return notificationId;
-	}
-
-	/**
-	 * @return the triggerId
-	 */
-	public Integer getTriggerId() {
-		return triggerId;
 	}
 
 	/**
@@ -52,19 +58,61 @@ public class Notification {
 	public boolean isReadStatus() {
 		return readStatus;
 	}
+	
+	/**
+	 * @return the accountNumber
+	 */
+	public Integer getAccountNumber() {
+		return accountNumber;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @return the balance
+	 */
+	public Double getBalance() {
+		return balance;
+	}
+
+	/**
+	 * @return the amount
+	 */
+	public Double getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @return the state
+	 */
+	public String getState() {
+		return state;
+	}
+
+	/**
+	 * @return the processingDate
+	 */
+	public String getProcessingDate() {
+		return processingDate;
+	}
+
+	/**
+	 * @return the transactionType
+	 */
+	public int getTransactionType() {
+		return transactionType;
+	}
 
 	/**
 	 * @param notificationId the notificationId to set
 	 */
 	public void setNotificationId(Integer notificationId) {
 		this.notificationId = notificationId;
-	}
-
-	/**
-	 * @param triggerId the triggerId to set
-	 */
-	public void setTriggerId(Integer triggerId) {
-		this.triggerId = triggerId;
 	}
 
 	/**
@@ -86,6 +134,55 @@ public class Notification {
 	 */
 	public void setReadStatus(boolean readStatus) {
 		this.readStatus = readStatus;
+	}
+
+	/**
+	 * @param accountNumber the accountNumber to set
+	 */
+	public void setAccountNumber(Integer accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @param balance the balance to set
+	 */
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
+
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	/**
+	 * @param processingDate the processingDate to set
+	 */
+	public void setProcessingDate(String processingDate) {
+		this.processingDate = processingDate;
+	}
+
+	/**
+	 * @param transactionType the transactionType to set
+	 */
+	public void setTransactionType(int transactionType) {
+		this.transactionType = transactionType;
 	}
 	
 }
