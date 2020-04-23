@@ -43,24 +43,9 @@ public class TransactionDAOImpl implements TransactionDAO {
 	}
 
 	@Override
-	public void delete(int transactionId) {
-		String sql = "DELETE FROM Transaction WHERE TransactionID=?";
-		jdbcTemplate.update(sql, transactionId);
-		
-	}
-
-	@Override
 	public List<Transaction> getUserTransactions(int userId) {
 	    String sql = TransactionSql.GET_USER_TRANSACTIONS;
 	    return jdbcTemplate.query(sql, new Object[] { userId }, new TransactionRowMapper());
-	}
-
-	@Override
-	public List<Transaction> list() {
-		String sql = "SELECT * FROM Transaction";
-	    List<Transaction> listTransaction = jdbcTemplate.query(sql, new TransactionRowMapper());
-	 
-	    return listTransaction;
 	}
 
 }
