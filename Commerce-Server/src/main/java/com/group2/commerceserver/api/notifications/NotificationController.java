@@ -44,12 +44,15 @@ public class NotificationController {
 	@GetMapping("/get/{id}/rules")
 	public List<Trigger> getRulesByUser(@PathVariable(value = "id") int userId) {
 		return notificationDAO.getTriggers(userId);
-		
 	}
 	
 	@GetMapping("/get/{id}/notifications")
-	public List<Notification> getNotificationsByTriggerId(@PathVariable(value = "id") int triggerId) {
+	public List<Notification> getNotifications(@PathVariable(value = "id") int triggerId) {
 		return notificationDAO.getNotifications(triggerId);
-		
+	}
+	
+	@GetMapping("/export/{id}")
+	public List<Notification> getAllNotifications(@PathVariable(name = "id") int userId) {
+		return notificationDAO.getAllNotifications(userId);
 	}
 }

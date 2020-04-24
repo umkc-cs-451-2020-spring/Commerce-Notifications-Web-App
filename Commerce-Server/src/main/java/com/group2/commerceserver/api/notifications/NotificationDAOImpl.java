@@ -138,6 +138,12 @@ public class NotificationDAOImpl implements NotificationDAO{
 	    String sql = NotificationSql.GET_NOTIFICATIONS;
 		return jdbcTemplate.query(sql, new Object[] { triggerId }, new NotificationRowMapper());
 	}
+	
+	@Override
+	public List<Notification> getAllNotifications(int userId) {
+	    String sql = NotificationSql.GET_USER_NOTIFICATIONS;
+	    return jdbcTemplate.query(sql, new Object[] { userId }, new NotificationRowMapper());
+	}
 
 
 }

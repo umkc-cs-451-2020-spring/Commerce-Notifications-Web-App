@@ -1,10 +1,11 @@
 import { Component, OnInit, NgModuleRef } from '@angular/core';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { TransactionsComponent } from '../transactions/transactions.component';
 import { RuleComponent } from '../rule/rule.component';
 import { Trigger } from '../models/trigger';
+import { Notification } from '../models/notification';
 import { NotificationService } from '../services/notification.service';
 import { GlobalVariables } from '../common/global-variables';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-notifications',
@@ -13,6 +14,7 @@ import { GlobalVariables } from '../common/global-variables';
 })
 export class NotificationsComponent implements OnInit {
   triggers: Trigger[];
+  notifications: Notification[];
   public isCollapsed = false;
   model = {
     new: true,
@@ -59,8 +61,23 @@ export class NotificationsComponent implements OnInit {
   }
 
   // TODO Make new Modal for showing notifications
-  openNotifications(triggerID: number) {
-    this.modalService.open(TransactionsComponent, { windowClass: 'transactions-modal' });
+  getNotifications(triggerID: number) {
+    this.notificationService.getNotifications(triggerID).subscribe(notifications => {
+      this.notifications = notifications;
+    });
+  }
+
+  export() {
+    let ws: XLSX.WorkSheet;
+    let wsName: string;
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+
+    this.notificationService.getAllNotifications(GlobalVariables.loggedInUserId).subscribe(notifications => {
+      ws = XLSX.utils.json_to_sheet(notifications);
+      wsName = 'User# ' + GlobalVariables.loggedInUserId + ' Notifications';
+      XLSX.utils.book_append_sheet(wb, ws, wsName);
+      XLSX.writeFile(wb, wsName + '.xlsx');
+    });
   }
 
   onDateSelection(date: NgbDate) {

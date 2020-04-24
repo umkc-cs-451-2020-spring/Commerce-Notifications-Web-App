@@ -14,7 +14,7 @@ import { GlobalVariables } from '../common/global-variables';
 export class TransactionsComponent implements OnInit {
   transactions: Transaction[];
 
-  constructor(private transactionService: TransactionService,private modalService: NgbModal) {
+  constructor(private transactionService: TransactionService, private modalService: NgbModal) {
     this.getTransactions();
 
    }
@@ -34,12 +34,12 @@ export class TransactionsComponent implements OnInit {
 
   export() {
     let ws: XLSX.WorkSheet;
-    let wb: XLSX.WorkBook = XLSX.utils.book_new();
     let wsName: string;
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
 
-    let acct1 = this.transactions[0].accountNumber;
-    let transactions1: Transaction[] = new Array();
-    let transactions2: Transaction[] = new Array();
+    const acct1 = this.transactions[0].accountNumber;
+    const transactions1: Transaction[] = new Array();
+    const transactions2: Transaction[] = new Array();
     this.transactions.forEach(row => {
       row.accountNumber === acct1 ? transactions1.push(row) : transactions2.push(row);
     });

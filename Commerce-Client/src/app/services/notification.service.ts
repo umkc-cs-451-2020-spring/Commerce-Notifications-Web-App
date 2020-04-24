@@ -14,12 +14,13 @@ export class NotificationService {
     private addRuleUrl = 'api/notifications/add';
     private editRuleUrl = 'api/notifications/edit';
     private deleteRuleUrl = 'api/notifications/delete';
-    private getRulesUrl = 'api/notifications/get';
+    private getUrl = 'api/notifications/get';
+    private exportUrl = 'api/notifications/export';
 
     constructor(private http: HttpClient) { }
 
     getRules(userId: number) {
-        const url = `${this.getRulesUrl}/${userId}/rules`;
+        const url = `${this.getUrl}/${userId}/rules`;
         return this.http.get<any>(url);
     }
 
@@ -36,5 +37,15 @@ export class NotificationService {
             .set('triggerId', triggerId.toString())
             .set('triggerName', triggerName);
         return this.http.delete<any>(this.deleteRuleUrl, {params});
+    }
+
+    getNotifications(triggerId: number) {
+        const url = `${this.getUrl}/${triggerId}/notifications`;
+        return this.http.get<any>(url);
+    }
+
+    getAllNotifications(userId: number) {
+        const url = `${this.exportUrl}/${userId}`;
+        return this.http.get<any>(url);
     }
 }
