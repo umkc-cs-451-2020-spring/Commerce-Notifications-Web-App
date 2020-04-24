@@ -53,7 +53,6 @@ public class TransactionControllerTest {
 	public void TestGetTransactionsByUser() throws Exception {
 		List<Transaction> tlist = new ArrayList<>();
 		Transaction transaction = new Transaction();
-		transaction.setTransactionId(1);
 		transaction.setAccountNumber(1);
 		transaction.setDescription("Test Transaction");
 		transaction.setBalance(40.00);

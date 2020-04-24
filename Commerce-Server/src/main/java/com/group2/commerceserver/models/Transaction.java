@@ -2,8 +2,6 @@ package com.group2.commerceserver.models;
 
 public class Transaction {
 	
-	private Integer transactionId;
-	
 	private Integer accountNumber;
 	
 	private String description;
@@ -24,13 +22,6 @@ public class Transaction {
 	//Empty constructor
 	public Transaction() {
 		
-	}
-
-	/**
-	 * @return the transactionId
-	 */
-	public Integer getTransactionId() {
-		return transactionId;
 	}
 
 	/**
@@ -87,13 +78,6 @@ public class Transaction {
 	 */
 	public String getCategory() {
 		return category;
-	}
-
-	/**
-	 * @param transactionId the transactionId to set
-	 */
-	public void setTransactionId(Integer transactionId) {
-		this.transactionId = transactionId;
 	}
 
 	/**
