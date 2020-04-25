@@ -21,12 +21,6 @@ public class TransactionController {
 	@Autowired
 	private TransactionDAO transactionDAO;
 	
-	@GetMapping("/test")
-	public String testSpring(){
-		System.out.println("Hello World");
-		return "Hello World";
-	}
-	
 	@GetMapping("/{id}")
 	public List<Transaction> getTransactionsByUser(@PathVariable(value = "id") int userId) {
 		return transactionDAO.getUserTransactions(userId);

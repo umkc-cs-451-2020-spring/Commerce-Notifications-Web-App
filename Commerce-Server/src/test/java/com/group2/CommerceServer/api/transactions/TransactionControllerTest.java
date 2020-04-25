@@ -1,6 +1,8 @@
 package com.group2.CommerceServer.api.transactions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,8 +36,7 @@ import com.group2.commerceserver.models.Transaction;
 public class TransactionControllerTest {
 
 	private MockMvc mockMvc;
-
-
+	
 	@Mock
 	private TransactionDAO transactionDAO;
 
@@ -94,17 +95,9 @@ public class TransactionControllerTest {
 		transaction.setTransactionType(1);
 		transaction.setCategory("Food");
 		
-		ObjectMapper mapper = new ObjectMapper();
-		String expectedJSONContent = "{\"accountNumber\": 1,\"description\": \"Test_Transaction\",\"amount\": 25.00,\"state\": \"MO\",\"processingDate\": \"2020/04/19 12:12:12\", \"transactionType\": 1, \"category\": \"Food\"}";
+		transactionController.addTransaction(transaction);
 
-		Mockito.when(this.transactionDAO.addTransaction(transaction)).thenReturn(1);
-
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/transactions/add")
-				.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8").content(expectedJSONContent);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andDo(print()).andExpect(status().isOk()).andReturn();
-
-		assertEquals(1, result.getResponse().getContentAsString());
+		verify(transactionDAO, times(1)).addTransaction(transaction);
 	}
 
 }
