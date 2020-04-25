@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import com.group2.commerceserver.models.Notification;
 import com.group2.commerceserver.models.Rule;
-import com.group2.commerceserver.models.Transaction;
 import com.group2.commerceserver.models.Trigger;
 import com.group2.commerceserver.rowmappers.NotificationRowMapper;
 import com.group2.commerceserver.rowmappers.TriggerRowMapper;
@@ -31,7 +30,7 @@ public class NotificationDAOImpl implements NotificationDAO{
 	public NotificationDAOImpl(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
-	
+
 	@Override
 	public void addTrigger(Rule rule) {
 		SqlParameterSource paramSource = new MapSqlParameterSource()
@@ -46,12 +45,6 @@ public class NotificationDAOImpl implements NotificationDAO{
 		jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + rule.getTriggerName() + ";");
 		namedParameterJdbcTemplate.update(NotificationSql.INSERT_TRIGGER, paramSource);
 		namedParameterJdbcTemplate.update(buildTriggerString(rule), paramSource);
-	}
-	
-	@Override
-	public void editTrigger(int triggerId) {
-		String sql = "sql statement here";
-        jdbcTemplate.update(sql, "params here");		
 	}
 
 	/* Kory Overbay - Function takes in rule parameters from user input
@@ -122,9 +115,10 @@ public class NotificationDAOImpl implements NotificationDAO{
 	}
 	
 	@Override
-	public void deleteTrigger(int triggerId) {
-		String sql = "DELETE FROM Notifications WHERE NotificationID=?";
-		jdbcTemplate.update(sql, triggerId);	
+	public void deleteTrigger(int triggerId, String triggerName) {
+		jdbcTemplate.update(NotificationSql.DELETE_NOTIFICATIONS, new Object[] { triggerId });
+		jdbcTemplate.update(NotificationSql.DELETE_TRIGGER, new Object[] { triggerId });
+		jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + triggerName + ";");
 	}
 	
 	@Override

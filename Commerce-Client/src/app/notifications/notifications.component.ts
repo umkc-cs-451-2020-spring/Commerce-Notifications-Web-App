@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModuleRef } from '@angular/core';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { TransactionsComponent } from '../transactions/transactions.component';
 import { RuleComponent } from '../rule/rule.component';
@@ -39,19 +39,28 @@ export class NotificationsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getTriggers() {
-    this.notificationService.getTriggers(GlobalVariables.loggedInUserId).subscribe(trigger => {
+  getRules() {
+    this.notificationService.getRules(GlobalVariables.loggedInUserId).subscribe(trigger => {
       this.triggers = trigger;
     });
   }
 
-  openRule() {
+  openRule(triggerId: number, triggerName: string) {
     const modalRef = this.modalService.open(RuleComponent);
+    modalRef.componentInstance.triggerId = triggerId;
+    modalRef.componentInstance.triggerName = triggerName;
+  }
+
+  deleteRule(triggerId: number, triggerName: string) {
+    this.notificationService.deleteRule(triggerId, triggerName).subscribe(response => {
+      console.log(response);
+      this.getRules();
+    });
   }
 
   // TODO Make new Modal for showing notifications
   openNotifications(triggerID: number) {
-    const modalRef = this.modalService.open(TransactionsComponent, { windowClass: 'transactions-modal' });
+    this.modalService.open(TransactionsComponent, { windowClass: 'transactions-modal' });
   }
 
   onDateSelection(date: NgbDate) {
