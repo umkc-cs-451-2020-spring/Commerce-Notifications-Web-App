@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.group2.commerceserver.models.Notification;
 import com.group2.commerceserver.models.Rule;
@@ -18,7 +18,7 @@ import com.group2.commerceserver.rowmappers.NotificationRowMapper;
 import com.group2.commerceserver.rowmappers.TriggerRowMapper;
 import com.group2.commerceserver.sql.NotificationSql;
 
-@Repository
+@Service
 public class NotificationDAOImpl implements NotificationDAO{
 	
 	@Autowired

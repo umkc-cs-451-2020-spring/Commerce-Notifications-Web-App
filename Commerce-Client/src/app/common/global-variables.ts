@@ -1,3 +1,4 @@
 export class GlobalVariables {
-    public static loggedInUserId = 2;
+    public static loggedInUserId: number;
+    public static loggedInUsername: string;
 }

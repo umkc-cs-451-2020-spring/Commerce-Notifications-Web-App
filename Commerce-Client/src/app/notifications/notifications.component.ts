@@ -41,16 +41,24 @@ export class NotificationsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isUserLoggedIn() {
+    return GlobalVariables.loggedInUserId !== undefined && GlobalVariables.loggedInUserId !== 0;
+  }
+
   getRules() {
-    this.notificationService.getRules(GlobalVariables.loggedInUserId).subscribe(trigger => {
-      this.triggers = trigger;
-    });
+    if (this.isUserLoggedIn()) {
+      this.notificationService.getRules(GlobalVariables.loggedInUserId).subscribe(trigger => {
+        this.triggers = trigger;
+      });
+    }
   }
 
   openRule(triggerId: number, triggerName: string) {
-    const modalRef = this.modalService.open(RuleComponent);
-    modalRef.componentInstance.triggerId = triggerId;
-    modalRef.componentInstance.triggerName = triggerName;
+    if (this.isUserLoggedIn()) {
+      const modalRef = this.modalService.open(RuleComponent);
+      modalRef.componentInstance.triggerId = triggerId;
+      modalRef.componentInstance.triggerName = triggerName;
+    }
   }
 
   deleteRule(triggerId: number, triggerName: string) {
@@ -68,16 +76,18 @@ export class NotificationsComponent implements OnInit {
   }
 
   export() {
-    let ws: XLSX.WorkSheet;
-    let wsName: string;
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    if (this.isUserLoggedIn()) {
+      let ws: XLSX.WorkSheet;
+      let wsName: string;
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
 
-    this.notificationService.getAllNotifications(GlobalVariables.loggedInUserId).subscribe(notifications => {
-      ws = XLSX.utils.json_to_sheet(notifications);
-      wsName = 'User# ' + GlobalVariables.loggedInUserId + ' Notifications';
-      XLSX.utils.book_append_sheet(wb, ws, wsName);
-      XLSX.writeFile(wb, wsName + '.xlsx');
-    });
+      this.notificationService.getAllNotifications(GlobalVariables.loggedInUserId).subscribe(notifications => {
+        ws = XLSX.utils.json_to_sheet(notifications);
+        wsName = GlobalVariables.loggedInUsername + '\'s Notifications';
+        XLSX.utils.book_append_sheet(wb, ws, wsName);
+        XLSX.writeFile(wb, wsName + '.xlsx');
+      });
+    }
   }
 
   onDateSelection(date: NgbDate) {
