@@ -11,18 +11,22 @@ import { TransactionService } from '../services/transaction.service';
 })
 export class TransactionsComponent implements OnInit {
   transactions: Transaction[];
-  
- 
 
-  constructor(private transactionService: TransactionService,private modalService: NgbModal) {
+  constructor(private transactionService: TransactionService, private modalService: NgbModal) {
     this.getTransactions();
 
    }
 
   ngOnInit(): void {
   }
+
+  // constructor(private route: ActivatedRoute, private router: Router) {
+  //   this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  // }
   openNewTransaction() {
     const modalRef = this.modalService.open(NewTransactionComponent);
+    modalRef.result.then(() => { this.getTransactions(); }, () => { console.log('Backdrop click'); });
+
   }
 
   // TODO Store logged in user's ID for getTransactions parameter

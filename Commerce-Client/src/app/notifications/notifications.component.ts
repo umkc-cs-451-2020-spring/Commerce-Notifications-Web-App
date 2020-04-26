@@ -49,6 +49,7 @@ export class NotificationsComponent implements OnInit {
     const modalRef = this.modalService.open(RuleComponent);
     modalRef.componentInstance.triggerId = triggerId;
     modalRef.componentInstance.triggerName = triggerName;
+    modalRef.result.then(() => { this.getRules(); }, () => { console.log('Backdrop click'); });
   }
 
   deleteRule(triggerId: number, triggerName: string) {

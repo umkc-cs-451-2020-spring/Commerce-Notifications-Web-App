@@ -1,6 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbTimeAdapter, NgbTimeStruct,NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { Transaction } from '../models/Transaction';
+import { NgbActiveModal, NgbModal, NgbTimeAdapter, NgbTimeStruct, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Transaction } from '../models/transaction';
 import { TransactionService } from '../services/transaction.service';
 import { GlobalVariables } from '../common/global-variables';
 
@@ -15,14 +15,13 @@ export class NewTransactionComponent implements OnInit {
   newTransaction = new Transaction();
   startMeridian = true;
   endMeridian = true;
-  
   constructor(public activeModal: NgbActiveModal, private transactionService: TransactionService) {
     this.newTransaction.userId = GlobalVariables.loggedInUserId;
   }
 
   ngOnInit(): void {
   }
-  
+
   addNewTransaction() {
     this.transactionService.addNewTransaction(this.newTransaction).subscribe(response => console.log(response));
   }
@@ -47,6 +46,5 @@ export class NgbTimeStringAdapter extends NgbTimeAdapter<string> {
     return time != null ? `${pad(time.hour)}:${pad(time.minute)}:${pad(time.second)}` : null;
   }
 
-  
 }
 
