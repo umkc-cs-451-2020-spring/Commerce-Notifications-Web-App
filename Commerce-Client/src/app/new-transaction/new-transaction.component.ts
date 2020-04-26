@@ -2,8 +2,6 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbTimeAdapter, NgbTimeStruct, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Transaction } from '../models/transaction';
 import { TransactionService } from '../services/transaction.service';
-import { GlobalVariables } from '../common/global-variables';
-
 
 @Component({
   selector: 'app-new-transaction',
@@ -15,8 +13,11 @@ export class NewTransactionComponent implements OnInit {
   newTransaction = new Transaction();
   startMeridian = true;
   endMeridian = true;
+<<<<<<< HEAD
+=======
+
+>>>>>>> fa5d95d4cedc093c8b263f591d148ba292d1eb6a
   constructor(public activeModal: NgbActiveModal, private transactionService: TransactionService) {
-    this.newTransaction.userId = GlobalVariables.loggedInUserId;
   }
 
   ngOnInit(): void {
