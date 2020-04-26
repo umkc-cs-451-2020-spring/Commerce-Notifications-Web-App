@@ -5,6 +5,7 @@ import { Trigger } from '../models/trigger';
 import { Notification } from '../models/notification';
 import { NotificationService } from '../services/notification.service';
 import { GlobalVariables } from '../common/global-variables';
+import { TriggeredTransactionComponent } from '../triggered-transaction/triggered-transaction.component';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -70,10 +71,10 @@ export class NotificationsComponent implements OnInit {
   }
 
   // TODO Make new Modal for showing notifications
-  getNotifications(triggerID: number) {
-    this.notificationService.getNotifications(triggerID).subscribe(notifications => {
-      this.notifications = notifications;
-    });
+  getNotifications(triggerID: number, triggerName: string) {
+    const modalRef = this.modalService.open(TriggeredTransactionComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.triggerId = triggerID;
+    modalRef.componentInstance.triggerName = triggerName;
   }
 
   export() {

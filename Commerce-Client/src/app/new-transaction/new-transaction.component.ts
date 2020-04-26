@@ -13,10 +13,7 @@ export class NewTransactionComponent implements OnInit {
   newTransaction = new Transaction();
   startMeridian = true;
   endMeridian = true;
-<<<<<<< HEAD
-=======
 
->>>>>>> fa5d95d4cedc093c8b263f591d148ba292d1eb6a
   constructor(public activeModal: NgbActiveModal, private transactionService: TransactionService) {
   }
 

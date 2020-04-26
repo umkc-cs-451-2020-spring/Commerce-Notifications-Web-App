@@ -19,6 +19,10 @@ public class Notification {
     private String message;
 
     private boolean readStatus;
+    
+    private String category; 
+    
+    private String state; 
 	
 	
 	//Empty constructor
@@ -150,6 +154,30 @@ public class Notification {
 	 */
 	public void setTransactionType(int transactionType) {
 		this.transactionType = transactionType;
+	}
+	/**
+	 * @param category the category to get
+	 */
+	public String getCategory() {
+		return category;
+	}
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	/**
+	 * @param state the state to get
+	 */
+	public String getState() {
+		return state;
+	}
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 }
