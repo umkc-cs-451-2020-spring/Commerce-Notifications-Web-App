@@ -30,6 +30,7 @@ export class TransactionsComponent implements OnInit {
   openNewTransaction() {
     if (this.isUserLoggedIn()) {
       const modalRef = this.modalService.open(NewTransactionComponent);
+      modalRef.result.then(() => { this.getTransactions(); }, () => { console.log('Backdrop click'); });
     }
   }
 
