@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbTimeAdapter, NgbTimeStruct, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbTimeAdapter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Transaction } from '../models/transaction';
 import { TransactionService } from '../services/transaction.service';
 
@@ -24,6 +24,7 @@ export class NewTransactionComponent implements OnInit {
     this.transactionService.addNewTransaction(this.newTransaction).subscribe(response => console.log(response));
   }
 }
+
 const pad = (i: number): string => i < 10 ? `0${i}` : `${i}`;
 @Injectable()
 export class NgbTimeStringAdapter extends NgbTimeAdapter<string> {

@@ -1,5 +1,5 @@
-import { Component, OnInit, NgModuleRef } from '@angular/core';
-import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { RuleComponent } from '../rule/rule.component';
 import { Trigger } from '../models/trigger';
 import { Notification } from '../models/notification';
@@ -70,7 +70,6 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
-  // TODO Make new Modal for showing notifications
   getNotifications(triggerID: number, triggerName: string) {
     const modalRef = this.modalService.open(TriggeredTransactionComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.triggerId = triggerID;

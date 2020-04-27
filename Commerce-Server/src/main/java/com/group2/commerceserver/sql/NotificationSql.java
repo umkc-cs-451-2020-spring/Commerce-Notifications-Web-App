@@ -22,7 +22,7 @@ public class NotificationSql {
 			"WHERE n.TriggerID = ?";
 	
 	public static final String GET_USER_NOTIFICATIONS =
-			"SELECT n.NotificationID, n.Message, n.ReadStatus, t.AccountNumber, t.ProcessingDate, t.Description, t.Amount, t.Balance " +
+			"SELECT n.NotificationID, n.Message, n.ReadStatus, t.AccountNumber, t.ProcessingDate, t.Description, t.Amount, t.Balance, t.State, t.Category " +
 			"FROM CommerceDB.Notifications as n JOIN CommerceDB.Transaction as t ON n.TransactionID = t.TransactionID " +
 			"WHERE n.TriggerID  IN (SELECT TriggerID FROM CommerceDB.Trigger WHERE UserID = ?) " +
 			"ORDER BY ProcessingDate;";

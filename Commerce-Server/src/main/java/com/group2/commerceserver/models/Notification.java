@@ -5,25 +5,24 @@ public class Notification {
 	private Integer notificationId;
 
     private Integer accountNumber;
+    
+    private String processingDate;
+    
+    private String message;
 
     private String description;
 
-    private Double balance;
+    private String state; 
 
     private Double amount;
-
-    private String processingDate;
+    
+    private Double balance;
 
     private int transactionType;
-
-    private String message;
-
-    private boolean readStatus;
     
     private String category; 
-    
-    private String state; 
-	
+
+    private boolean readStatus;
 	
 	//Empty constructor
 	public Notification() {
