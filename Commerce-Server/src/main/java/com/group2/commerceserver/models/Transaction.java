@@ -3,16 +3,16 @@ package com.group2.commerceserver.models;
 public class Transaction {
 	
 	private Integer accountNumber;
+
+	private String processingDate;
 	
 	private String description;
-	
-	private Double balance;
-
-	private Double amount;
 	  
 	private String state;
-	  
-	private String processingDate;
+
+	private Double amount;
+	
+	private Double balance;
 	  
 	private int transactionType;
 

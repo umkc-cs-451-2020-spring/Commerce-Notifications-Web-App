@@ -121,7 +121,7 @@
       <tr *ngFor="let trigger of triggers">
         <td>{{ trigger.triggerName }}</td>
         <td>{{ trigger.triggerCount | number }} 
-          <label class="btn-standard search" (click)="getNotifications(trigger.triggerID)" ngbButtonLabel> Open </label>
+          <label class="btn-standard search" (click)="getNotifications(trigger.triggerID, trigger.triggerName)" ngbButtonLabel> Open </label>
         </td>
         <td><img class="edit-ico" src="/assets/img/edit.svg" alt="Edit" (click)="openRule(trigger.triggerID, trigger.triggerName)"></td>
         <td><img class="trash-ico" src="/assets/img/trash.svg" alt="Delete" (click) ="deleteRule(trigger.triggerID, trigger.triggerName)"></td>

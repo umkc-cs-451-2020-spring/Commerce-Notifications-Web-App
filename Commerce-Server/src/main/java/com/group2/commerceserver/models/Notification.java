@@ -5,21 +5,24 @@ public class Notification {
 	private Integer notificationId;
 
     private Integer accountNumber;
+    
+    private String processingDate;
+    
+    private String message;
 
     private String description;
 
-    private Double balance;
+    private String state; 
 
     private Double amount;
-
-    private String processingDate;
+    
+    private Double balance;
 
     private int transactionType;
-
-    private String message;
+    
+    private String category; 
 
     private boolean readStatus;
-	
 	
 	//Empty constructor
 	public Notification() {
@@ -150,6 +153,30 @@ public class Notification {
 	 */
 	public void setTransactionType(int transactionType) {
 		this.transactionType = transactionType;
+	}
+	/**
+	 * @param category the category to get
+	 */
+	public String getCategory() {
+		return category;
+	}
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	/**
+	 * @param state the state to get
+	 */
+	public String getState() {
+		return state;
+	}
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 }

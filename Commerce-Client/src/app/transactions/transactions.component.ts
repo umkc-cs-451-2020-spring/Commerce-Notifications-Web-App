@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Transaction } from '../models/transaction';
 import { NewTransactionComponent } from '../new-transaction/new-transaction.component';
 import { TransactionService } from '../services/transaction.service';
-import * as XLSX from 'xlsx';
 import { GlobalVariables } from '../common/global-variables';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-transactions',
@@ -34,7 +34,6 @@ export class TransactionsComponent implements OnInit {
     }
   }
 
-  // TODO Store logged in user's ID for getTransactions parameter
   getTransactions() {
     this.transactionService.getTransactions(GlobalVariables.loggedInUserId).subscribe(transaction => {
       this.transactions = transaction;
@@ -50,6 +49,7 @@ export class TransactionsComponent implements OnInit {
       const acct1 = this.transactions[0].accountNumber;
       const transactions1: Transaction[] = new Array();
       const transactions2: Transaction[] = new Array();
+
       this.transactions.forEach(row => {
         row.accountNumber === acct1 ? transactions1.push(row) : transactions2.push(row);
       });

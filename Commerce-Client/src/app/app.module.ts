@@ -13,6 +13,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { FormsModule } from '@angular/forms';
 import { RuleComponent, NgbTimeStringAdapter } from './rule/rule.component';
 import { NewTransactionComponent } from './new-transaction/new-transaction.component';
+import { TriggeredTransactionComponent } from './triggered-transaction/triggered-transaction.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NewTransactionComponent } from './new-transaction/new-transaction.compo
     NavigationComponent,
     NotificationsComponent,
     RuleComponent,
-    NewTransactionComponent
+    NewTransactionComponent,
+    TriggeredTransactionComponent
   ],
   imports: [
     BrowserModule,
