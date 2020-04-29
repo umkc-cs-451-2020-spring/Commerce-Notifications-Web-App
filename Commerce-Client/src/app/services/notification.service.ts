@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Rule } from '../models/rule';
+import { Filters } from '../models/filters';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-type': 'application/json'})
@@ -14,14 +15,14 @@ export class NotificationService {
     private addRuleUrl = 'api/notifications/add';
     private editRuleUrl = 'api/notifications/edit';
     private deleteRuleUrl = 'api/notifications/delete';
-    private getUrl = 'api/notifications/get';
+    private getRulesUrl = 'api/notifications/get/rules';
+    private getNotificationsUrl = 'api/notifications/get';
     private exportUrl = 'api/notifications/export';
 
     constructor(private http: HttpClient) { }
 
-    getRules(userId: number) {
-        const url = `${this.getUrl}/${userId}/rules`;
-        return this.http.get<any>(url);
+    getRules(filters: Filters) {
+        return this.http.post<any>(this.getRulesUrl, filters);
     }
 
     addRule(rule: Rule) {
@@ -39,9 +40,9 @@ export class NotificationService {
         return this.http.delete<any>(this.deleteRuleUrl, {params});
     }
 
-    getNotifications(triggerId: number) {
-        const url = `${this.getUrl}/${triggerId}/notifications`;
-        return this.http.get<any>(url);
+    getNotifications(triggerId: number, filters: Filters) {
+        const url = `${this.getNotificationsUrl}/${triggerId}/notifications`;
+        return this.http.post<any>(url, filters);
     }
 
     getAllNotifications(userId: number) {

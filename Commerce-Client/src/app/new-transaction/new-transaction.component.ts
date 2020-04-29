@@ -1,9 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-<<<<<<< HEAD
 import { NgbActiveModal, NgbModal, NgbTimeAdapter, NgbTimeStruct, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-=======
-import { NgbActiveModal, NgbTimeAdapter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
->>>>>>> 51148369e31154803c8265752cd132c0cd80622d
 import { Transaction } from '../models/transaction';
 import { TransactionService } from '../services/transaction.service';
 

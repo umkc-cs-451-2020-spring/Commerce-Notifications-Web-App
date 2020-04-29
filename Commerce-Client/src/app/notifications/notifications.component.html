@@ -1,43 +1,11 @@
 <!-- Notification Filters -->
 <div class="card btn-group btn-group-toggle">
-  <a (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="filtersCard">{{ isCollapsed ? 'Expand' : 'Collapse' }}</a>
-  <div id="filtersCard" class='card-body' [ngbCollapse]='isCollapsed'>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.new"> New
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.amount"> Amount 
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.time"> Time
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.location"> Location
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.duplicates"> Duplicates
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.notTriggered"> Not Triggered
-    </label>
-    <!-- Category Selection-->
-    <tr>
+  <div id="filtersCard" class='card-body'>
+    <tr class="filters">
       <td>
-        <span>Category:</span>
-        <div class="row">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block">
-              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button ngbDropdownItem></button>
-                  <button ngbDropdownItem>Category 1</button>
-                  <button ngbDropdownItem>Category 2</button>
-                  <button ngbDropdownItem>Category 3</button>
-                  <button ngbDropdownItem>All</button>
-                </div>
-              </div>
-          </div>
-        </div>
+        <label class="btn-primary" ngbButtonLabel>
+          <input type="checkbox" ngbButton [(ngModel)]="filters.hasNotifications"> Has Notifications
+        </label>
       </td>
       <td>
         <!-- Date Range Selection -->
@@ -55,7 +23,7 @@
                       [displayMonths]="2"
                       [dayTemplate]="t"
                       outsideDays="hidden"
-                      [startDate]="fromDate">
+                      [startDate]="filters.startDate">
                 <ng-template #t let-date let-focused="focused">
                   <span class="custom-day"
                         [class.focused]="focused"
@@ -73,8 +41,8 @@
                 <input #dpFromDate
                       class="form-control" placeholder="yyyy-mm-dd"
                       name="dpFromDate"
-                      [value]="formatter.format(fromDate)"
-                      (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                      [value]="formatter.format(filters.startDate)"
+                      (input)="filters.startDate = validateInput(filters.startDate, dpFromDate.value)">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
                 </div>
@@ -85,8 +53,8 @@
                 <input #dpToDate
                       class="form-control" placeholder="yyyy-mm-dd"
                       name="dpToDate"
-                      [value]="formatter.format(toDate)"
-                      (input)="toDate = validateInput(toDate, dpToDate.value)">
+                      [value]="formatter.format(filters.endDate)"
+                      (input)="filters.endDate = validateInput(filters.endDate, dpToDate.value)">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
                 </div>

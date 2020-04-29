@@ -3,6 +3,7 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbModal} from '@ng-bootst
 import { RuleComponent } from '../rule/rule.component';
 import { Trigger } from '../models/trigger';
 import { Notification } from '../models/notification';
+import { Filters } from '../models/filters';
 import { NotificationService } from '../services/notification.service';
 import { GlobalVariables } from '../common/global-variables';
 import { TriggeredTransactionComponent } from '../triggered-transaction/triggered-transaction.component';
@@ -14,29 +15,21 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
+  filters: Filters;
   triggers: Trigger[];
   notifications: Notification[];
   public isCollapsed = false;
-  model = {
-    new: true,
-    amount: true,
-    time: true,
-    location: true,
-    duplicates: true,
-    notTriggered: true
-  };
 
   hoveredDate: NgbDate;
-
-  fromDate: NgbDate;
-  toDate: NgbDate;
 
   constructor(private notificationService: NotificationService,
               private calendar: NgbCalendar,
               public formatter: NgbDateParserFormatter,
               private modalService: NgbModal) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.filters = new Filters();
+    this.filters.startDate = calendar.getToday();
+    this.filters.endDate = calendar.getNext(calendar.getToday(), 'd', 10);
+
    }
 
   ngOnInit(): void {
@@ -48,7 +41,7 @@ export class NotificationsComponent implements OnInit {
 
   getRules() {
     if (this.isUserLoggedIn()) {
-      this.notificationService.getRules(GlobalVariables.loggedInUserId).subscribe(trigger => {
+      this.notificationService.getRules(this.filters).subscribe(trigger => {
         this.triggers = trigger;
       });
     }
@@ -59,6 +52,7 @@ export class NotificationsComponent implements OnInit {
       const modalRef = this.modalService.open(RuleComponent);
       modalRef.componentInstance.triggerId = triggerId;
       modalRef.componentInstance.triggerName = triggerName;
+      modalRef.componentInstance.filters = this.filters;
       modalRef.result.then(() => { this.getRules(); }, () => { console.log('Backdrop click'); });
     }
   }
@@ -92,26 +86,27 @@ export class NotificationsComponent implements OnInit {
   }
 
   onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
-      this.toDate = date;
+    if (!this.filters.startDate && !this.filters.endDate) {
+      this.filters.startDate = date;
+    } else if (this.filters.startDate && !this.filters.endDate && date.after(this.filters.startDate)) {
+      this.filters.endDate = date;
     } else {
-      this.toDate = null;
-      this.fromDate = date;
+      this.filters.endDate = null;
+      this.filters.startDate = date;
     }
   }
 
   isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+    return this.filters.startDate && !this.filters.endDate && this.hoveredDate
+      && date.after(this.filters.startDate) && date.before(this.hoveredDate);
   }
 
   isInside(date: NgbDate) {
-    return date.after(this.fromDate) && date.before(this.toDate);
+    return date.after(this.filters.startDate) && date.before(this.filters.endDate);
   }
 
   isRange(date: NgbDate) {
-    return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
+    return date.equals(this.filters.startDate) || date.equals(this.filters.endDate) || this.isInside(date) || this.isHovered(date);
   }
 
   validateInput(currentValue: NgbDate, input: string): NgbDate {
