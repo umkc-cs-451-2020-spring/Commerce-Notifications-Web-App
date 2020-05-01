@@ -18,18 +18,21 @@ export class NotificationsComponent implements OnInit {
   filters: Filters;
   triggers: Trigger[];
   notifications: Notification[];
-  public isCollapsed = false;
 
   hoveredDate: NgbDate;
+  fromDate: NgbDate;
+  toDate: NgbDate;
 
   constructor(private notificationService: NotificationService,
               private calendar: NgbCalendar,
               public formatter: NgbDateParserFormatter,
               private modalService: NgbModal) {
     this.filters = new Filters();
-    this.filters.startDate = calendar.getToday();
-    this.filters.endDate = calendar.getNext(calendar.getToday(), 'd', 10);
-
+    this.filters.hasNotifications = false;
+    this.fromDate = null;
+    this.toDate = null;
+    this.filters.startDate = this.dateToString(this.fromDate);
+    this.filters.endDate = this.dateToString(this.toDate);
    }
 
   ngOnInit(): void {
@@ -52,7 +55,6 @@ export class NotificationsComponent implements OnInit {
       const modalRef = this.modalService.open(RuleComponent);
       modalRef.componentInstance.triggerId = triggerId;
       modalRef.componentInstance.triggerName = triggerName;
-      modalRef.componentInstance.filters = this.filters;
       modalRef.result.then(() => { this.getRules(); }, () => { console.log('Backdrop click'); });
     }
   }
@@ -68,6 +70,7 @@ export class NotificationsComponent implements OnInit {
     const modalRef = this.modalService.open(TriggeredTransactionComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.triggerId = triggerID;
     modalRef.componentInstance.triggerName = triggerName;
+    modalRef.componentInstance.filters = this.filters;
   }
 
   export() {
@@ -76,7 +79,7 @@ export class NotificationsComponent implements OnInit {
       let wsName: string;
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
 
-      this.notificationService.getAllNotifications(GlobalVariables.loggedInUserId).subscribe(notifications => {
+      this.notificationService.getAllNotifications(this.filters).subscribe(notifications => {
         ws = XLSX.utils.json_to_sheet(notifications);
         wsName = GlobalVariables.loggedInUsername + '\'s Notifications';
         XLSX.utils.book_append_sheet(wb, ws, wsName);
@@ -86,32 +89,37 @@ export class NotificationsComponent implements OnInit {
   }
 
   onDateSelection(date: NgbDate) {
-    if (!this.filters.startDate && !this.filters.endDate) {
-      this.filters.startDate = date;
-    } else if (this.filters.startDate && !this.filters.endDate && date.after(this.filters.startDate)) {
-      this.filters.endDate = date;
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
+      this.toDate = date;
     } else {
-      this.filters.endDate = null;
-      this.filters.startDate = date;
+      this.toDate = null;
+      this.fromDate = date;
     }
+    this.filters.startDate = this.dateToString(this.fromDate);
+    this.filters.endDate = this.dateToString(this.toDate);
   }
 
   isHovered(date: NgbDate) {
-    return this.filters.startDate && !this.filters.endDate && this.hoveredDate
-      && date.after(this.filters.startDate) && date.before(this.hoveredDate);
+    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
   }
 
   isInside(date: NgbDate) {
-    return date.after(this.filters.startDate) && date.before(this.filters.endDate);
+    return date.after(this.fromDate) && date.before(this.toDate);
   }
 
   isRange(date: NgbDate) {
-    return date.equals(this.filters.startDate) || date.equals(this.filters.endDate) || this.isInside(date) || this.isHovered(date);
+    return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
   }
 
   validateInput(currentValue: NgbDate, input: string): NgbDate {
     const parsed = this.formatter.parse(input);
     return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
+  }
+
+  dateToString(date: NgbDate): string {
+    return date !== undefined && date !== null ? date.year + '-' + date.month + '-' + date.day : '';
   }
 
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group2.commerceserver.models.Filters;
 import com.group2.commerceserver.models.Notification;
 import com.group2.commerceserver.models.Rule;
 import com.group2.commerceserver.models.Trigger;
@@ -41,18 +41,19 @@ public class NotificationController {
 		notificationDAO.deleteTrigger(triggerId, triggerName);
 	}
 	
-	@GetMapping("/get/{id}/rules")
-	public List<Trigger> getRulesByUser(@PathVariable(value = "id") int userId) {
-		return notificationDAO.getTriggers(userId);
+	@PostMapping("/get/rules")
+	public List<Trigger> getRulesByUser(@RequestBody Filters filters) {
+		return notificationDAO.getTriggers(filters);
 	}
 	
-	@GetMapping("/get/{id}/notifications")
-	public List<Notification> getNotifications(@PathVariable(value = "id") int triggerId) {
-		return notificationDAO.getNotifications(triggerId);
+	@PostMapping("/get/{id}/notifications")
+	public List<Notification> getNotifications(@PathVariable(value = "id") int triggerId, @RequestBody Filters filters) {
+		filters.setTriggerId(triggerId);
+		return notificationDAO.getNotifications(filters);
 	}
 	
-	@GetMapping("/export/{id}")
-	public List<Notification> getAllNotifications(@PathVariable(name = "id") int userId) {
-		return notificationDAO.getAllNotifications(userId);
+	@PostMapping("/export")
+	public List<Notification> getAllNotifications(@RequestBody Filters filters) {
+		return notificationDAO.getAllNotifications(filters);
 	}
 }

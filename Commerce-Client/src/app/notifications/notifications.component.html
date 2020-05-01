@@ -3,11 +3,6 @@
   <div id="filtersCard" class='card-body'>
     <tr class="filters">
       <td>
-        <label class="btn-primary" ngbButtonLabel>
-          <input type="checkbox" ngbButton [(ngModel)]="filters.hasNotifications"> Has Notifications
-        </label>
-      </td>
-      <td>
         <!-- Date Range Selection -->
         <div class="container">
           <span>Date Range:</span>
@@ -23,7 +18,7 @@
                       [displayMonths]="2"
                       [dayTemplate]="t"
                       outsideDays="hidden"
-                      [startDate]="filters.startDate">
+                      [startDate]="fromDate">
                 <ng-template #t let-date let-focused="focused">
                   <span class="custom-day"
                         [class.focused]="focused"
@@ -41,8 +36,8 @@
                 <input #dpFromDate
                       class="form-control" placeholder="yyyy-mm-dd"
                       name="dpFromDate"
-                      [value]="formatter.format(filters.startDate)"
-                      (input)="filters.startDate = validateInput(filters.startDate, dpFromDate.value)">
+                      [value]="formatter.format(fromDate)"
+                      (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
                 </div>
@@ -53,8 +48,8 @@
                 <input #dpToDate
                       class="form-control" placeholder="yyyy-mm-dd"
                       name="dpToDate"
-                      [value]="formatter.format(filters.endDate)"
-                      (input)="filters.endDate = validateInput(filters.endDate, dpToDate.value)">
+                      [value]="formatter.format(toDate)"
+                      (input)="toDate = validateInput(toDate, dpToDate.value)">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
                 </div>
@@ -65,9 +60,12 @@
       </td>
     </tr>
     <tr>
-      <td>
-        <label class="btn-standard search" (click)="getRules()" ngbButtonLabel> Search </label>
-      </td>
+      <div class='card-body'>
+        <label class="btn-primary" ngbButtonLabel>
+          <input type="checkbox" ngbButton [(ngModel)]="filters.hasNotifications"> Has Notifications
+        </label>
+        <label class="btn-primary search" (click)="getRules()" ngbButtonLabel> Search </label>
+      </div>
     </tr>
   </div>
 </div>

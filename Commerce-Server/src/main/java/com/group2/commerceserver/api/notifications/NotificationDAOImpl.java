@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 
+import com.group2.commerceserver.models.Filters;
 import com.group2.commerceserver.models.Notification;
 import com.group2.commerceserver.models.Rule;
 import com.group2.commerceserver.models.Trigger;
@@ -122,27 +123,52 @@ public class NotificationDAOImpl implements NotificationDAO{
 	}
 	
 	@Override
-	public List<Trigger> getTriggers(int userId) {
-	    String sql = NotificationSql.GET_USER_TRIGGERS;
-	    return jdbcTemplate.query(sql, new Object[] { userId }, new TriggerRowMapper());
+	public List<Trigger> getTriggers(Filters filters) {
+		SqlParameterSource paramSource = new MapSqlParameterSource()
+				.addValue("userId", filters.getUserId())
+				.addValue("startDate", filters.getStartDate())
+				.addValue("endDate", filters.getEndDate());
+		return namedParameterJdbcTemplate.query(buildFiltersString(filters), paramSource, new TriggerRowMapper());
+	}
+	
+	private String buildFiltersString(Filters filters) {
+		StringBuilder sql = new StringBuilder();
+		if (filters.isHasNotifications()) {
+			sql.append("SELECT tab.TriggerID, tab.TriggerName, tab.TriggerCount FROM ( ");
+		}
+		sql.append("SELECT a.TriggerID, a.TriggerName, " +
+						"(SELECT COUNT(t.TransactionID) " +
+						 "FROM CommerceDB.Notifications as n JOIN CommerceDB.Transaction as t ON n.TransactionID = t.TransactionID " +
+						 "WHERE n.TriggerID = a.TriggerID");
+		if (filters.getStartDate() != null && filters.getStartDate() != "") {
+			sql.append(" AND t.ProcessingDate ");
+			if (filters.getEndDate() != null && filters.getEndDate() != "") {
+				sql.append("BETWEEN :startDate AND :endDate ");
+			}
+			else {
+				sql.append("> :startDate");
+			}
+		}
+		sql.append(") AS TriggerCount " +
+				"FROM CommerceDB.Trigger AS a " +
+				"WHERE a.UserID = :userId");
+		if (filters.isHasNotifications()) {
+			sql.append(" ) tab WHERE tab.TriggerCount > 0");
+		}
+		sql.append(';');
+		return sql.toString();
 	}
 
 	@Override
-	public void markAsRead(int notificationId) {
-		String sql = "//sql statement here";
-        jdbcTemplate.update(sql, "params here");		
-	}
-
-	@Override
-	public List<Notification> getNotifications(int triggerId) {
+	public List<Notification> getNotifications(Filters filters) {
 	    String sql = NotificationSql.GET_NOTIFICATIONS;
-		return jdbcTemplate.query(sql, new Object[] { triggerId }, new NotificationRowMapper());
+		return jdbcTemplate.query(sql, new Object[] { filters.getTriggerId() }, new NotificationRowMapper());
 	}
 	
 	@Override
-	public List<Notification> getAllNotifications(int userId) {
+	public List<Notification> getAllNotifications(Filters filters) {
 	    String sql = NotificationSql.GET_USER_NOTIFICATIONS;
-	    return jdbcTemplate.query(sql, new Object[] { userId }, new NotificationRowMapper());
+	    return jdbcTemplate.query(sql, new Object[] { filters.getUserId() }, new NotificationRowMapper());
 	}
 
 

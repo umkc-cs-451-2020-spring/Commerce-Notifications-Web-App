@@ -45,8 +45,7 @@ export class NotificationService {
         return this.http.post<any>(url, filters);
     }
 
-    getAllNotifications(userId: number) {
-        const url = `${this.exportUrl}/${userId}`;
-        return this.http.get<any>(url);
+    getAllNotifications(filters: Filters) {
+        return this.http.post<any>(this.exportUrl, filters);
     }
 }
