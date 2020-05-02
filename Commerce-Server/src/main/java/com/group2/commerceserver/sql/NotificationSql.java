@@ -30,7 +30,7 @@ public class NotificationSql {
 	public static String buildTriggerString(Rule rule) {
 		StringBuilder sql = new StringBuilder();
 		StringBuilder message = new StringBuilder();
-		sql.append( "CREATE TRIGGER CommerceDB." + rule.getTriggerName() + " " +
+		sql.append( "CREATE TRIGGER CommerceDB." + rule.getSqlTriggerName() + " " +
 					"AFTER INSERT ON CommerceDB.Transaction FOR EACH ROW " +
 					"BEGIN " +
 						"IF ");
