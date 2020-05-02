@@ -36,7 +36,7 @@ import com.group2.commerceserver.models.Transaction;
 public class TransactionControllerTest {
 
 	private MockMvc mockMvc;
-	
+
 	@Mock
 	private TransactionDAO transactionDAO;
 
@@ -55,7 +55,6 @@ public class TransactionControllerTest {
 	public void TestGetTransactionsByUser() throws Exception {
 		List<Transaction> tlist = new ArrayList<>();
 		Transaction transaction = new Transaction();
-		transaction.setTransactionId(1);
 		transaction.setAccountNumber(1);
 		transaction.setDescription("Test Transaction");
 		transaction.setBalance(40.00);
@@ -85,7 +84,6 @@ public class TransactionControllerTest {
 	@Test
 	public void TestAddTransaction() throws Exception {
 		Transaction transaction = new Transaction();
-		transaction.setTransactionId(1);
 		transaction.setAccountNumber(1);
 		transaction.setDescription("Test Transaction");
 		transaction.setBalance(40.00);
@@ -99,5 +97,4 @@ public class TransactionControllerTest {
 
 		verify(transactionDAO, times(1)).addTransaction(transaction);
 	}
-
 }

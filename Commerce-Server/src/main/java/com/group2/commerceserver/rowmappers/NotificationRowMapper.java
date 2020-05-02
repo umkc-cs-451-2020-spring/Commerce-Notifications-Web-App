@@ -18,6 +18,8 @@ public class NotificationRowMapper implements RowMapper<Notification> {
 		notification.setDescription( rs.getString("Description") );
 		notification.setAmount( rs.getDouble("Amount") );
 		notification.setBalance( rs.getDouble("Balance") );
+		notification.setState( rs.getString("State"));
+		notification.setCategory( rs.getString("Category"));
 		return notification;
 	}
 }

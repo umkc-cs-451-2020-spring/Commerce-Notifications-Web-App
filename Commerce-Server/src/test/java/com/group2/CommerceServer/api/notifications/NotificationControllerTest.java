@@ -3,18 +3,16 @@ package com.group2.CommerceServer.api.notifications;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.group2.commerceserver.api.notifications.NotificationController;
 import com.group2.commerceserver.api.notifications.NotificationDAO;
+import com.group2.commerceserver.models.Filters;
 import com.group2.commerceserver.models.Rule;
 
 @RunWith(SpringRunner.class)
@@ -22,18 +20,11 @@ import com.group2.commerceserver.models.Rule;
 @AutoConfigureMockMvc
 public class NotificationControllerTest {
 	
-	private MockMvc mockMvc;
-	
 	@InjectMocks
 	private NotificationController notificationController;
 	
 	@Mock
 	private NotificationDAO notificationDAO;
-	
-	@Before
-	public void setup() {
-		this.mockMvc = MockMvcBuilders.standaloneSetup(this.notificationController).build();
-	}
 	
 	@Test
 	public void TestAddNotification() {
@@ -89,8 +80,9 @@ public class NotificationControllerTest {
 	
 	@Test
 	public void TestGetRulesByUser() {
-		notificationController.getRulesByUser(1);
-		verify(notificationDAO, times(1)).getTriggers(1);
+		Filters filters = new Filters();
+		notificationController.getRulesByUser(filters);
+		verify(notificationDAO, times(1)).getTriggers(filters);
 	}
 	
 	@Test

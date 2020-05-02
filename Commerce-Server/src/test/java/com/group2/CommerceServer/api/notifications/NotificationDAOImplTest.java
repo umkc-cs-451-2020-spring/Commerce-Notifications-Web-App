@@ -1,26 +1,16 @@
 package com.group2.CommerceServer.api.notifications;
 
-import static org.hamcrest.CoreMatchers.any;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-
-import com.group2.commerceserver.api.notifications.NotificationDAO;
 import com.group2.commerceserver.api.notifications.NotificationDAOImpl;
 import com.group2.commerceserver.models.Rule;
-import com.group2.commerceserver.sql.NotificationSql;
 
 public class NotificationDAOImplTest {
 	
