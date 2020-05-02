@@ -23,7 +23,7 @@ public class Notification {
     private String category; 
 
     private boolean readStatus;
-	
+    
 	//Empty constructor
 	public Notification() {
 		
@@ -154,6 +154,7 @@ public class Notification {
 	public void setTransactionType(int transactionType) {
 		this.transactionType = transactionType;
 	}
+	
 	/**
 	 * @param category the category to get
 	 */
