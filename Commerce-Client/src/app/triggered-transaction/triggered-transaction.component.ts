@@ -13,6 +13,7 @@ export class TriggeredTransactionComponent implements OnInit {
 
   @Input() public triggerId;
   @Input() public triggerName;
+  @Input() public filters;
   notifications: Notification[];
 
   constructor(private notificationService: NotificationService, public activeModal: NgbActiveModal) {
@@ -23,7 +24,7 @@ export class TriggeredTransactionComponent implements OnInit {
   }
 
   getNotifications() {
-    this.notificationService.getNotifications(this.triggerId).subscribe(notifications => {
+    this.notificationService.getNotifications(this.triggerId, this.filters).subscribe(notifications => {
       this.notifications = notifications;
     });
   }

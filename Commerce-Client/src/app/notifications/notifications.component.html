@@ -1,44 +1,7 @@
 <!-- Notification Filters -->
 <div class="card btn-group btn-group-toggle">
-  <a (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="filtersCard">{{ isCollapsed ? 'Expand' : 'Collapse' }}</a>
-  <div id="filtersCard" class='card-body' [ngbCollapse]='isCollapsed'>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.new"> New
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.amount"> Amount 
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.time"> Time
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.location"> Location
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.duplicates"> Duplicates
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.notTriggered"> Not Triggered
-    </label>
-    <!-- Category Selection-->
-    <tr>
-      <td>
-        <span>Category:</span>
-        <div class="row">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block">
-              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button ngbDropdownItem></button>
-                  <button ngbDropdownItem>Category 1</button>
-                  <button ngbDropdownItem>Category 2</button>
-                  <button ngbDropdownItem>Category 3</button>
-                  <button ngbDropdownItem>All</button>
-                </div>
-              </div>
-          </div>
-        </div>
-      </td>
+  <div id="filtersCard" class='card-body'>
+    <tr class="filters">
       <td>
         <!-- Date Range Selection -->
         <div class="container">
@@ -97,9 +60,12 @@
       </td>
     </tr>
     <tr>
-      <td>
-        <label class="btn-standard search" (click)="getRules()" ngbButtonLabel> Search </label>
-      </td>
+      <div class='card-body'>
+        <label class="btn-primary" ngbButtonLabel>
+          <input type="checkbox" ngbButton [(ngModel)]="filters.hasNotifications"> Has Notifications
+        </label>
+        <label class="btn-primary search" (click)="getRules()" ngbButtonLabel> Search </label>
+      </div>
     </tr>
   </div>
 </div>

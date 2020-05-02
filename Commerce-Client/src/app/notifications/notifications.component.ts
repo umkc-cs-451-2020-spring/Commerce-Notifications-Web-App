@@ -3,6 +3,7 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter, NgbModal} from '@ng-bootst
 import { RuleComponent } from '../rule/rule.component';
 import { Trigger } from '../models/trigger';
 import { Notification } from '../models/notification';
+import { Filters } from '../models/filters';
 import { NotificationService } from '../services/notification.service';
 import { GlobalVariables } from '../common/global-variables';
 import { TriggeredTransactionComponent } from '../triggered-transaction/triggered-transaction.component';
@@ -14,20 +15,11 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
+  filters: Filters;
   triggers: Trigger[];
   notifications: Notification[];
-  public isCollapsed = false;
-  model = {
-    new: true,
-    amount: true,
-    time: true,
-    location: true,
-    duplicates: true,
-    notTriggered: true
-  };
 
   hoveredDate: NgbDate;
-
   fromDate: NgbDate;
   toDate: NgbDate;
 
@@ -35,8 +27,12 @@ export class NotificationsComponent implements OnInit {
               private calendar: NgbCalendar,
               public formatter: NgbDateParserFormatter,
               private modalService: NgbModal) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.filters = new Filters();
+    this.filters.hasNotifications = false;
+    this.fromDate = null;
+    this.toDate = null;
+    this.filters.startDate = this.dateToString(this.fromDate);
+    this.filters.endDate = this.dateToString(this.toDate);
    }
 
   ngOnInit(): void {
@@ -48,7 +44,7 @@ export class NotificationsComponent implements OnInit {
 
   getRules() {
     if (this.isUserLoggedIn()) {
-      this.notificationService.getRules(GlobalVariables.loggedInUserId).subscribe(trigger => {
+      this.notificationService.getRules(this.filters).subscribe(trigger => {
         this.triggers = trigger;
       });
     }
@@ -74,6 +70,7 @@ export class NotificationsComponent implements OnInit {
     const modalRef = this.modalService.open(TriggeredTransactionComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.triggerId = triggerID;
     modalRef.componentInstance.triggerName = triggerName;
+    modalRef.componentInstance.filters = this.filters;
   }
 
   export() {
@@ -82,7 +79,7 @@ export class NotificationsComponent implements OnInit {
       let wsName: string;
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
 
-      this.notificationService.getAllNotifications(GlobalVariables.loggedInUserId).subscribe(notifications => {
+      this.notificationService.getAllNotifications(this.filters).subscribe(notifications => {
         ws = XLSX.utils.json_to_sheet(notifications);
         wsName = GlobalVariables.loggedInUsername + '\'s Notifications';
         XLSX.utils.book_append_sheet(wb, ws, wsName);
@@ -100,6 +97,8 @@ export class NotificationsComponent implements OnInit {
       this.toDate = null;
       this.fromDate = date;
     }
+    this.filters.startDate = this.dateToString(this.fromDate);
+    this.filters.endDate = this.dateToString(this.toDate);
   }
 
   isHovered(date: NgbDate) {
@@ -117,6 +116,10 @@ export class NotificationsComponent implements OnInit {
   validateInput(currentValue: NgbDate, input: string): NgbDate {
     const parsed = this.formatter.parse(input);
     return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
+  }
+
+  dateToString(date: NgbDate): string {
+    return date !== undefined && date !== null ? date.year + '-' + date.month + '-' + date.day : '';
   }
 
 }
