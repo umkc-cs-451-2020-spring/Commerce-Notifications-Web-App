@@ -26,11 +26,18 @@
       </tbody>
     </table>
   </div>
-  <hr>
-  <td><label class="btn-standard" ngbButtonLabel> Export to Excel </label></td>
+</div>
+<hr>
+<div class="footer">
   <td>
-  <label class="btn-standard" (click)="openNewTransaction()" ngbButtonLabel>
-    <img class="add-ico" src="/assets/img/add.svg" alt=""> Add New Transaction 
-  </label>
+    <label class="btn-standard" ngbButtonLabel><img class="bi bi-file-spreadsheet" src="/assets/img/excel.svg" alt=""> Export to Excel </label>
+  </td>
+  <td>
+    <label class="btn-standard" (click)="openNewTransaction()" ngbButtonLabel>
+    <img class="add-ico" src="/assets/img/add.svg" alt=""> Add New Transaction </label>
+</td>
+<td>
+  <label class="btn-standard" (click)="reload()" ngbButtonLabel>
+    <img class="bi bi-bootstrap-reboot" src="/assets/img/refresh.svg" alt=""> Refresh Table </label>
 </td>
 </div>

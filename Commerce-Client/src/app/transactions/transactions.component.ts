@@ -31,4 +31,8 @@ export class TransactionsComponent implements OnInit {
       this.transactions = transaction;
     });
   }
+
+  reload(){
+    location.reload(); 
+  }
 }

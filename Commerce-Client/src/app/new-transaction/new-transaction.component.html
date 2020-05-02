@@ -10,23 +10,15 @@
     <label for="accountNumber"> Account Number </label>
     <input type="number" min="1" step="any" [(ngModel)]="newTransaction.accountNumber">
 </div>
-  <!-- Processing Date -->
-  <!-- <form class="form-inline">
-    <div class="form-group">
-      <div class="input-group">
-        <input class="form-control" placeholder="dd/mm/yyyy"
-               name="d2" #c2="ngModel" [(ngModel)]="model" ngbDatepicker #d2="ngbDatepicker">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
-        </div>
-      </div>
-    </div>
-  </form> -->
+<!-- Time -->
   <div class="modal-body">
-    <label>Date: </label>
-    <input [(ngModel)]="newTransaction.processingDate">
+    <table>
+      <tr>
+        <td><label>Date: </label></td>
+        <td><input type = "datetime-local" [(ngModel)]="newTransaction.processingDate"></td>
+      </tr>
+    </table>
 </div>
-  
 
   <!-- Amount -->
   <div class="modal-body">
