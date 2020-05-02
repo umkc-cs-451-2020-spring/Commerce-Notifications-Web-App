@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+.table-head {
+    color: white;
+    background-color: #006747;
+    text-align: center;
+}
+
+.table-body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+}
+
+.btn-standard {
+    margin: auto;
+    border-radius: 5px;
+    background-color: #006747;
+    color: #fff;
+    border-color: #333;
+  }
+
+  .transactions-modal .modal-dialog{
+    max-width: 650px;
+  }
+  
