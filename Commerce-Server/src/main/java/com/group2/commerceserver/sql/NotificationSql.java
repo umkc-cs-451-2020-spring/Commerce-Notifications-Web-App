@@ -14,21 +14,15 @@ public class NotificationSql {
 	public static final String DELETE_NOTIFICATIONS =
 			"DELETE FROM CommerceDB.Notifications WHERE TriggerID = ?;";
 	
-	public static final String GET_USER_TRIGGERS =
-			"SELECT TriggerID, TriggerName, TriggerCount " +
-			"FROM CommerceDB.Trigger " +
-			"WHERE UserID = ?;";
-	
 	public static final String GET_NOTIFICATIONS =
 			"SELECT n.NotificationID, n.Message, n.ReadStatus, t.AccountNumber, t.ProcessingDate, t.Description, t.Amount, t.Balance, t.State, t.Category " +
 			"FROM CommerceDB.Notifications as n JOIN CommerceDB.Transaction as t ON n.TransactionID = t.TransactionID " +
-			"WHERE n.TriggerID = ?";
+			"WHERE n.TriggerID = :triggerId ";
 	
 	public static final String GET_USER_NOTIFICATIONS =
 			"SELECT n.NotificationID, n.Message, n.ReadStatus, t.AccountNumber, t.ProcessingDate, t.Description, t.Amount, t.Balance, t.State, t.Category " +
 			"FROM CommerceDB.Notifications as n JOIN CommerceDB.Transaction as t ON n.TransactionID = t.TransactionID " +
-			"WHERE n.TriggerID  IN (SELECT TriggerID FROM CommerceDB.Trigger WHERE UserID = ?) " +
-			"ORDER BY ProcessingDate;";
+			"WHERE n.TriggerID IN (SELECT TriggerID FROM CommerceDB.Trigger WHERE UserID = :userId) ";
 	
 	/* Kory Overbay - Function takes in rule parameters from user input
 	 * and builds a sql script to add a trigger that matches the conditions provided
@@ -122,6 +116,20 @@ public class NotificationSql {
 			sql.append(" ) tab WHERE tab.TriggerCount > 0");
 		}
 		sql.append(';');
+		return sql.toString();
+	}
+
+	public static String buildNotificationsString(Filters filters) {
+		StringBuilder sql = new StringBuilder();
+		if (filters.getStartDate() != null && filters.getStartDate() != "") {
+			sql.append(" AND t.ProcessingDate ");
+			if (filters.getEndDate() != null && filters.getEndDate() != "") {
+				sql.append("BETWEEN :startDate AND :endDate ");
+			}
+			else {
+				sql.append("> :startDate");
+			}
+		}
 		return sql.toString();
 	}
 }

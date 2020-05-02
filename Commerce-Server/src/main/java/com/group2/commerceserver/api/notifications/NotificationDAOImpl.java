@@ -77,14 +77,22 @@ public class NotificationDAOImpl implements NotificationDAO{
 
 	@Override
 	public List<Notification> getNotifications(Filters filters) {
-	    String sql = NotificationSql.GET_NOTIFICATIONS;
-		return jdbcTemplate.query(sql, new Object[] { filters.getTriggerId() }, new NotificationRowMapper());
+		SqlParameterSource paramSource = new MapSqlParameterSource()
+				.addValue("triggerId", filters.getTriggerId())
+				.addValue("startDate", filters.getStartDate())
+				.addValue("endDate", filters.getEndDate());
+	    String sql = NotificationSql.GET_NOTIFICATIONS + NotificationSql.buildNotificationsString(filters) + ';';
+		return namedParameterJdbcTemplate.query(sql, paramSource, new NotificationRowMapper());
 	}
 	
 	@Override
 	public List<Notification> getAllNotifications(Filters filters) {
-	    String sql = NotificationSql.GET_USER_NOTIFICATIONS;
-	    return jdbcTemplate.query(sql, new Object[] { filters.getUserId() }, new NotificationRowMapper());
+		SqlParameterSource paramSource = new MapSqlParameterSource()
+				.addValue("userId", filters.getUserId())
+				.addValue("startDate", filters.getStartDate())
+				.addValue("endDate", filters.getEndDate());
+	    String sql = NotificationSql.GET_USER_NOTIFICATIONS + NotificationSql.buildNotificationsString(filters) + " ORDER BY ProcessingDate;";
+	    return namedParameterJdbcTemplate.query(sql, paramSource, new NotificationRowMapper());
 	}
 
 }
