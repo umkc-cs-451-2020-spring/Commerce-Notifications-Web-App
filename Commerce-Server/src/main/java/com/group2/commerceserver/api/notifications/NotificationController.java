@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.group2.commerceserver.models.Filters;
 import com.group2.commerceserver.models.Notification;
 import com.group2.commerceserver.models.Rule;
@@ -26,19 +25,21 @@ public class NotificationController {
 	NotificationDAO notificationDAO;
 	
 	@PostMapping("/add")
-	public void addTrigger(@RequestBody Rule rule) {
-		notificationDAO.addTrigger(rule);
+	public boolean addTrigger(@RequestBody Rule rule) {
+		return notificationDAO.addTrigger(rule);
 	}
 	
 	@PostMapping("/edit")
-	public void editTrigger(@RequestBody Rule rule) {
-		notificationDAO.deleteTrigger(rule.getTriggerId(), rule.getOldTriggerName());
-		notificationDAO.addTrigger(rule);
+	public boolean editTrigger(@RequestBody Rule rule) {
+		if (notificationDAO.deleteTrigger(rule.getTriggerId(), rule.getOldTriggerName())) {
+			return notificationDAO.addTrigger(rule);
+		}
+		return false;
 	}
 	
 	@DeleteMapping("/delete")
-	public void deleteTrigger(@RequestParam(name = "triggerId") int triggerId, @RequestParam(name = "triggerName") String triggerName) {
-		notificationDAO.deleteTrigger(triggerId, triggerName);
+	public boolean deleteTrigger(@RequestParam(name = "triggerId") int triggerId, @RequestParam(name = "triggerName") String triggerName) {
+		return notificationDAO.deleteTrigger(triggerId, triggerName);
 	}
 	
 	@PostMapping("/get/rules")

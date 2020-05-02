@@ -18,7 +18,6 @@ public class TransactionRowMapper implements RowMapper<Transaction> {
     	transaction.setState(rs.getString("State"));
     	transaction.setTransactionType(rs.getInt("TransactionType"));
     	transaction.setCategory(rs.getString("Category"));
-
         return transaction;
     }
 }
