@@ -32,19 +32,24 @@ public class NotificationDAOImpl implements NotificationDAO{
     }
 
 	@Override
-	public void addTrigger(Rule rule) {
-		SqlParameterSource paramSource = new MapSqlParameterSource()
-				.addValue("userId", rule.getUserId())
-				.addValue("triggerName", rule.getTriggerName())
-				.addValue("amount", rule.getAmount())
-				.addValue("balance", rule.getBalance())
-				.addValue("location", rule.getLocation())
-				.addValue("startTime", rule.getStartTime())
-				.addValue("endTime", rule.getEndTime())
-				.addValue("category", rule.getCategory());
-		jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + rule.getTriggerName() + ";");
-		namedParameterJdbcTemplate.update(NotificationSql.INSERT_TRIGGER, paramSource);
-		namedParameterJdbcTemplate.update(buildTriggerString(rule), paramSource);
+	public boolean addTrigger(Rule rule) {
+		try {
+			SqlParameterSource paramSource = new MapSqlParameterSource()
+					.addValue("userId", rule.getUserId())
+					.addValue("triggerName", rule.getTriggerName())
+					.addValue("amount", rule.getAmount())
+					.addValue("balance", rule.getBalance())
+					.addValue("location", rule.getLocation())
+					.addValue("startTime", rule.getStartTime())
+					.addValue("endTime", rule.getEndTime())
+					.addValue("category", rule.getCategory());
+			jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + rule.getTriggerName() + ";");
+			namedParameterJdbcTemplate.update(NotificationSql.INSERT_TRIGGER, paramSource);
+			namedParameterJdbcTemplate.update(buildTriggerString(rule), paramSource);
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	/* Kory Overbay - Function takes in rule parameters from user input
@@ -115,10 +120,15 @@ public class NotificationDAOImpl implements NotificationDAO{
 	}
 	
 	@Override
-	public void deleteTrigger(int triggerId, String triggerName) {
+	public boolean deleteTrigger(int triggerId, String triggerName) {
+		try {
 		jdbcTemplate.update(NotificationSql.DELETE_NOTIFICATIONS, new Object[] { triggerId });
 		jdbcTemplate.update(NotificationSql.DELETE_TRIGGER, new Object[] { triggerId });
 		jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + triggerName + ";");
+		}catch( Exception e ) {
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
