@@ -1,6 +1,8 @@
 package com.group2.CommerceServer.api.transactions;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,7 +37,6 @@ public class TransactionControllerTest {
 
 	private MockMvc mockMvc;
 
-
 	@Mock
 	private TransactionDAO transactionDAO;
 
@@ -43,6 +44,7 @@ public class TransactionControllerTest {
 	private TransactionController transactionController;
 
 	Optional<List<Transaction>> transactionOptional;
+	Optional<Integer> resultOptional;
 
 	@Before
 	public void setup() {
@@ -53,7 +55,6 @@ public class TransactionControllerTest {
 	public void TestGetTransactionsByUser() throws Exception {
 		List<Transaction> tlist = new ArrayList<>();
 		Transaction transaction = new Transaction();
-		transaction.setTransactionId(1);
 		transaction.setAccountNumber(1);
 		transaction.setDescription("Test Transaction");
 		transaction.setBalance(40.00);
@@ -79,5 +80,21 @@ public class TransactionControllerTest {
 
 		assertEquals(result.getResponse().getContentAsString(), expectedJSONContent);
 	}
+	
+	@Test
+	public void TestAddTransaction() throws Exception {
+		Transaction transaction = new Transaction();
+		transaction.setAccountNumber(1);
+		transaction.setDescription("Test Transaction");
+		transaction.setBalance(40.00);
+		transaction.setAmount(10.00);
+		transaction.setState("MO");
+		transaction.setProcessingDate("2020-04-19 12:00:00");
+		transaction.setTransactionType(1);
+		transaction.setCategory("Food");
+		
+		transactionController.addTransaction(transaction);
 
+		verify(transactionDAO, times(1)).addTransaction(transaction);
+	}
 }

@@ -30,8 +30,7 @@ CREATE TABLE IF NOT EXISTS `Transaction` (
 CREATE TABLE IF NOT EXISTS `Trigger` (
   `TriggerID` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `UserID` INT NOT NULL,
-  `TriggerName` VARCHAR(31) UNIQUE NOT NULL,
-  `TriggerCount` INT NOT NULL DEFAULT 0
+  `TriggerName` VARCHAR(31) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Notifications` (
@@ -65,19 +64,3 @@ BEGIN
 	WHERE AccountNumber = NEW.AccountNumber;
 END$$
 DELIMITER ;
-
--- TODO trigger for duplicate transactions
--- DROP TRIGGER IF EXISTS `CommerceDB`.`DUPLICATE_TRANSACTIONS`;
--- DELIMITER $$
--- CREATE DEFINER = `commerce-notifications`@`%` TRIGGER `CommerceDB`.`DUPLICATE_TRANSACTIONS` AFTER INSERT ON `Transaction` FOR EACH ROW
--- BEGIN
--- 	IF NEW.TransactionType = 1
---     THEN IF;
--- 		
---     END IF;
---     
---     UPDATE Account
--- 	SET Balance = NEW.Balance
--- 	WHERE AccountNumber = NEW.AccountNumber;
--- END$$
--- DELIMITER ;

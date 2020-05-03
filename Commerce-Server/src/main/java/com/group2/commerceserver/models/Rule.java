@@ -25,6 +25,9 @@ public class Rule {
 	public String getTriggerName() {
 		return triggerName;
 	}
+	public String getSqlTriggerName() {
+		return triggerName.replaceAll("[^A-Za-z0-9]", "");
+	}
 	public void setOldTriggerName(String oldTriggerName) {
 		this.oldTriggerName = oldTriggerName;
 	}

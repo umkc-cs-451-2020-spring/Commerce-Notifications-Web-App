@@ -1,4 +1,5 @@
-export class Transaction {
+export class Notification {
+    notificationId: number;
     accountNumber: string;
     processingDate: string;
     balance: number;
@@ -7,4 +8,6 @@ export class Transaction {
     category: string;
     state: string;
     transactionType: number;
+    message: string;
+    readStatus: boolean;
 }

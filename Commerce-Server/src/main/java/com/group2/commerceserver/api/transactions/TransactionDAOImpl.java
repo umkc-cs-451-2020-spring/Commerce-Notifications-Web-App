@@ -9,13 +9,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
-
+import org.springframework.stereotype.Service;
 import com.group2.commerceserver.models.Transaction;
 import com.group2.commerceserver.rowmappers.TransactionRowMapper;
 import com.group2.commerceserver.sql.TransactionSql;
 
-@Repository
+@Service
 public class TransactionDAOImpl implements TransactionDAO {
 
 	@Autowired
@@ -29,7 +28,7 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
 	
 	@Override
-	public void addTransaction(Transaction transaction) {
+	public int addTransaction(Transaction transaction) {
 
 		SqlParameterSource paramSource = new MapSqlParameterSource()
 				.addValue("accountNumber", transaction.getAccountNumber())
@@ -39,28 +38,14 @@ public class TransactionDAOImpl implements TransactionDAO {
 				.addValue("processingDate", transaction.getProcessingDate())
 				.addValue("transactionType", transaction.getTransactionType())
 				.addValue("category", transaction.getCategory());
-		namedParameterJdbcTemplate.update(TransactionSql.INSERT_TRANSACTION, paramSource);
-	}
 
-	@Override
-	public void delete(int transactionId) {
-		String sql = "DELETE FROM Transaction WHERE TransactionID=?";
-		jdbcTemplate.update(sql, transactionId);
-		
+		return namedParameterJdbcTemplate.update(TransactionSql.INSERT_TRANSACTION, paramSource);
 	}
 
 	@Override
 	public List<Transaction> getUserTransactions(int userId) {
 	    String sql = TransactionSql.GET_USER_TRANSACTIONS;
 	    return jdbcTemplate.query(sql, new Object[] { userId }, new TransactionRowMapper());
-	}
-
-	@Override
-	public List<Transaction> list() {
-		String sql = "SELECT * FROM Transaction";
-	    List<Transaction> listTransaction = jdbcTemplate.query(sql, new TransactionRowMapper());
-	 
-	    return listTransaction;
 	}
 
 }

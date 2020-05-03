@@ -1,44 +1,7 @@
 <!-- Notification Filters -->
 <div class="card btn-group btn-group-toggle">
-  <a (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="filtersCard">{{ isCollapsed ? 'Expand' : 'Collapse' }}</a>
-  <div id="filtersCard" class='card-body' [ngbCollapse]='isCollapsed'>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.new"> New
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.amount"> Amount 
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.time"> Time
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.location"> Location
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.duplicates"> Duplicates
-    </label>
-    <label class="btn-primary" ngbButtonLabel>
-      <input type="checkbox" ngbButton [(ngModel)]="model.notTriggered"> Not Triggered
-    </label>
-    <!-- Category Selection-->
-    <tr>
-      <td>
-        <span>Category:</span>
-        <div class="row">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block">
-              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button ngbDropdownItem></button>
-                  <button ngbDropdownItem>Category 1</button>
-                  <button ngbDropdownItem>Category 2</button>
-                  <button ngbDropdownItem>Category 3</button>
-                  <button ngbDropdownItem>All</button>
-                </div>
-              </div>
-          </div>
-        </div>
-      </td>
+  <div id="filtersCard" class='card-body'>
+    <tr class="filters">
       <td>
         <!-- Date Range Selection -->
         <div class="container">
@@ -76,7 +39,9 @@
                       [value]="formatter.format(fromDate)"
                       (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
+                    <img class="calandar-ico" src="/assets/img/calendar.svg" alt="">
+                  </button>
                 </div>
               </div>
             </div>
@@ -88,7 +53,9 @@
                       [value]="formatter.format(toDate)"
                       (input)="toDate = validateInput(toDate, dpToDate.value)">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button">
+                    <img class="calandar-ico" src="/assets/img/calendar.svg" alt="">
+                  </button>
                 </div>
               </div>
             </div>
@@ -97,9 +64,13 @@
       </td>
     </tr>
     <tr>
-      <td>
-        <label class="btn-standard search" (click)="getRules()" ngbButtonLabel> Search </label>
-      </td>
+      <div class='card-body'>
+        <label class="btn-primary" ngbButtonLabel>
+          <input type="checkbox" ngbButton [(ngModel)]="filters.hasNotifications"> Has Notifications
+        </label>
+        <label class="btn-primary search" (click)="resetFilters()" ngbButtonLabel> Reset </label>
+        <label class="btn-primary search" (click)="getRules()" ngbButtonLabel> Search </label>
+      </div>
     </tr>
   </div>
 </div>
@@ -111,7 +82,6 @@
     class="table table-striped table-bordered">
     <thead class="table-head">
       <tr>
-        <th scope="col">Select All <input type="checkbox"></th>
         <th scope="col">Name</th>
         <th scope="col">Notifications</th>
         <th scope="col">Edit</th>
@@ -120,10 +90,9 @@
     </thead>
     <tbody class="table-body">
       <tr *ngFor="let trigger of triggers">
-        <td><input type="checkbox"></td>
         <td>{{ trigger.triggerName }}</td>
         <td>{{ trigger.triggerCount | number }} 
-          <label class="btn-standard search" (click)="openNotifications(trigger.triggerID)" ngbButtonLabel> Open </label>
+          <label class="btn-standard search" (click)="getNotifications(trigger.triggerID, trigger.triggerName)" ngbButtonLabel> Open </label>
         </td>
         <td><img class="edit-ico" src="/assets/img/edit.svg" alt="Edit" (click)="openRule(trigger.triggerID, trigger.triggerName)"></td>
         <td><img class="trash-ico" src="/assets/img/trash.svg" alt="Delete" (click) ="deleteRule(trigger.triggerID, trigger.triggerName)"></td>
@@ -132,13 +101,13 @@
   </table>
   <td>
     <!-- Add New Rule Button -->
-    <label class="btn-standard" (click)="openRule(0, '')" ngbButtonLabel>
-      <img class="add-ico" src="/assets/img/add.svg" alt=""> Add New Rule 
+    <label class="btn-standard" (click)="openRule(0, '')" ngbButtonLabel> Add New Rule 
+      <img class="add-ico" src="/assets/img/add.svg" alt=""> 
     </label>
   </td>
   <td>
     <!-- Export to Excel Button -->
-    <label class="btn-standard" ngbButtonLabel>
+    <label class="btn-standard" (click)="export()" ngbButtonLabel>
        Export to Excel <img class="export-ico" src="/assets/img/export.svg" alt="">
     </label>
   </td>
