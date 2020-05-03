@@ -79,52 +79,38 @@ public class NotificationSql {
 			message.append("' is a ', :category , ' transaction', ");
 		}
 		message.append("'.')");
-		//TODO Need to add conditionals for creating message
 		sql.append( " AND NEW.AccountNumber IN " +
 						"(SELECT AccountNumber FROM CommerceDB.Account WHERE UserID = :userId ) " +
 					"THEN INSERT INTO CommerceDB.Notifications(TriggerID, TransactionID, Message, ReadStatus) " +
 						"VALUES((SELECT TriggerID FROM CommerceDB.Trigger WHERE TriggerName = :triggerName), " +
 								"NEW.TransactionID, " + message + ", false); " +
-						"UPDATE CommerceDB.Trigger SET TriggerCount = TriggerCount + 1 WHERE TriggerName = :triggerName; " +
+						//TODO Remove trigger counts here, in models, and in database
+//						"UPDATE CommerceDB.Trigger SET TriggerCount = TriggerCount + 1 WHERE TriggerName = :triggerName; " +
 					"END IF; " +
 				"END");
 		return sql.toString();
 	}
 	
 	public static String buildFiltersString(Filters filters) {
-		StringBuilder sql = new StringBuilder();
-		if (filters.isHasNotifications()) {
-			sql.append("SELECT tab.TriggerID, tab.TriggerName, tab.TriggerCount FROM ( ");
-		}
-		sql.append("SELECT a.TriggerID, a.TriggerName, " +
+		String sql = "SELECT a.TriggerID, a.TriggerName, " +
 						"(SELECT COUNT(t.TransactionID) " +
 						 "FROM CommerceDB.Notifications as n JOIN CommerceDB.Transaction as t ON n.TransactionID = t.TransactionID " +
-						 "WHERE n.TriggerID = a.TriggerID");
-		if (filters.getStartDate() != null && filters.getStartDate() != "") {
-			sql.append(" AND t.ProcessingDate ");
-			if (filters.getEndDate() != null && filters.getEndDate() != "") {
-				sql.append("BETWEEN :startDate AND :endDate ");
-			}
-			else {
-				sql.append("> :startDate");
-			}
-		}
-		sql.append(") AS TriggerCount " +
-				"FROM CommerceDB.Trigger AS a " +
-				"WHERE a.UserID = :userId");
+						 "WHERE n.TriggerID = a.TriggerID" + buildDateString(filters) +
+						 ") AS TriggerCount " +
+					 "FROM CommerceDB.Trigger AS a " +
+				     "WHERE a.UserID = :userId";
 		if (filters.isHasNotifications()) {
-			sql.append(" ) tab WHERE tab.TriggerCount > 0");
+			sql = "SELECT tab.TriggerID, tab.TriggerName, tab.TriggerCount FROM ( " + sql + " ) tab WHERE tab.TriggerCount > 0";
 		}
-		sql.append(';');
-		return sql.toString();
+		return sql += ';';
 	}
 
-	public static String buildNotificationsString(Filters filters) {
+	public static String buildDateString(Filters filters) {
 		StringBuilder sql = new StringBuilder();
 		if (filters.getStartDate() != null && filters.getStartDate() != "") {
 			sql.append(" AND t.ProcessingDate ");
 			if (filters.getEndDate() != null && filters.getEndDate() != "") {
-				sql.append("BETWEEN :startDate AND :endDate ");
+				sql.append("BETWEEN :startDate AND :endDate");
 			}
 			else {
 				sql.append("> :startDate");

@@ -81,7 +81,7 @@ public class NotificationDAOImpl implements NotificationDAO{
 				.addValue("triggerId", filters.getTriggerId())
 				.addValue("startDate", filters.getStartDate())
 				.addValue("endDate", filters.getEndDate());
-	    String sql = NotificationSql.GET_NOTIFICATIONS + NotificationSql.buildNotificationsString(filters) + ';';
+	    String sql = NotificationSql.GET_NOTIFICATIONS + NotificationSql.buildDateString(filters) + ';';
 		return namedParameterJdbcTemplate.query(sql, paramSource, new NotificationRowMapper());
 	}
 	
@@ -91,7 +91,7 @@ public class NotificationDAOImpl implements NotificationDAO{
 				.addValue("userId", filters.getUserId())
 				.addValue("startDate", filters.getStartDate())
 				.addValue("endDate", filters.getEndDate());
-	    String sql = NotificationSql.GET_USER_NOTIFICATIONS + NotificationSql.buildNotificationsString(filters) + " ORDER BY ProcessingDate;";
+	    String sql = NotificationSql.GET_USER_NOTIFICATIONS + NotificationSql.buildDateString(filters) + " ORDER BY ProcessingDate;";
 	    return namedParameterJdbcTemplate.query(sql, paramSource, new NotificationRowMapper());
 	}
 
