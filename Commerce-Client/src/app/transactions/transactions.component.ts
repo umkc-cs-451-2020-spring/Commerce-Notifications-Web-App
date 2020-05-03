@@ -39,7 +39,11 @@ export class TransactionsComponent implements OnInit {
       this.transactions = transaction;
     });
   }
-
+  
+  reload(){
+    location.reload(); 
+  }
+  
   export() {
     if (this.isUserLoggedIn()) {
       let ws: XLSX.WorkSheet;
