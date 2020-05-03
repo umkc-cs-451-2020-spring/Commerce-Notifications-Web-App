@@ -10,7 +10,6 @@
           <th class="left" scope="col">State</th>
           <th class="right" scope="col">Amount</th>
           <th class="right" scope="col">Balance</th>
-      
         </tr>
       </thead>
       <tbody class="table-body">
@@ -23,7 +22,6 @@
             {{ transaction.amount | currency }}
         </td>
           <td class="right">{{ transaction.balance | currency }}</td>
-  <!-- transaction.transactionType === 1 ? black : red" -->
         </tr>
       </tbody>
     </table>
@@ -35,8 +33,8 @@
   </label>
   </td>
   <td>
-    <label class="btn-standard" (click)="reload()" ngbButtonLabel>
-      <img class="bi bi-bootstrap-reboot" src="/assets/img/refresh.svg" alt=""> Refresh Table 
+    <label class="btn-standard" (click)="getTransactions()" ngbButtonLabel> Refresh Table 
+      <img class="bi bi-bootstrap-reboot" src="/assets/img/refresh.svg" alt=""> 
     </label>
   </td>
   <td>

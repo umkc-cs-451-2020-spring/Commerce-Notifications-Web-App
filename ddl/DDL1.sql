@@ -1,7 +1,7 @@
 USE CommerceDB;
 
-INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'bobert78', 'securepassword1', 'bob.roberts@outlook.com', '18168994323');
-INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'hsmith85', 'supermom', 'helenasmith@outlook.com', '18164863585');
+INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'bobert78', md5('securepassword1'), 'bob.roberts@outlook.com', '18168994323');
+INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'hsmith85', md5('supermom'), 'helenasmith@outlook.com', '18164863585');
 
 #AccountTypes: Checking: 0, Savings: 1
 INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 1, 0, 5000.00 );
