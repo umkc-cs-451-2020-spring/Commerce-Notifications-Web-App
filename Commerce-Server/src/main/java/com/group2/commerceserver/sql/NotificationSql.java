@@ -84,8 +84,6 @@ public class NotificationSql {
 					"THEN INSERT INTO CommerceDB.Notifications(TriggerID, TransactionID, Message, ReadStatus) " +
 						"VALUES((SELECT TriggerID FROM CommerceDB.Trigger WHERE TriggerName = :triggerName), " +
 								"NEW.TransactionID, " + message + ", false); " +
-						//TODO Remove trigger counts here, in models, and in database
-//						"UPDATE CommerceDB.Trigger SET TriggerCount = TriggerCount + 1 WHERE TriggerName = :triggerName; " +
 					"END IF; " +
 				"END");
 		return sql.toString();

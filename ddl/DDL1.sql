@@ -8,7 +8,8 @@ INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 1, 0, 5000.
 INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 2, 0, 5340.28 );
 INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 2, 1, 0.00 );
 
-#Deposit: 0, Withdrawal: 1. Categories(1: Food, 2: Finances, 3: Auto, 4: Utilities, 5: Subscriptions, 6: Shopping, 7: Activities, 8: Health/Insurance)
+# Deposit: 0, Withdrawal: 1
+# Categories(Food, Finances, Auto, Utilities, Subscriptions, Shopping, Activities, Health/Insurance)
 INSERT IGNORE INTO Transaction( AccountNumber, ProcessingDate, TransactionType, Amount, Description, Category, State ) VALUES
 (3,'2016-11-01 04:48:52',0,25.00,'Cash Deposit','Finances','MO'),
 (2,'2016-11-02 02:56:47',1,200.00,'Verizon','Utilities','MO'),
