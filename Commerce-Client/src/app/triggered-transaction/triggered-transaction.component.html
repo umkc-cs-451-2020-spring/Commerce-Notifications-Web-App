@@ -31,7 +31,7 @@
                         {{ notification.amount | currency }}</td>
                         <td class="right">{{ notification.balance | currency }}</td>
                         <td class="left">
-                            <label class="btn-primary search" (click)="changeReadStatus(notification.notificationId)" ngbButtonLabel>{{ notification.readStatus ? 'Mark as unread' : 'Mark as read' }}</label>
+                            <label class="btn-primary" (click)="changeReadStatus(notification.notificationId)" ngbButtonLabel>{{ notification.readStatus ? 'Mark as unread' : 'Mark as read' }}</label>
                         </td>
                     </tr>
                 </tbody>
