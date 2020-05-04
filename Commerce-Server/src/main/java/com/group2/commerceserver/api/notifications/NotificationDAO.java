@@ -12,6 +12,8 @@ public interface NotificationDAO {
 	public boolean addTrigger(Rule rule);
 	
 	public boolean deleteTrigger(int triggerId, String triggerName);
+	
+	boolean changeReadStatus(int notificationId);
 
 	public List<Trigger> getTriggers(Filters filters);
 	

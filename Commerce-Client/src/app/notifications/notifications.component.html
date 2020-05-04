@@ -68,6 +68,9 @@
         <label class="btn-primary" ngbButtonLabel>
           <input type="checkbox" ngbButton [(ngModel)]="filters.hasNotifications"> Has Notifications
         </label>
+        <label class="btn-primary" ngbButtonLabel>
+          <input type="checkbox" ngbButton [(ngModel)]="filters.unread"> Not Read
+        </label>
         <label class="btn-primary search" (click)="resetFilters()" ngbButtonLabel> Reset </label>
         <label class="btn-primary search" (click)="getRules()" ngbButtonLabel> Search </label>
       </div>

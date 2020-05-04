@@ -65,6 +65,16 @@ public class NotificationDAOImpl implements NotificationDAO{
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean changeReadStatus(int notificationId) {
+		try {
+			jdbcTemplate.update(NotificationSql.CHANGE_READ_STATUS, new Object[] { notificationId});
+		} catch( Exception e ) {
+			return false;
+		}
+		return true;
+	}
 
 	@Override
 	public List<Trigger> getTriggers(Filters filters) {
@@ -81,7 +91,7 @@ public class NotificationDAOImpl implements NotificationDAO{
 				.addValue("triggerId", filters.getTriggerId())
 				.addValue("startDate", filters.getStartDate())
 				.addValue("endDate", filters.getEndDate());
-	    String sql = NotificationSql.GET_NOTIFICATIONS + NotificationSql.buildDateString(filters) + ';';
+	    String sql = NotificationSql.GET_NOTIFICATIONS + NotificationSql.buildConstraintString(filters) + ';';
 		return namedParameterJdbcTemplate.query(sql, paramSource, new NotificationRowMapper());
 	}
 	
@@ -91,7 +101,7 @@ public class NotificationDAOImpl implements NotificationDAO{
 				.addValue("userId", filters.getUserId())
 				.addValue("startDate", filters.getStartDate())
 				.addValue("endDate", filters.getEndDate());
-	    String sql = NotificationSql.GET_USER_NOTIFICATIONS + NotificationSql.buildDateString(filters) + " ORDER BY ProcessingDate;";
+	    String sql = NotificationSql.GET_USER_NOTIFICATIONS + NotificationSql.buildConstraintString(filters) + " ORDER BY ProcessingDate;";
 	    return namedParameterJdbcTemplate.query(sql, paramSource, new NotificationRowMapper());
 	}
 

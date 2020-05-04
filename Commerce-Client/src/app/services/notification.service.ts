@@ -15,6 +15,7 @@ export class NotificationService {
     private addRuleUrl = 'api/notifications/add';
     private editRuleUrl = 'api/notifications/edit';
     private deleteRuleUrl = 'api/notifications/delete';
+    private readStatusUrl = 'api/notifications';
     private getRulesUrl = 'api/notifications/get/rules';
     private getNotificationsUrl = 'api/notifications/get';
     private exportUrl = 'api/notifications/export';
@@ -38,6 +39,11 @@ export class NotificationService {
             .set('triggerId', triggerId.toString())
             .set('triggerName', triggerName);
         return this.http.delete<any>(this.deleteRuleUrl, {params});
+    }
+
+    changeReadStatus(notificationId: number) {
+        const url = `${this.readStatusUrl}/${notificationId}/read`;
+        return this.http.put<any>(url, null);
     }
 
     getNotifications(triggerId: number, filters: Filters) {

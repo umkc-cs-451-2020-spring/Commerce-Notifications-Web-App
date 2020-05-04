@@ -4,6 +4,7 @@ public class Filters {
 	private int userId;
 	private int triggerId;
 	private boolean hasNotifications;
+	private boolean unread;
 	private String startDate;
 	private String endDate;
 	
@@ -25,6 +26,12 @@ public class Filters {
 	public void setHasNotifications(boolean hasNotifications) {
 		this.hasNotifications = hasNotifications;
 	}
+	public boolean isUnread() {
+		return unread;
+	}
+	public void setUnread(boolean unread) {
+		this.unread = unread;
+	}	
 	public String getStartDate() {
 		return startDate;
 	}
@@ -36,5 +43,5 @@ public class Filters {
 	}
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
-	}	
+	}
 }

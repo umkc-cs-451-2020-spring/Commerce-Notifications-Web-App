@@ -28,4 +28,10 @@ export class TriggeredTransactionComponent implements OnInit {
       this.notifications = notifications;
     });
   }
+
+  changeReadStatus(notificationId: number) {
+    this.notificationService.changeReadStatus(notificationId).subscribe(value => {
+      this.getNotifications();
+    });
+  }
 }

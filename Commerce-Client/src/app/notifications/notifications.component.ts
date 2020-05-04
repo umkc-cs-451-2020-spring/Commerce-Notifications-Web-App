@@ -45,6 +45,7 @@ export class NotificationsComponent implements OnInit {
   resetFilters() {
     this.filters = new Filters();
     this.filters.hasNotifications = false;
+    this.filters.unread = false;
     this.fromDate = null;
     this.toDate = null;
     this.filters.startDate = this.dateToString(this.fromDate);

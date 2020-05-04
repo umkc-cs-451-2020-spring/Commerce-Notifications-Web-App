@@ -24,6 +24,8 @@ public class NotificationSql {
 			"FROM CommerceDB.Notifications as n JOIN CommerceDB.Transaction as t ON n.TransactionID = t.TransactionID " +
 			"WHERE n.TriggerID IN (SELECT TriggerID FROM CommerceDB.Trigger WHERE UserID = :userId) ";
 	
+	public static final String CHANGE_READ_STATUS = "UPDATE CommerceDB.Notifications SET ReadStatus = !ReadStatus WHERE NotificationID = ?;";
+	
 	/* Kory Overbay - Function takes in rule parameters from user input
 	 * and builds a sql script to add a trigger that matches the conditions provided
 	 */
@@ -89,11 +91,14 @@ public class NotificationSql {
 		return sql.toString();
 	}
 	
+	/* Kory Overbay - Function takes in Filter parameters from user input
+	 * and builds a sql query to filter results returning from the Trigger/Notification tables
+	 */
 	public static String buildFiltersString(Filters filters) {
 		String sql = "SELECT a.TriggerID, a.TriggerName, " +
 						"(SELECT COUNT(t.TransactionID) " +
 						 "FROM CommerceDB.Notifications as n JOIN CommerceDB.Transaction as t ON n.TransactionID = t.TransactionID " +
-						 "WHERE n.TriggerID = a.TriggerID" + buildDateString(filters) +
+						 "WHERE n.TriggerID = a.TriggerID" + buildConstraintString(filters) +
 						 ") AS TriggerCount " +
 					 "FROM CommerceDB.Trigger AS a " +
 				     "WHERE a.UserID = :userId";
@@ -103,7 +108,10 @@ public class NotificationSql {
 		return sql += ';';
 	}
 
-	public static String buildDateString(Filters filters) {
+	/* Kory Overbay - Function takes in Filter parameters from user input
+	 * and builds a sql query to filter results returning from the Trigger/Notification tables
+	 */
+	public static String buildConstraintString(Filters filters) {
 		StringBuilder sql = new StringBuilder();
 		if (filters.getStartDate() != null && filters.getStartDate() != "") {
 			sql.append(" AND t.ProcessingDate ");
@@ -113,6 +121,9 @@ public class NotificationSql {
 			else {
 				sql.append("> :startDate");
 			}
+		}
+		if (filters.isUnread()) {
+			sql.append(" AND n.ReadStatus = FALSE");
 		}
 		return sql.toString();
 	}
