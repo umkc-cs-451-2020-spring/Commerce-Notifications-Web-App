@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
-
 import com.group2.commerceserver.models.Filters;
 import com.group2.commerceserver.models.Notification;
 import com.group2.commerceserver.models.Rule;
@@ -59,13 +58,12 @@ public class NotificationDAOImpl implements NotificationDAO{
 		jdbcTemplate.update(NotificationSql.DELETE_NOTIFICATIONS, new Object[] { triggerId });
 		jdbcTemplate.update(NotificationSql.DELETE_TRIGGER, new Object[] { triggerId });
 		jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + triggerName.replaceAll("[^A-Za-z0-9]", "") + ";");
-
 		}catch( Exception e ) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean changeReadStatus(int notificationId) {
 		try {

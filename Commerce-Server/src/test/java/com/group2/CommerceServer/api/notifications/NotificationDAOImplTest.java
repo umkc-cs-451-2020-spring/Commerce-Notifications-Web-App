@@ -67,12 +67,6 @@ public class NotificationDAOImplTest {
 	}
 
 	public void TestGetTriggers() {
-		
-		
-		
-		
-		
+
 	}
-	
-	
 }
