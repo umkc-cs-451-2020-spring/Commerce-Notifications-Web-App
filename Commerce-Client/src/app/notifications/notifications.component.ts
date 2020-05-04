@@ -42,6 +42,17 @@ export class NotificationsComponent implements OnInit {
     return GlobalVariables.loggedInUserId !== undefined && GlobalVariables.loggedInUserId !== 0;
   }
 
+  resetFilters() {
+    this.filters = new Filters();
+    this.filters.hasNotifications = false;
+    this.filters.unread = false;
+    this.fromDate = null;
+    this.toDate = null;
+    this.filters.startDate = this.dateToString(this.fromDate);
+    this.filters.endDate = this.dateToString(this.toDate);
+    this.triggers = [];
+  }
+
   getRules() {
     if (this.isUserLoggedIn()) {
       this.notificationService.getRules(this.filters).subscribe(trigger => {

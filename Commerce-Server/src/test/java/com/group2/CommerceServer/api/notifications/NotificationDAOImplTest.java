@@ -65,5 +65,8 @@ public class NotificationDAOImplTest {
 		verify(notificationDAO, times(1)).addTrigger(rule);
 		
 	}
-	
+
+	public void TestGetTriggers() {
+
+	}
 }

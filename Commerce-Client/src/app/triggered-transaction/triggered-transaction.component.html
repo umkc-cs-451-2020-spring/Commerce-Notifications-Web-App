@@ -17,6 +17,7 @@
                         <th class="left" scope="col">State</th>
                         <th class="right" scope="col">Amount</th>
                         <th class="right" scope="col">Balance</th>
+                        <th class="left" scope="col">Read Status</th>
                     </tr>
                 </thead>
                 <tbody class="table-body">
@@ -29,6 +30,9 @@
                         <td class="right">{{notification.notificationType === 1 ? '+' : '-' }}
                         {{ notification.amount | currency }}</td>
                         <td class="right">{{ notification.balance | currency }}</td>
+                        <td class="left">
+                            <label class="btn-primary" (click)="changeReadStatus(notification.notificationId)" ngbButtonLabel>{{ notification.readStatus ? 'Mark as unread' : 'Mark as read' }}</label>
+                        </td>
                     </tr>
                 </tbody>
             </table>

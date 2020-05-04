@@ -43,7 +43,7 @@ public class NotificationDAOImpl implements NotificationDAO{
 					.addValue("startTime", rule.getStartTime())
 					.addValue("endTime", rule.getEndTime())
 					.addValue("category", rule.getCategory());
-			jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + rule.getTriggerName() + ";");
+			jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + rule.getSqlTriggerName() + ";");
 			namedParameterJdbcTemplate.update(NotificationSql.INSERT_TRIGGER, paramSource);
 			namedParameterJdbcTemplate.update(NotificationSql.buildTriggerString(rule), paramSource);
 		}catch(Exception e) {
@@ -57,8 +57,18 @@ public class NotificationDAOImpl implements NotificationDAO{
 		try {
 		jdbcTemplate.update(NotificationSql.DELETE_NOTIFICATIONS, new Object[] { triggerId });
 		jdbcTemplate.update(NotificationSql.DELETE_TRIGGER, new Object[] { triggerId });
-		jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + triggerName + ";");
+		jdbcTemplate.execute("DROP TRIGGER IF EXISTS CommerceDB." + triggerName.replaceAll("[^A-Za-z0-9]", "") + ";");
 		}catch( Exception e ) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean changeReadStatus(int notificationId) {
+		try {
+			jdbcTemplate.update(NotificationSql.CHANGE_READ_STATUS, new Object[] { notificationId});
+		} catch( Exception e ) {
 			return false;
 		}
 		return true;
@@ -75,14 +85,22 @@ public class NotificationDAOImpl implements NotificationDAO{
 
 	@Override
 	public List<Notification> getNotifications(Filters filters) {
-	    String sql = NotificationSql.GET_NOTIFICATIONS;
-		return jdbcTemplate.query(sql, new Object[] { filters.getTriggerId() }, new NotificationRowMapper());
+		SqlParameterSource paramSource = new MapSqlParameterSource()
+				.addValue("triggerId", filters.getTriggerId())
+				.addValue("startDate", filters.getStartDate())
+				.addValue("endDate", filters.getEndDate());
+	    String sql = NotificationSql.GET_NOTIFICATIONS + NotificationSql.buildConstraintString(filters) + ';';
+		return namedParameterJdbcTemplate.query(sql, paramSource, new NotificationRowMapper());
 	}
 	
 	@Override
 	public List<Notification> getAllNotifications(Filters filters) {
-	    String sql = NotificationSql.GET_USER_NOTIFICATIONS;
-	    return jdbcTemplate.query(sql, new Object[] { filters.getUserId() }, new NotificationRowMapper());
+		SqlParameterSource paramSource = new MapSqlParameterSource()
+				.addValue("userId", filters.getUserId())
+				.addValue("startDate", filters.getStartDate())
+				.addValue("endDate", filters.getEndDate());
+	    String sql = NotificationSql.GET_USER_NOTIFICATIONS + NotificationSql.buildConstraintString(filters) + " ORDER BY ProcessingDate;";
+	    return namedParameterJdbcTemplate.query(sql, paramSource, new NotificationRowMapper());
 	}
 
 }

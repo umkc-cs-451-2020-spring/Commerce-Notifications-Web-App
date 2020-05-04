@@ -1,14 +1,15 @@
 USE CommerceDB;
 
-INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'bobert78', 'securepassword1', 'bob.roberts@outlook.com', '18168994323');
-INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'hsmith85', 'supermom', 'helenasmith@outlook.com', '18164863585');
+INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'bobert78', md5('securepassword1'), 'bob.roberts@outlook.com', '18168994323');
+INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'hsmith85', md5('supermom'), 'helenasmith@outlook.com', '18164863585');
 
 #AccountTypes: Checking: 0, Savings: 1
 INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 1, 0, 5000.00 );
 INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 2, 0, 5340.28 );
 INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 2, 1, 0.00 );
 
-#Deposit: 0, Withdrawal: 1. Categories(1: Food, 2: Finances, 3: Auto, 4: Utilities, 5: Subscriptions, 6: Shopping, 7: Activities, 8: Health/Insurance)
+# Deposit: 0, Withdrawal: 1
+# Categories(Food, Finances, Auto, Utilities, Subscriptions, Shopping, Activities, Health/Insurance)
 INSERT IGNORE INTO Transaction( AccountNumber, ProcessingDate, TransactionType, Amount, Description, Category, State ) VALUES
 (3,'2016-11-01 04:48:52',0,25.00,'Cash Deposit','Finances','MO'),
 (2,'2016-11-02 02:56:47',1,200.00,'Verizon','Utilities','MO'),
