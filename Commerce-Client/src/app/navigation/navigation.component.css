@@ -1,11 +1,7 @@
 .toolbar {
     height: 80px;
-    width: 100%;
-    display: flex;
-    align-items: center;
     background-color: rgba(249, 248, 246, 0.88);
     color: white;
-    font-weight: 600;
 }
 
 .toolbar img {
@@ -14,25 +10,20 @@
     margin: 0 35px;
 }
 
-.nav-primary {
-    display: flex;
-}
-
-.nav-primary a {
+.nav-link {
     color: #77726D;
-    display: flex;
+    display: block;
+    padding: .5rem 1rem;
     font-family: "cera_promedium", Arial, sans-serif;
     font-size: 18px;
-    margin-left: 100px;
-    margin-right: 50px;
+    margin-left: 40px;
+    margin-right: 25px;
 }
 
-.logout {
-    color: #77726D;
-    display: flex;
-    font-family: "cera_promedium", Arial, sans-serif;
-    font-size: 18px;
-    right: 750px;
+.login {
+    float: none;
+    display: inline-block;
+    vertical-align: bottom;
 }
 
 .user-ico {

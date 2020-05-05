@@ -1,6 +1,7 @@
 body {
     background-color:#006747;
   }
+  
   .container {
     display: flex;
     max-width:400px;
@@ -9,15 +10,18 @@ body {
     background-color:#fff;
     border-radius: 5px;
     align-self: center;
+    height: 60vh;
   }
+
   .form-wrap{
     background-color: #fff;
     margin: auto;
-  
   }
+
   .form-wrap h1{
     text-align:center;
   }
+
   .form-wrap .form-group {
       margin-top: 15px;
     }
