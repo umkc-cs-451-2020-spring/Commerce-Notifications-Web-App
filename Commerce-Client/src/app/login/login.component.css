@@ -18,6 +18,16 @@ body {
     margin: auto;
   }
 
+  .icon{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -55px;
+    margin-bottom: 20px;
+    width: 100px;
+    height: 100px;
+  }
+
   .form-wrap h1{
     text-align:center;
   }
