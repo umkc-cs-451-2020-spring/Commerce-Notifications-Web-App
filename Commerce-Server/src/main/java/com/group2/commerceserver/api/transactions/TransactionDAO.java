@@ -6,11 +6,7 @@ import com.group2.commerceserver.models.Transaction;
 
 public interface TransactionDAO {
 	
-	public void addTransaction(Transaction transaction);
-	
-    public void delete(int transactionId);
+	public int addTransaction(Transaction transaction);
     
     public List<Transaction> getUserTransactions(int userId);
-     
-    public List<Transaction> list();
 }

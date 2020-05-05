@@ -7,26 +7,25 @@
   <!-- User ID -->
   <!-- Account Number -->
   <div class="modal-body">
-    <label for="accountNumber"> Account Number </label>
+    <label for="accountNumber"> Account Number : </label>
     <input type="number" min="1" step="any" [(ngModel)]="newTransaction.accountNumber">
 </div>
-  <!-- Processing Date -->
-  <!-- <form class="form-inline">
+<!-- Time -->
+<div class="modal-body">
+  <form class="form-inline">
     <div class="form-group">
       <div class="input-group">
-        <input class="form-control" placeholder="dd/mm/yyyy"
-               name="d2" #c2="ngModel" [(ngModel)]="model" ngbDatepicker #d2="ngbDatepicker">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
-        </div>
+        <input class="form-control" placeholder="yyyy-mm-dd"
+            name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><img class="calandar-ico" src="/assets/img/calendar.svg" alt=""></button>
+          </div>
       </div>
     </div>
-  </form> -->
-  <div class="modal-body">
-    <label>Date: </label>
-    <input [(ngModel)]="newTransaction.processingDate">
+  </form>
+    <label for="beginTime">Time </label>
+    <ngb-timepicker [(ngModel)]="time" [meridian]="meridian"></ngb-timepicker>
 </div>
-  
 
   <!-- Amount -->
   <div class="modal-body">
@@ -41,7 +40,7 @@
 </div>
   <!-- Category -->
 <div class="modal-body">
-  <label for="category">Category </label>
+  <label for="category">Category : </label>
   <select type="category" [(ngModel)]="newTransaction.category">
       <option value="" selected="selected">Select category</option>
       <option value="Food">Food</option>
@@ -56,7 +55,7 @@
 </div>
 <!-- State -->
 <div class="modal-body">
-  <label for="state">Location </label>
+  <label for="state">Location : </label>
   <select type="location" [(ngModel)]="newTransaction.state">
       <option value="" selected="selected">Select a State</option>
       <option value="FOREIGN">Outside of United States</option>
@@ -115,7 +114,7 @@
 </div>
 <!-- Transaction Type -->
 <div class="modal-body">
-  <label for="transactionType">Transaction Type  </label>
+  <label for="transactionType">Transaction Type : </label>
   <select type="category" [(ngModel)]="newTransaction.transactionType">
       <option value="" selected="selected">Select category</option>
       <option value="0">Deposit</option>

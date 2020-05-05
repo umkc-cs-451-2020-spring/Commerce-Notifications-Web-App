@@ -1,9 +1,10 @@
+# RUN THIS SCRIPT BEFORE DDL1
 CREATE DATABASE IF NOT EXISTS CommerceDB;
 USE CommerceDB;
 CREATE TABLE IF NOT EXISTS `User` (
   `UserID` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `Username` VARCHAR(16) UNIQUE NOT NULL,
-  `Password` VARCHAR(31) NOT NULL,
+  `Password` VARCHAR(50) NOT NULL,
   `Email` VARCHAR(31) UNIQUE NOT NULL,
   `Phone` VARCHAR(11)
 );
@@ -30,8 +31,7 @@ CREATE TABLE IF NOT EXISTS `Transaction` (
 CREATE TABLE IF NOT EXISTS `Trigger` (
   `TriggerID` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `UserID` INT NOT NULL,
-  `TriggerName` VARCHAR(31) UNIQUE NOT NULL,
-  `TriggerCount` INT NOT NULL DEFAULT 0
+  `TriggerName` VARCHAR(63) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Notifications` (
@@ -65,19 +65,3 @@ BEGIN
 	WHERE AccountNumber = NEW.AccountNumber;
 END$$
 DELIMITER ;
-
--- TODO trigger for duplicate transactions
--- DROP TRIGGER IF EXISTS `CommerceDB`.`DUPLICATE_TRANSACTIONS`;
--- DELIMITER $$
--- CREATE DEFINER = `commerce-notifications`@`%` TRIGGER `CommerceDB`.`DUPLICATE_TRANSACTIONS` AFTER INSERT ON `Transaction` FOR EACH ROW
--- BEGIN
--- 	IF NEW.TransactionType = 1
---     THEN IF;
--- 		
---     END IF;
---     
---     UPDATE Account
--- 	SET Balance = NEW.Balance
--- 	WHERE AccountNumber = NEW.AccountNumber;
--- END$$
--- DELIMITER ;

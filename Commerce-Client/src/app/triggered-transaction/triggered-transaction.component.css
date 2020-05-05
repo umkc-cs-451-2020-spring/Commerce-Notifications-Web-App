@@ -1,0 +1,12 @@
+::ng-deep .my-class .modal-dialog { 
+  max-width: 80%;
+  width: 80%;
+}
+
+.btn-primary{
+  margin: 0px 15px 10px 10px; 
+  border-radius: 5px; 
+  color: white;
+  background-color: #006747;
+  border-color: #ccc;
+}

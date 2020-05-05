@@ -2,19 +2,17 @@ package com.group2.commerceserver.models;
 
 public class Transaction {
 	
-	private Integer transactionId;
-	
 	private Integer accountNumber;
+
+	private String processingDate;
 	
 	private String description;
-	
-	private Double balance;
-
-	private Double amount;
 	  
 	private String state;
-	  
-	private String processingDate;
+
+	private Double amount;
+	
+	private Double balance;
 	  
 	private int transactionType;
 
@@ -24,13 +22,6 @@ public class Transaction {
 	//Empty constructor
 	public Transaction() {
 		
-	}
-
-	/**
-	 * @return the transactionId
-	 */
-	public Integer getTransactionId() {
-		return transactionId;
 	}
 
 	/**
@@ -87,13 +78,6 @@ public class Transaction {
 	 */
 	public String getCategory() {
 		return category;
-	}
-
-	/**
-	 * @param transactionId the transactionId to set
-	 */
-	public void setTransactionId(Integer transactionId) {
-		this.transactionId = transactionId;
 	}
 
 	/**

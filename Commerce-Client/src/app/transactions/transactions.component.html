@@ -7,9 +7,9 @@
           <th class="left" scope="col">Account</th>
           <th class="left" scope="col">Date</th>
           <th class="left" scope="col">Description</th>
+          <th class="left" scope="col">State</th>
           <th class="right" scope="col">Amount</th>
           <th class="right" scope="col">Balance</th>
-      
         </tr>
       </thead>
       <tbody class="table-body">
@@ -17,20 +17,29 @@
           <td class="left">{{ transaction.accountNumber }}</td>
           <td class="left">{{ transaction.processingDate | date:'medium'}}</td>
           <td class="left">{{ transaction.description }}</td>
+          <td class="left">{{ transaction.state }}</td>
           <td class="right">{{transaction.transactionType === 1 ? '-' : '+' }}
             {{ transaction.amount | currency }}
         </td>
           <td class="right">{{ transaction.balance | currency }}</td>
-  <!-- transaction.transactionType === 1 ? black : red" -->
         </tr>
       </tbody>
     </table>
   </div>
   <hr>
-  <td><label class="btn-standard" ngbButtonLabel> Export to Excel </label></td>
   <td>
-  <label class="btn-standard" (click)="openNewTransaction()" ngbButtonLabel>
-    <img class="add-ico" src="/assets/img/add.svg" alt=""> Add New Transaction 
+  <label class="btn-standard" (click)="openNewTransaction()" ngbButtonLabel> Add New Transaction 
+    <img class="add-ico" src="/assets/img/add.svg" alt="">
   </label>
-</td>
+  </td>
+  <td>
+    <label class="btn-standard" (click)="getTransactions()" ngbButtonLabel> Refresh Table 
+      <img class="bi bi-bootstrap-reboot" src="/assets/img/refresh.svg" alt=""> 
+    </label>
+  </td>
+  <td>
+    <label class="btn-standard" (click)="export()" ngbButtonLabel> Export to Excel 
+      <img class="export-ico" src="/assets/img/export.svg" alt="">
+    </label>
+  </td>
 </div>

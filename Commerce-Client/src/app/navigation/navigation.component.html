@@ -10,7 +10,7 @@
       <a routerLink="notifications">Notifications Dashboard</a>
       <a routerLink="transactions">Transactions</a>
     </nav>
-    <a class="logout" routerLink="login">Logout
+    <a class="logout" routerLink="login" (click)="logout()"> {{ isUserLoggedIn() ? 'Logout' : 'Login' }}
         <img class="user-ico" src="/assets/img/person-fill.svg" alt="">
     </a>
 </div>

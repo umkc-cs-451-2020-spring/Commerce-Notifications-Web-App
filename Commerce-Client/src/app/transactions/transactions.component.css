@@ -19,3 +19,16 @@
   height: 600px;
 
 }
+.thead{
+  display: block;
+  overflow: none;
+}
+
+.tbody{
+  display: block;
+
+}
+.footer{
+  width: 100%;
+  display: table;
+}
