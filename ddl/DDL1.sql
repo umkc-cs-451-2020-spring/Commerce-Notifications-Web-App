@@ -1,13 +1,18 @@
+# RUN DDL0 BEFORE RUNNING THIS SCRIPT
 USE CommerceDB;
 
+# More Users can be created here
+# User passwords currently encrypted with MD5 Encryption. Should change for any production application
 INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'bobert78', md5('securepassword1'), 'bob.roberts@outlook.com', '18168994323');
 INSERT IGNORE INTO User ( Username, Password, Email, Phone ) VALUE ( 'hsmith85', md5('supermom'), 'helenasmith@outlook.com', '18164863585');
 
-#AccountTypes: Checking: 0, Savings: 1
+# More accounts can be created here
+# AccountTypes: Checking: 0, Savings: 1
 INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 1, 0, 5000.00 );
 INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 2, 0, 5340.28 );
 INSERT IGNORE INTO Account ( UserID, AccountType, Balance ) VALUES ( 2, 1, 0.00 );
 
+# More transactions CAN be created here, but the front end application has an add transaction implementation
 # Deposit: 0, Withdrawal: 1
 # Categories(Food, Finances, Auto, Utilities, Subscriptions, Shopping, Activities, Health/Insurance)
 INSERT IGNORE INTO Transaction( AccountNumber, ProcessingDate, TransactionType, Amount, Description, Category, State ) VALUES
