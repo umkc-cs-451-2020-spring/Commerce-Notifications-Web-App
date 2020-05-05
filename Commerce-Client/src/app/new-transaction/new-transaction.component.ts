@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal, NgbTimeAdapter, NgbTimeStruct, NgbDateAdapter
 import { Transaction } from '../models/transaction';
 import { TransactionService } from '../services/transaction.service';
 
+
 @Component({
   selector: 'app-new-transaction',
   templateUrl: './new-transaction.component.html',
@@ -11,9 +12,9 @@ import { TransactionService } from '../services/transaction.service';
 export class NewTransactionComponent implements OnInit {
 
   newTransaction = new Transaction();
-  startMeridian = true;
-  endMeridian = true;
-
+  meridian = true;
+  date: NgbDateStruct;
+  time: string;
   constructor(public activeModal: NgbActiveModal, private transactionService: TransactionService) {
   }
 
@@ -21,7 +22,12 @@ export class NewTransactionComponent implements OnInit {
   }
 
   addNewTransaction() {
+    this.newTransaction.processingDate=this.dateToString(this.date, this.time)
     this.transactionService.addNewTransaction(this.newTransaction).subscribe(response => console.log(response));
+  }
+
+  dateToString(date: NgbDateStruct, time: string): string {
+    return date !== undefined && date !== null && time !== undefined && time !== null? date.year + '-' + date.month + '-' + date.day + ' ' + time : '';
   }
 }
 
