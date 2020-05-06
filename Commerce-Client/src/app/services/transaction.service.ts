@@ -11,7 +11,7 @@ const httpOptions = {
 })
 export class TransactionService {
     // Endpoints
-    private addTransactionsUrl = 'api/transactions/add'; 
+    private addTransactionsUrl = 'api/transactions/add';
     private testSpringUrl = 'api/transactions/test';
     private getTransactionsUrl = 'api/transactions/';
 

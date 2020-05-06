@@ -42,24 +42,7 @@ public class NotificationControllerTest {
 		verify(notificationDAO, times(1)).addTrigger(rule);
 
 	}
-	
-//	@Test
-//	public void TestEditNotification(){
-//		Rule rule = new Rule();
-//		rule.setUserId(1);
-//		rule.setTriggerName("TestTrigger");
-//		rule.setAmount((float) 100.01);
-//		rule.setBalance((float) 500.01);
-//		rule.setLocation("MO");
-//		rule.setStartTime("2020-04-19 12:00:00");
-//		rule.setEndTime("2020-04-19 12:01:00");
-//		rule.setCategory("Food");
-//		
-//		notificationController.editTrigger(rule);
-//		verify(notificationDAO, times(1)).deleteTrigger(0, "Test Trigger");
-//		verify(notificationDAO, times(1)).addTrigger(rule);
-//	}
-	
+
 	@Test
 	public void TestDeleteNotification(){
 		Rule rule = new Rule();
